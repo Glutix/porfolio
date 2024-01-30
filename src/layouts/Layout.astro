@@ -25,10 +25,10 @@ const { title, description } = Astro.props;
   :root {
     color-scheme: light dark;
     --primary-color: #121212;
-    --secundary-color: rgba(255, 255, 255, 0.3);
-    --secundary-color-bg: rgba(255, 255, 255, 0.6);
-    --text-normal: rgba(255, 255, 255, 0.5);
-    --text-enfasis: #dbcd62;
+    --secundary-color: rgba(255, 255, 255, 0.15);
+    --secundary-color-bg: rgba(255, 255, 255, 0.3);
+    --text-normal: rgba(255, 255, 255, 0.75);
+    --text-enfasis: #ecdd6c;
     --text-enfasis-1: #cf6679;
     --text-enfasis-2: #698ccc;
   }
@@ -39,13 +39,13 @@ const { title, description } = Astro.props;
     text-wrap: balance;
 
     h1 {
-      font-size: 1.875rem;
-      line-height: 2.25rem;
+      font-size: 34px;
+      line-height: 34px;
     }
 
     h2 {
-      font-size: 1.5rem;
-      line-height: 2rem;
+      font-size: 30px;
+      line-height: 36px;
     }
   }
 
@@ -60,5 +60,6 @@ const { title, description } = Astro.props;
     overscroll-behavior: none;
     width: 100%;
     text-wrap: pretty;
+
   }
 </style>

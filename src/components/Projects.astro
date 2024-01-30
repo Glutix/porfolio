@@ -1,0 +1,156 @@
+---
+import SectionTitle from "../components/SectionTitle.astro";
+
+//icons
+import TypeScript from "../icons/TypeScript.astro";
+import Express from "../icons/Express.astro";
+import React from "../icons/React.astro";
+import Redux from "../icons/Redux.astro";
+import Code from "../icons/Code.astro";
+import GitHub from "../icons/GitHub.astro";
+
+const PROJECTS = [
+  {
+    title: "Facil Market - Markplace para compradores y vendedores",
+    description:
+      "Este proyecto es una aplicación de Marketplace. Aquí, ofrecemos una plataforma para que el comprador y el vendedor puedan hacer que su negocio sea fácil y accesible.",
+    link: "",
+    github: "https://github.com/adharainfinita/facil-market-proyect.git",
+  },
+];
+---
+
+<div>
+  <SectionTitle title="Proyectos" icon={Code} />
+  <article class="facil-market">
+    <h3>Facil Market - Markplace para compradores y vendedores</h3>
+    <p>
+      Este proyecto es una aplicación de Marketplace. Aquí, ofrecemos una
+      plataforma para que el comprador y el vendedor puedan hacer que su negocio
+      sea fácil y accesible.
+    </p>
+
+    <ul>
+      <li><TypeScript class="typescript" /><span>TypeScript</span></li>
+      <li><Express class="express" /><span>Express</span></li>
+      <li><Redux class="redux" /><span>Redux</span></li>
+      <li><React class="react" /><span>React</span></li>
+    </ul>
+    <img src="./desktop1.png" alt="facil-market-desktop" />
+
+    <section>
+      <a
+        href="https://github.com/adharainfinita/facil-market-proyect.git"
+        target="_target"><GitHub class="github" /> Ver código fuente</a
+      >
+    </section>
+  </article>
+</div>
+
+<style>
+  h3 {
+    font-size: 24px;
+    color: var(--text-enfasis);
+    margin: 0;
+  }
+
+  p {
+    padding-right: 1rem;
+  }
+
+  img {
+    width: 100%;
+    height: 416px;
+    border-radius: 4px;
+    padding-bottom: 0.5rem;
+  }
+
+  article {
+    ul {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      gap: 1rem;
+
+      li {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        padding: 4px 8px;
+        border-radius: 9999px;
+      }
+
+      span {
+        font-size: 12px;
+      }
+    }
+  }
+
+  section {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    a {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: var(--secundary-color);
+      width: fit-content;
+      padding: 0.5rem;
+      border-radius: 24px;
+      color: var(--text-normal);
+    }
+  }
+
+  .facil-market {
+    li:nth-child(1) {
+      background-color: #007acc80;
+    }
+
+    li:nth-child(2) {
+      background-color: #ffffff80;
+    }
+
+    li:nth-child(3) {
+      background-color: #764abc80;
+    }
+
+    li:nth-child(4) {
+      background-color: #61dafb80;
+    }
+  }
+
+  .typescript {
+    width: 20px;
+    height: 20px;
+    color: #007acc;
+  }
+
+  .redux {
+    width: 20px;
+    height: 20px;
+    color: #764abc;
+  }
+
+  .react {
+    width: 20px;
+    height: 20px;
+    color: #61dafb;
+  }
+
+  .express {
+    width: 28px;
+    height: 20px;
+    color: #000;
+    background-color: white;
+    border-radius: 50%;
+  }
+
+  .github {
+    width: 20px;
+    height: 20px;
+    color: white;
+  }
+</style>
