@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout
+  title="Porfolio de gluitx - Desarrolador y programador web"
+  description="Contrata a glutix para crear tu propia aplicación web única y destacar en el mercado"
+>
+  <main>
+    <Navigation />
+    <Header />
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 740px;
+    gap: 2rem;
+  }
+</style>

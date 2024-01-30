@@ -1,0 +1,78 @@
+---
+import Linkedin from "../icons/Linkedin.astro";
+import GitHub from "../icons/GitHub.astro";
+import Mail from "../icons/Mail.astro";
+---
+
+<div>
+  <a
+    href="https://www.linkedin.com/in/ricardo-ferreyra/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <Linkedin class="linkedin" />
+    <span>Linkedin</span>
+  </a>
+
+  <a href="https://github.com/Glutix" target="_blank" rel="noopener noreferrer">
+    <GitHub class="github" />
+    <span>GitHub</span>
+  </a>
+
+  <a
+    href="https://www.linkedin.com/in/ricardo-ferreyra/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <Mail clas="mail" />
+    <span>Ferreyra.gluti@gmail.com</span>
+  </a>
+</div>
+
+<style>
+  div {
+    display: flex;
+    gap: 1rem;
+    justify-content: start;
+    width: fit-content;
+    height: fit-content;
+    font-size: 1rem;
+    flex-wrap: wrap;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    padding: 0.7rem;
+    text-decoration: none;
+    gap: 0.5rem;
+    border-radius: 10px;
+    background-color: var(--secundary-color);
+    span {
+      opacity: 0.8;
+    }  
+  }
+
+  a:visited {
+    color: white;
+  }
+
+  a:hover {
+    background-color: var(--secundary-color-bg);
+  }
+
+  .linkedin {
+    width: 25px;
+    height: 25px;
+  }
+
+  .github {
+    width: 25px;
+    height: 25px;
+  }
+
+  .mail {
+    width: 25px;
+    height: 25px;
+  }
+</style>

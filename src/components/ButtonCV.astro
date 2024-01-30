@@ -1,0 +1,68 @@
+<button>
+  <a
+    href="https://drive.google.com/file/d/1fDr3h5t0QLQrNfa3_w-lsA5UeRElE_1f/view?usp=sharing"
+    target="_blank"
+    rel="noopener noreferrer"
+    download=""><span>Descargar CV</span></a
+  >
+</button>
+
+<style>
+  a {
+    position: relative;
+    display: inline-block;
+    padding: 3px 10px;
+    border: 2px solid #fefefe;
+    color: #fefefe;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  a::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% - 12px);
+    background-color: #121212;
+    transition: 0.3s ease-in-out;
+    transform: scaleY(1);
+  }
+
+  a:hover::before {
+    transform: scaleY(0);
+  }
+
+  a::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: -2px;
+    height: calc(100% + 5px);
+    width: calc(100% - 12px);
+    background-color: var(--primary-color);
+    transition: 0.3s ease-in-out;
+    transform: scaleX(1);
+    transition-delay: 0.5s;
+  }
+
+  a:hover::after {
+    transform: scaleX(0);
+  }
+
+  a span {
+    position: relative;
+    z-index: 3;
+  }
+
+  button {
+    background-color: none;
+    text-decoration: none;
+    background-color: var(--primary-color);
+    border: none;
+    width: fit-content;
+    height: fit-content;
+  }
+</style>
