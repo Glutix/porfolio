@@ -1,13 +1,13 @@
 ---
 import ButtonCV from "./ButtonCV.astro";
 import Social from "./Social.astro";
+import { Image } from "astro:assets";
+import glutix from "../assets/glutix.png";
 ---
 
 <header>
   <div>
-    <picture>
-      <img src="/image2.png" alt="fotografia de perfil" />
-    </picture>
+    <Image class="image" src={glutix} alt="fotografia de perfil" />
 
     <article>
       <section>
@@ -34,14 +34,10 @@ import Social from "./Social.astro";
     justify-content: center;
     height: fit-content;
 
-    picture {
-      display: flex;
-      justify-content: end;
-      img {
-        border-radius: 50%;
-        width: 150px;
-        height: 150px;
-      }
+    .image {
+      border-radius: 50%;
+      width: 160px;
+      height: 160px;
     }
   }
 
