@@ -1,0 +1,116 @@
+---
+import SectionTitle from "./SectionTitle.astro";
+import UserContact from "../icons/UserContact.astro";
+import Whatsapp from "../icons/Whatsapp.astro";
+import Movil from "../icons/Movil.astro";
+import Mail from "../icons/Mail.astro";
+---
+
+<div>
+  <SectionTitle id="contact" title="Contacto" icon={UserContact} />
+
+  <article>
+    <section>
+      <h3>Chatea conmigo</h3>
+      <a href="https://bit.ly/Glutix" target="_blank">
+        <Whatsapp class="whatsapp" />
+        <span>WhatsApp</span>
+      </a>
+    </section>
+
+    <section>
+      <h3>Telefono</h3>
+      <span class="no-click">
+        <Movil class="movil" />
+        <span>3644 - 567659</span>
+      </span>
+    </section>
+
+    <section>
+      <h3>Correo</h3>
+      <a
+        href="mailto:ferreyra.gluti@gmail.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Mail class="mail" />
+        <span>Ferreyra.gluti@gmail.com</span>
+      </a>
+    </section>
+  </article>
+</div>
+
+<style>
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 100%;
+    gap: 2rem;
+
+    article {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+
+      section {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: fit-content;
+        justify-content: start;
+
+        h3 {
+          margin: 0;
+          padding-left: 4px;
+
+          color: var(--text-normal);
+        }
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        padding: 6px 8px;
+        text-decoration: none;
+        gap: 0.5rem;
+        border-radius: 10px;
+        background-color: var(--secundary-color);
+        width: fit-content;
+
+        span {
+          color: var(--text-normal);
+        }
+        transition: 0.3s ease-in;
+      }
+
+      a:visited {
+        color: white;
+      }
+
+      a:hover {
+        background-color: var(--secundary-color-bg);
+        transform: scale(1);
+        span {
+          color: white;
+        }
+      }
+    }
+  }
+
+  .mail {
+    width: 25px;
+    height: 25px;
+    color: white;
+  }
+
+  .no-click {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    text-decoration: none;
+    gap: 0.5rem;
+    border-radius: 10px;
+    background-color: var(--secundary-color);
+    width: fit-content;
+  }
+</style>

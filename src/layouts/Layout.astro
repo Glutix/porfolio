@@ -13,14 +13,37 @@ const { title, description } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      href="https://assets.calendly.com/assets/external/widget.css"
+      rel="stylesheet"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
   <body>
     <slot />
+
+    <!-- Principio del widget de globo de Calendly -->
+    <script
+      src="https://assets.calendly.com/assets/external/widget.js"
+      type="text/javascript"
+      async></script>
+    <script type="text/javascript">
+      window.onload = function () {
+        Calendly.initBadgeWidget({
+          url: "https://calendly.com/ferreyra-ricardo/job-meeting",
+          text: "Programe una reunión conmigo",
+          color: "#1a1a1a",
+          textColor: "#ffffff",
+          branding: undefined,
+        });
+      };
+    </script>
+    <!-- Final del widget de globo de Calendly -->
   </body>
 </html>
+
 <style is:global>
   :root {
     color-scheme: light dark;
