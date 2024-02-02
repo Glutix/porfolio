@@ -6,14 +6,14 @@ import glutix from "../assets/glutix.png";
 ---
 
 <header id="home">
-  <div>
-    <Image class="image" src={glutix} alt="fotografia de perfil" />
+  <Image class="image" src={glutix} alt="fotografia de perfil" />
+  <section>
+    <div>
+      <h1>Hola, soy Ricardo</h1>
+      <ButtonCV />
+    </div>
 
     <article>
-      <section>
-        <h1>Hola, soy Ricardo</h1>
-        <ButtonCV />
-      </section>
       <h2>
         <span class="enfasis">Desarrollador Web Full Stack.</span>
         <span class="low-enfasis"> De Chaco, Argentina.</span>
@@ -21,74 +21,100 @@ import glutix from "../assets/glutix.png";
           >Especializado en crear aplicaciones únicas.</span
         >
       </h2>
-      <Social />
     </article>
-  </div>
+    <Social />
+  </section>
 </header>
 
 <style>
   header {
-    width: 100%;
     padding-top: 8rem;
-  }
-
-  div {
-    display: flex;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 160px 1fr;
     gap: 2rem;
-    justify-content: start;
+  
 
     .image {
       border-radius: 50%;
       width: 160px;
       height: 160px;
     }
-  }
-
-  article {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    width: 100%;
-    padding: 0.5rem;
-
-    h1 {
-      margin: 0;
-      width: fit-content;
-    }
 
     section {
       display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
+      flex-direction: column;
+      height: fit-content;
+      width: 100%;
 
-    h2 {
-      font-size: 1.2rem;
-      max-width: 50ch;
-    }
+      div {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0;
+        width: 100%;
+        height: fit-content;
 
-    .enfasis {
-      color: var(--text-enfasis);
-    }
+        h1 {
+          margin: 0;
+        }
+      }
 
-    .low-enfasis {
-      color: var(--text-enfasis-1);
-    }
 
-    .low-enfasis-1 {
-      color: var(--text-enfasis-2);
+
+      article {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        width: 100%;
+        height: fit-content;
+
+        h2 {
+          font-size: 1.2rem;
+          max-width: 50ch;
+        }
+
+        .enfasis {
+          color: var(--text-enfasis);
+        }
+
+        .low-enfasis {
+          color: var(--text-enfasis-1);
+        }
+
+        .low-enfasis-1 {
+          color: var(--text-enfasis-2);
+        }
+      }
     }
   }
 
   @media (max-width: 697px) {
-    div {
-      gap: 1rem;
-    }
-
-    article {
-      h1 {
-        width: 90px;
+    header {
+      grid-template-columns: 100px 1fr;
+      .image {
+        width: 100px;
+        height: 100px;
+        
       }
+
+
+      div{
+        h1 {
+          font-size: 28px;
+        }
+      }
+
+      section { 
+        gap: .7rem;
+        
+        h2{
+          font-size: 24px;
+        }
+
+      }
+
+
     }
-  }
 </style>

@@ -69,51 +69,61 @@ const PROJECTS: ProjectsProps[] = [
 
 <div>
   <SectionTitle id="projects" title="Proyectos" icon={Code} />
-  {
-    PROJECTS.map(({ title, description, tags, images, github, deploy }) => {
-      return (
-        <article>
-          <h3>{title}</h3>
-          <p>{description}</p>
+  <div class="projects">
+    {
+      PROJECTS.map(({ title, description, tags, images, github, deploy }) => {
+        return (
+          <article>
+            <h3>{title}</h3>
+            <p>{description}</p>
 
-          <ul>
-            {tags.map((Badge) => (
-              <li>
-                <Badge />
-              </li>
-            ))}
-          </ul>
-          <Image
-            class="image-desktop"
-            src={images.urlDesktop}
-            alt={images.altDesktop}
-          />
-          <Image
-            class="image-mobile"
-            src={images.urlMobile}
-            alt={images.altMobile}
-          />
-          <section>
-            <a href={`${github}`} target="_target">
-              <GitHub class="github" /> Code
-            </a>
-            {deploy !== "" ? (
-              <a href={`${deploy}`} target="_target">
-                <WebSite class="github" /> Sitio web
+            <ul>
+              {tags.map((Badge) => (
+                <li>
+                  <Badge />
+                </li>
+              ))}
+            </ul>
+            <Image
+              class="image-desktop"
+              src={images.urlDesktop}
+              alt={images.altDesktop}
+            />
+            <Image
+              class="image-mobile"
+              src={images.urlMobile}
+              alt={images.altMobile}
+            />
+            <section>
+              <a href={`${github}`} target="_target">
+                <GitHub class="github" /> Code
               </a>
-            ) : (
-              ""
-            )}
-          </section>
-        </article>
-      );
-    })
-  }
+              {deploy !== "" ? (
+                <a href={`${deploy}`} target="_target">
+                  <WebSite class="github" /> Sitio web
+                </a>
+              ) : (
+                ""
+              )}
+            </section>
+          </article>
+        );
+      })
+    }
+  </div>
 </div>
 
 <style>
-  article {
-    padding-bottom: 3rem;
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
   }
 
   h3 {

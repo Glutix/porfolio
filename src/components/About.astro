@@ -43,6 +43,9 @@ import glutix2 from "../assets/glutix2.jpg";
 
 <style>
   div {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     width: 100%;
   }
 
@@ -73,5 +76,22 @@ import glutix2 from "../assets/glutix2.jpg";
     border-radius: 16px;
     box-shadow: var(--secundary-color-bg) 0px 0px 0px 4px;
     transform: rotate(3deg);
+  }
+
+  @media (max-width: 697px) {
+    section {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 1rem;
+      justify-content: start;
+      align-items: start;
+    }
+
+    .image {
+      margin: 0 auto;
+      transform: rotate(0deg);
+      width: 200px;
+      height: 200px;
+    }
   }
 </style>
