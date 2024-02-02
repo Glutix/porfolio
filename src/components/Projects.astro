@@ -1,11 +1,13 @@
 ---
 import SectionTitle from "../components/SectionTitle.astro";
-import { Image, imageConfig } from "astro:assets";
+import { Image } from "astro:assets";
 import { type ImageMetadata } from "astro";
 
 //images
 import facilMarketDesktop from "../assets/facil-market-desktop.png";
 import facilMarketMobile from "../assets/facil-market-mobile.png";
+import quinchoDesktop from "../assets/quincho-desktop.png";
+import quinMobile from "../assets/quincho-mobile.png";
 
 //icons
 import TypeScript from "../icons/TypeScript.astro";
@@ -46,6 +48,21 @@ const PROJECTS: ProjectsProps[] = [
     },
     github: "https://github.com/adharainfinita/facil-market-proyect.git",
     deploy: "",
+  },
+
+  {
+    title: "Quincho Alto Norte - Un lugar para disfrutar con la familia",
+    description:
+      "Proyecto de un familiar para publicitar su negocio, en este caso un hermoso lugar para compartir con familia o amigos",
+    tags: [TypeScript, React],
+    images: {
+      urlDesktop: quinchoDesktop,
+      altDesktop: "quincho-desktop",
+      urlMobile: quinMobile,
+      altMobile: "quincho-mobile",
+    },
+    github: "https://github.com/Glutix/Quincho.git",
+    deploy: "https://glutix.github.io/Quincho/",
   },
 ];
 ---
@@ -95,6 +112,10 @@ const PROJECTS: ProjectsProps[] = [
 </div>
 
 <style>
+  article {
+    padding-bottom: 3rem;
+  }
+
   h3 {
     font-size: 24px;
     color: var(--text-enfasis);
@@ -142,6 +163,12 @@ const PROJECTS: ProjectsProps[] = [
       padding: 0.5rem;
       border-radius: 24px;
       color: var(--text-normal);
+      transition: 0.3s ease;
+    }
+
+    a:hover {
+      color: white;
+      transform: scale(1.1, 1.1);
     }
   }
 

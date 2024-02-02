@@ -3,9 +3,9 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Navigation from "../components/Navigation.astro";
-
 import Footer from "../components/Footer.astro";
 import Projects from "../components/Projects.astro";
+import About from "../components/About.astro";
 ---
 
 <Layout
@@ -16,6 +16,7 @@ import Projects from "../components/Projects.astro";
     <Navigation />
     <Header />
     <Projects />
+    <About />
     <Footer />
   </main>
 </Layout>
@@ -28,7 +29,7 @@ import Projects from "../components/Projects.astro";
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    max-width: 740px;
+    max-width: 896px;
     gap: 6rem;
     padding-left: 2rem;
     border: 1px solid red;

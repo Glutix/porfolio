@@ -43,14 +43,18 @@ import Mail from "../icons/Mail.astro";
   a {
     display: flex;
     align-items: center;
-    padding: 0.7rem;
+
+    padding: 6px 8px;
+
     text-decoration: none;
     gap: 0.5rem;
     border-radius: 10px;
     background-color: var(--secundary-color);
+
     span {
       color: var(--text-normal);
     }
+    transition: 0.3s ease-in;
   }
 
   a:visited {
@@ -59,6 +63,10 @@ import Mail from "../icons/Mail.astro";
 
   a:hover {
     background-color: var(--secundary-color-bg);
+    transform: scale(1.1);
+    span {
+      color: white;
+    }
   }
 
   .linkedin {

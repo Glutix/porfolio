@@ -1,0 +1,74 @@
+---
+import SectionTitle from "./SectionTitle.astro";
+import UserCheckbox from "../icons/UserCeck.astro";
+import { Image } from "astro:assets";
+
+import glutix from "../assets/glutix.png";
+---
+
+<div>
+  <SectionTitle title="Sobre mi" icon={UserCheckbox} />
+  <section>
+    <article>
+      <p>
+        Me llamo <strong>Ricardo</strong>, también conocido como <strong
+          >Glutix</strong
+        >. Mi viaje en el mundo de la programación comenzó durante mis días
+        universitarios, donde adquirí las bases utilizando el <strong
+          >lenguaje C</strong
+        >. Desde entonces, he evolucionado mis habilidades, <strong
+          >creando sitios web y fascinantes APIs.</strong
+        >
+      </p>
+      <p>
+        Entre mis logros, destaco mi colaboración en el desarrollo de un
+        increíble <strong>marketplace</strong>, donde tuve la oportunidad de
+        aprender valiosas lecciones sobre <strong
+          >trabajo en equipo y metodologías como Scrum.</strong
+        >
+      </p>
+      <p>
+        Además, disfruto sumergirme en el mundo de los <strong
+          >videojuegos y la música</strong
+        >. En la actualidad, me dedico a explorar nuevas tecnologías y a la <strong
+          >creación activa de software</strong
+        >
+        para mejorar constantemente mis habilidades. Mi objetivo principal es <strong
+          >crecer tanto a nivel personal como profesional.</strong
+        >
+      </p>
+    </article>
+    <Image class="image" src={glutix} alt="Glutix" />
+  </section>
+</div>
+
+<style>
+  section {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 2rem;
+
+    article {
+      display: flex;
+      flex-direction: column;
+
+      p {
+        max-width: 65ch;
+        min-width: 40ch;
+        color: var(--text-normal);
+      }
+
+      strong {
+        color: var(--text-enfasis);
+      }
+    }
+  }
+
+  .image {
+    width: 250px;
+    height: 250px;
+    border-radius: 16px;
+    box-shadow: var(--secundary-color-bg) 1px 1px 1px 1px;
+  }
+</style>
