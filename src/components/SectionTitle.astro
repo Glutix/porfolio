@@ -1,15 +1,16 @@
 ---
 interface Props {
+  id: string;
   title: string;
   icon: any;
 }
 
-const { title, icon: Icon }: Props = Astro.props;
+const { id, title, icon: Icon }: Props = Astro.props;
 ---
 
 <section>
   <span><Icon class="icon" /></span>
-  <h2>{title}</h2>
+  <h2 id={id}>{title}</h2>
 </section>
 
 <style>

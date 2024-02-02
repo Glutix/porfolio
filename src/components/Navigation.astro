@@ -10,15 +10,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
-    margin-top: 15px;
     gap: 2rem;
     height: 3rem;
     width: fit-content;
-    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    padding: 1px 12px 1px 12px;
     border-radius: 100px;
-    box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.9);
-    background-color: var(--secundary-color);
+    box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.5);
+    position: fixed;
+    z-index: 5;
+    margin-top: 1rem;
+    background-color: #12121293;
   }
 
   a {
@@ -29,10 +30,8 @@
   }
 
   a:hover {
-    color: var(--text-enfasis-1);
-    background-color: var(--secundary-color-bg);
     border-radius: 30px;
     padding: 4px 8px;
-    color: white;
+    color: var(--text-enfasis);
   }
 </style>

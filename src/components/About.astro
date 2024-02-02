@@ -2,12 +2,12 @@
 import SectionTitle from "./SectionTitle.astro";
 import UserCheckbox from "../icons/UserCeck.astro";
 import { Image } from "astro:assets";
-
 import glutix from "../assets/glutix.png";
+import glutix2 from "../assets/glutix2.jpg";
 ---
 
 <div>
-  <SectionTitle title="Sobre mi" icon={UserCheckbox} />
+  <SectionTitle id="about" title="Sobre mi" icon={UserCheckbox} />
   <section>
     <article>
       <p>
@@ -38,23 +38,26 @@ import glutix from "../assets/glutix.png";
         >
       </p>
     </article>
-    <Image class="image" src={glutix} alt="Glutix" />
+    <Image class="image" src={glutix2} alt="Glutix" />
   </section>
 </div>
 
 <style>
+  div {
+    width: 100%;
+  }
+
   section {
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
-    gap: 2rem;
 
     article {
       display: flex;
       flex-direction: column;
 
       p {
-        max-width: 65ch;
+        max-width: 60ch;
         min-width: 40ch;
         color: var(--text-normal);
       }
@@ -66,9 +69,10 @@ import glutix from "../assets/glutix.png";
   }
 
   .image {
-    width: 250px;
-    height: 250px;
+    width: 264px;
+    height: 264px;
     border-radius: 16px;
-    box-shadow: var(--secundary-color-bg) 1px 1px 1px 1px;
+    box-shadow: var(--secundary-color-bg) 0px 0px 0px 4px;
+    transform: rotate(3deg);
   }
 </style>
