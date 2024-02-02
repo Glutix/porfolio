@@ -17,21 +17,22 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node.js and pnpm
         uses: actions/setup-node@v4
         with:
-          node-version: 16 # Ajusta a la versión que necesites para tu proyecto
+          node-version: 16
+      - run: npm install -g pnpm@latest
 
       - name: Install, build, and upload your site
         uses: withastro/action@v1
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+deploy:
+  needs: build
+  runs-on: ubuntu-latest
+  environment:
+    name: github-pages
+    url: ${{ steps.deployment.outputs.page_url }}
+  steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v1

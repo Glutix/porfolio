@@ -2,6 +2,9 @@
   "name": "porfolio",
   "type": "module",
   "version": "0.0.1",
+  "pnpm": {
+    "version": "latest"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
