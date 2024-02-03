@@ -37,13 +37,19 @@ import Contact from "../components/Contact.astro";
     align-items: center;
   }
 
+  @media (max-width: 900px) {
+    main {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+
   @media (max-width: 697px) {
     main {
       display: flex;
       width: 100%;
       justify-content: start;
       align-items: center;
-      padding-left: 4px;
-      padding-right: 4px;
+      gap: 6rem;
     }
 </style>

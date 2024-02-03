@@ -23,25 +23,23 @@ const { title, description } = Astro.props;
   </head>
   <body>
     <slot />
-
-    <!-- Principio del widget de globo de Calendly -->
-    <script
-      src="https://assets.calendly.com/assets/external/widget.js"
-      type="text/javascript"
-      async></script>
-    <script type="text/javascript">
-      window.onload = function () {
-        Calendly.initBadgeWidget({
-          url: "https://calendly.com/ferreyra-ricardo/job-meeting",
-          text: "Programe una reunión conmigo",
-          color: "#1a1a1a",
-          textColor: "#ffffff",
-          branding: undefined,
-        });
-      };
-    </script>
-    <!-- Final del widget de globo de Calendly -->
   </body>
+
+  <script
+    src="https://assets.calendly.com/assets/external/widget.js"
+    type="text/javascript"
+    async></script>
+  <script type="text/javascript">
+    window.onload = function () {
+      Calendly.initBadgeWidget({
+        url: "https://calendly.com/ferreyra-ricardo/job-meeting",
+        text: "Programe una reunión conmigo",
+        color: "#1a1a1a",
+        textColor: "#ffffff",
+        branding: undefined,
+      });
+    };
+  </script>
 </html>
 
 <style is:global>
@@ -72,7 +70,7 @@ const { title, description } = Astro.props;
 
     h2 {
       font-size: 30px;
-      line-height: 36px;
+      line-height: 30px;
       margin: 0;
     }
 

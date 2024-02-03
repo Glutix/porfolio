@@ -96,7 +96,7 @@ const PROJECTS: ProjectsProps[] = [
             />
             <section>
               <a href={`${github}`} target="_target">
-                <GitHub class="github" /> Code
+                <GitHub class="github" /> Código fuente
               </a>
               {deploy !== "" ? (
                 <a href={`${deploy}`} target="_target">
@@ -134,6 +134,8 @@ const PROJECTS: ProjectsProps[] = [
 
   p {
     padding-right: 1rem;
+    max-width: 75ch;
+    line-height: 24px;
   }
 
   .image-desktop {

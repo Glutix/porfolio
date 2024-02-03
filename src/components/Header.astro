@@ -46,7 +46,7 @@ import glutix from "../assets/glutix.png";
       flex-direction: column;
       height: fit-content;
       width: 100%;
-      gap: .5rem;
+      gap: 1rem;
 
       div {
         display: flex;
@@ -57,12 +57,11 @@ import glutix from "../assets/glutix.png";
         width: 100%;
         height: fit-content;
 
+
         h1 {
           margin: 0;
         }
       }
-
-
 
       article {
         display: flex;
@@ -93,29 +92,25 @@ import glutix from "../assets/glutix.png";
 
   @media (max-width: 697px) {
     header {
-      grid-template-columns: 100px 1fr;
+      grid-template-columns: 124px 1fr;
       .image {
-        width: 100px;
-        height: 100px;
+        width: 124px;
+        height: 124px;
         
       }
 
 
-      div{
+      div{ 
         h1 {
-          font-size: 28px;
+          margin: 0;
+          font-size: 24px;
         }
       }
 
       section { 
-        gap: .7rem;
-        
-        h2{
-          font-size: 24px;
+        span { 
+        font-size: 20px;
         }
-
       }
-
-
     }
 </style>
