@@ -35,7 +35,12 @@ import glutix2 from "../assets/glutix2.jpg";
         >
       </p>
     </article>
-    <Image class="image" src={glutix2} alt="Glutix" />
+    <Image
+      class="image"
+      src={glutix2}
+      alt="retrato mio con auriculares"
+      loading="lazy"
+    />
   </section>
 </div>
 
@@ -74,6 +79,8 @@ import glutix2 from "../assets/glutix2.jpg";
     border-radius: 16px;
     box-shadow: var(--secundary-color-bg) 0px 0px 0px 4px;
     transform: rotate(3deg);
+    object-fit: cover;
+    aspect-ratio: 1/1;
   }
 
   @media (max-width: 697px) {
