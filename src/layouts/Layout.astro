@@ -15,12 +15,12 @@ const { title, description } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="../../public/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
     <link
       href="https://assets.calendly.com/assets/external/widget.css"
       rel="stylesheet"
     />
-    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
   <body>
