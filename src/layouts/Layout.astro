@@ -12,22 +12,30 @@ const { title, description } = Astro.props;
 <!doctype html>
 <html lang="es">
   <head>
-    <meta
-      property="og:title"
-      content="Porfolio de Gluitx - Desarrolador y programador web"
-    />
-    <meta
-      property="og:description"
-      content="Echale un vistado a este increible porfolio digital echo con astro."
-    />
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://metatags.io/" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta
       property="og:image"
-      content="https://lh3.googleusercontent.com/pw/ABLVV86K0RnWMtoUGfuoZTNogNC8OcR_AeVkqXHHMAxat8ye2oJ8wtvxExLTkld5aml-covJ2tb8FKpfjh5WF5ra0zzz3pjGzBRAn_XESk_USousYkQNgh-COHSmC6Bs2ymPhSMFUwUtlx7josbyQ2x5wTBacZJkAD-vth-dhiW6mC9RRLZsg0gccejw6DkkzS-OfNb1iULuRPx7a2vZCJJeNU9aMu7nHmgJF-Q8mpCOFZtvz8M9Z1t5-3sb44kjbioxyHLyFxA2V6jGbcHnJUUm1omz5StRd2UtfLVe9fdYFyhkVP0NCdYO4Zgkhejkeo_uKLfSoeluah98x5OTWlxwenrmuCYC5lK9O_0rucIuU6msylsWW0rwByIUM3QMGcAVR6-_IFu0gat0SdndSoapXtor6mFBJknClj9bz0UM5vLoLv1y_ODtKU_cX6bK00n6FIif5iLfQ6Usou5oL5ucg3mLN_dntQOPwPo7bEKwP_ymQFt_YeaFULNz6IjI4i53EDNLXIl6d2Jsgiqjeg-8Dqz74S35U_HCZYNoUgAOxPsASo8u25kOk0wHtP-6CHe3yZ81B91VWItRHUmN41TprPe9xTT6WQJK8vUbWvW-a_ddQbqYc8FIJ8COSFTVQM3Hsce6wMWyko7raBVCaiHmSU4ykGVwSnciSpc2MUZiJO0FZ0Mm9R4J2m0NDr2sMY5xF4fZNDe2QxGS9-AP3lXygZkZYAisV8Q3kHAoPMFewjyGEA36MveiAryroDTW-mXVKgn9z3STsiUGSvfqJv-A4blBiKL9siMGJSjMZCo7IyLPbpgO9QABqGd2_B0F5Fh3SQr3qIFdHDyl2VZf3b4ZA2N_d9sSldsIorluRvN0NMCF9yau07hk81a7Q3En3nXJtUfMj63m2VTXm4Nt7KXk3QNs=w882-h435-s-no-gm?authuser=0"
+      content="https://metatags.io/images/meta-tags.png"
     />
-    <meta property="og:url" content="https://glutix.github.io/porfolio/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Glutix - Full Stack Developer" />
-    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://metatags.io/" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta
+      property="twitter:image"
+      content="https://metatags.io/images/meta-tags.png"
+    />
 
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -38,7 +46,6 @@ const { title, description } = Astro.props;
       rel="stylesheet"
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
   </head>
   <body>
     <slot />
