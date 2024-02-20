@@ -63,7 +63,6 @@ import Mail from "../icons/Mail.astro";
         h3 {
           margin: 0;
           padding-left: 4px;
-
           color: var(--text-normal);
         }
       }
@@ -79,20 +78,20 @@ import Mail from "../icons/Mail.astro";
         width: fit-content;
 
         span {
-          color: var(--text-normal);
+          color: var(--text-normal-variant);
         }
         transition: 0.3s ease-in;
       }
 
       a:visited {
-        color: white;
+        color: var(--text-title);
       }
 
       a:hover {
-        background-color: var(--secundary-color-bg);
+        background-color: var(--btn-hover);
         transform: scale(1);
         span {
-          color: white;
+          color: var(--text-normal-variant);
         }
       }
     }
@@ -101,7 +100,15 @@ import Mail from "../icons/Mail.astro";
   .mail {
     width: 25px;
     height: 25px;
-    color: white;
+    color: var(--text-normal-variant);
+  }
+
+  .movil {
+    color: var(--text-normal-variant);
+  }
+
+  .whatsapp {
+    color: var(--text-normal-variant);
   }
 
   .no-click {
@@ -113,5 +120,18 @@ import Mail from "../icons/Mail.astro";
     border-radius: 10px;
     background-color: var(--secundary-color);
     width: fit-content;
+
+    span {
+      color: var(--text-normal-variant);
+    }
+    transition: 0.3s ease-in;
+
+    &:hover {
+      background-color: var(--btn-hover);
+      transform: scale(1);
+      span {
+        color: var(--text-normal-variant);
+      }
+    }
   }
 </style>

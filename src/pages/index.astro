@@ -7,13 +7,15 @@ import Footer from "../components/Footer.astro";
 import Projects from "../components/Projects.astro";
 import About from "../components/About.astro";
 import Contact from "../components/Contact.astro";
+import Toggle from "../components/Toggle.astro";
 ---
 
 <Layout
   title="Porfolio de Gluitx - Desarrolador y programador web"
   description="Explora mi último portafolio, creado con Astro, el framework que ha elevado cada detalle. Descubre proyectos emocionantes, diseño cautivador y una experiencia de usuario inigualable. 💻 #DesarrolladorWeb #AstroFramework #PortafolioDigital"
 >
-  <main>
+  <main id="main">
+    <Toggle />
     <Navigation />
     <Header />
     <Projects />

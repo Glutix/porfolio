@@ -41,30 +41,32 @@ import GitHub from "../icons/GitHub.astro";
     background-color: var(--secundary-color);
 
     span {
-      color: var(--text-normal);
+      color: var(--text-normal-variant);
     }
     transition: 0.3s ease-in;
   }
 
   a:visited {
-    color: white;
+    color: var(--text-title);
   }
 
   a:hover {
-    background-color: var(--secundary-color-bg);
+    background-color: var(--btn-hover);
     transform: scale(1.1);
     span {
-      color: white;
+      color: var(--text-title);
     }
   }
 
   .linkedin {
     width: 25px;
     height: 25px;
+    color: white;
   }
 
   .github {
     width: 25px;
     height: 25px;
+    color: white;
   }
 </style>

@@ -145,8 +145,16 @@ const PROJECTS: ProjectsProps[] = [
     max-width: 100%;
     height: 448px;
     border-radius: 4px;
-    padding-bottom: 12px;
+    padding-bottom: 20px;
+    padding-top: 20px;
     object-fit: cover;
+    transition: 0.3s ease;
+    border-radius: 24px;
+    filter: drop-shadow(4px 4px 12px var(--image-shadow));
+
+    &:hover {
+      object-position: top;
+    }
   }
 
   .image-mobile {
@@ -154,11 +162,16 @@ const PROJECTS: ProjectsProps[] = [
   }
 
   article {
+    gap: 1rem;
     ul {
       list-style: none;
       display: flex;
       padding: 0;
       gap: 1rem;
+
+      & li {
+        color: white;
+      }
     }
   }
 
@@ -176,12 +189,12 @@ const PROJECTS: ProjectsProps[] = [
       width: fit-content;
       padding: 0.5rem;
       border-radius: 24px;
-      color: var(--text-normal);
+      color: var(--text-normal-variant);
       transition: 0.3s ease;
     }
 
     a:hover {
-      color: white;
+      color: var(--text-normal-variant);
       transform: scale(1.1, 1.1);
     }
   }

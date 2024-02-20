@@ -1,21 +1,37 @@
 <footer>
-  <p>&copy; 2024 Glutix. <em>Todos los derechos reservados.</em></p>
+  <p>
+    Inspirado en el porfolio de <a href="https://www.youtube.com/@midulive"
+      >minidudev</a
+    > ❤️ . <em>Casi todo los derechos reservados.</em>
+  </p>
 </footer>
 <style>
   footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 3rem;
+    height: fit-content;
     gap: 1rem;
-    padding: 4px;
-  }
+    padding-bottom: .5rem;
 
-  em {
-    color: var(--text-normal);
-  }
 
-  p{
-    font-size: 14px;
+    & em {
+      color: var(--text-normal);
+    }
+
+    & p {
+      font-size: 14px;
+      color: var(--text-title);
+    }
+
+    & a {
+      text-decoration: none;
+      color: var(--text-title);
+      border-bottom: 1px solid var(--text-title);
+    }
+
+    & a:active {
+      color: var(--text-title);
+    }
   }
 </style>

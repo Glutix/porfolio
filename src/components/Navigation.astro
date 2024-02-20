@@ -19,13 +19,13 @@
     position: fixed;
     z-index: 5;
     margin-top: 1rem;
-    background-color: #12121293;
+    background-color: var(--secundary-color-variant);
   }
 
   a {
     text-decoration: none;
     padding: 4px 8px;
-    color: var(--text-normal);
+    color: var(--text-normal-variant);
     transition: 0.3s ease;
   }
 
@@ -35,15 +35,13 @@
     color: var(--text-enfasis);
   }
 
-
   @media (max-width: 697px) {
-
-    nav { 
-      gap: .5rem;
+    nav {
+      gap: 0.3rem;
     }
 
-    a{
-      font-size: 14px;
+    a {
+      font-size: 12px;
     }
   }
 </style>
