@@ -6,7 +6,9 @@ import glutix from "../assets/glutix.png";
 ---
 
 <header id="home">
-  <Image class="image" src={glutix} alt="fotografia de perfil" />
+  <picture>
+    <Image class="image" src={glutix} alt="fotografia de perfil" />
+  </picture>
 
   <div class="title-cv">
     <h1>Hola, soy Ricardo</h1>
@@ -39,12 +41,15 @@ import glutix from "../assets/glutix.png";
     row-gap: 1rem;
   }
 
+  picture {
+    grid-row: 1 / 4;
+  }
   .image {
     border-radius: 50%;
     width: 160px;
     height: 160px;
     object-fit: contain;
-    grid-row: 1 / 4;
+
     filter: drop-shadow(2px 2px 12px var(--image-shadow));
   }
 
@@ -98,7 +103,7 @@ import glutix from "../assets/glutix.png";
     grid-column: 2;
   }
 
-  @media (max-width: 697px) {
+  @media (max-width: 731px) {
     header {
       grid-template-columns: 1fr 1fr;
       row-gap: 1.5rem;
@@ -106,10 +111,16 @@ import glutix from "../assets/glutix.png";
       place-items: center;
     }
 
-    .image {
-      width: 128px;
-      height: 128px;
+    picture {
+      display: flex;
+      width: 100%;
+      justify-content: end;
+      padding-right: 2rem;
       grid-row: 1 / 2;
+      & .image {
+        width: 128px;
+        height: 128px;
+      }
     }
 
     .title-cv {
@@ -130,8 +141,12 @@ import glutix from "../assets/glutix.png";
       text-align: center;
       align-items: center;
 
+      span {
+        display: block;
+      }
+
       h2 {
-        width: 25ch;
+        width: 80%;
       }
     }
 
