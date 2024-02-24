@@ -181,7 +181,7 @@ const PROJECTS: ProjectsProps[] = [
     gap: 1rem;
     align-items: center;
 
-    a {
+    & a {
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -191,12 +191,12 @@ const PROJECTS: ProjectsProps[] = [
       padding: 0.5rem;
       border-radius: 24px;
       color: var(--text-normal-variant);
-      transition: 0.3s ease;
-    }
+      transition: 0.3s ease-in;
 
-    a:hover {
-      color: var(--text-normal-variant);
-      transform: scale(1.1, 1.1);
+      &:hover {
+        color: var(--text-normal-variant);
+        transform: scale(1.1);
+      }
     }
   }
 

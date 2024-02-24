@@ -27,34 +27,31 @@ import GitHub from "../icons/GitHub.astro";
     width: fit-content;
     height: fit-content;
     font-size: 1rem;
-  }
 
-  a {
-    display: flex;
-    align-items: center;
+    & a {
+      display: flex;
+      align-items: center;
+      padding: 6px 8px;
+      text-decoration: none;
+      gap: 0.5rem;
+      border-radius: 10px;
+      background-color: var(--secundary-color);
+      transition: 0.3s ease-in;
+      &:visited {
+        color: var(--text-title);
+      }
 
-    padding: 6px 8px;
+      &:hover {
+        background-color: var(--btn-hover);
+        transform: scale(1.1);
+        & span {
+          color: var(--text-title);
+        }
+      }
 
-    text-decoration: none;
-    gap: 0.5rem;
-    border-radius: 10px;
-    background-color: var(--secundary-color);
-
-    span {
-      color: var(--text-normal-variant);
-    }
-    transition: 0.3s ease-in;
-  }
-
-  a:visited {
-    color: var(--text-title);
-  }
-
-  a:hover {
-    background-color: var(--btn-hover);
-    transform: scale(1.1);
-    span {
-      color: var(--text-title);
+      & span {
+        color: var(--text-normal-variant);
+      }
     }
   }
 
