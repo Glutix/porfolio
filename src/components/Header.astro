@@ -7,7 +7,14 @@ import glutix from "../assets/glutix.png";
 
 <header id="home">
   <picture>
-    <Image class="image" src={glutix} alt="fotografia de perfil" />
+    <Image
+      class="image"
+      src={glutix}
+      alt="fotografia de perfil"
+      width={"320"}
+      height={"320"}
+      loading={"eager"}
+    />
   </picture>
 
   <div class="title-cv">
@@ -49,6 +56,7 @@ import glutix from "../assets/glutix.png";
     width: 160px;
     height: 160px;
     object-fit: contain;
+    aspect-ratio: 640/640;
 
     filter: drop-shadow(2px 2px 12px var(--image-shadow));
   }
