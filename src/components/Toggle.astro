@@ -76,43 +76,31 @@ import Moon from "../icons/Moon.astro";
   const toggleInput = document.getElementById("switch") as HTMLInputElement;
   const body = document.body;
 
-  // Función para aplicar el tema
   function applyTheme(theme: string) {
-    if (theme === "dark") {
-      body.setAttribute("data-color-scheme", "dark");
+    body.setAttribute("data-color-scheme", theme);
+    localStorage.setItem("theme", theme);
+    toggleInput.checked = theme === "light";
+  }
+
+  function defaultThemeUser() {
+    const storedTheme = localStorage.getItem("theme");
+
+    if (!storedTheme) {
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "dark"
+        : "light";
+      applyTheme(systemTheme);
     } else {
-      body.setAttribute("data-color-scheme", "light");
+      applyTheme(storedTheme);
     }
   }
 
-  // Al cargar la página
-  document.addEventListener("DOMContentLoaded", () => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme) {
-      applyTheme(storedTheme);
-      toggleInput.checked = storedTheme === "light";
-    } else {
-      const prefersDarkScheme = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      );
-      applyTheme(prefersDarkScheme.matches ? "dark" : "light");
-    }
-  });
-
-  // Manejar cambios de tema cuando se activa el toggle
-  toggleInput.addEventListener("change", () => {
+  function handleToggle() {
     const newTheme = toggleInput.checked ? "light" : "dark";
     applyTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-  });
+  }
 
-  // Detectar cambios en el tema preferido del sistema
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", (e) => {
-      const newTheme = e.matches ? "dark" : "light";
-      toggleInput.checked = newTheme === "light";
-      applyTheme(newTheme);
-      localStorage.setItem("theme", newTheme);
-    });
+  document.addEventListener("DOMContentLoaded", defaultThemeUser);
+  toggleInput.addEventListener("change", handleToggle);
 </script>
