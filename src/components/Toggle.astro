@@ -73,29 +73,46 @@ import Moon from "../icons/Moon.astro";
 </style>
 
 <script>
+  const toggleInput = document.getElementById("switch") as HTMLInputElement;
+  const body = document.body;
+
+  // Función para aplicar el tema
+  function applyTheme(theme: string) {
+    if (theme === "dark") {
+      body.setAttribute("data-color-scheme", "dark");
+    } else {
+      body.setAttribute("data-color-scheme", "light");
+    }
+  }
+
+  // Al cargar la página
   document.addEventListener("DOMContentLoaded", () => {
     const storedTheme = localStorage.getItem("theme");
-    const switchInput = document.getElementById("switch") as HTMLInputElement;
-    const body = document.body;
-
-    if (storedTheme === "light-mode") {
-      body.classList.remove("dark-mode");
-      body.classList.add("light-mode");
-      switchInput.checked = true;
+    if (storedTheme) {
+      applyTheme(storedTheme);
+      toggleInput.checked = storedTheme === "light";
     } else {
-      body.classList.remove("light-mode");
+      const prefersDarkScheme = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      );
+      applyTheme(prefersDarkScheme.matches ? "dark" : "light");
     }
-
-    switchInput.addEventListener("click", () => {
-      if (switchInput.checked) {
-        localStorage.setItem("theme", "light-mode");
-        body.classList.remove("dark-mode");
-        body.classList.add("light-mode");
-      } else {
-        localStorage.setItem("theme", "dark-mode");
-        body.classList.remove("light-mode");
-        body.classList.add("dark-mode");
-      }
-    });
   });
+
+  // Manejar cambios de tema cuando se activa el toggle
+  toggleInput.addEventListener("change", () => {
+    const newTheme = toggleInput.checked ? "light" : "dark";
+    applyTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  });
+
+  // Detectar cambios en el tema preferido del sistema
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (e) => {
+      const newTheme = e.matches ? "dark" : "light";
+      toggleInput.checked = newTheme === "light";
+      applyTheme(newTheme);
+      localStorage.setItem("theme", newTheme);
+    });
 </script>
