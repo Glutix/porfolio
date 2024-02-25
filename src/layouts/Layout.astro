@@ -17,6 +17,10 @@ const { title, description } = Astro.props;
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="../../public/favicon.svg" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -37,36 +41,10 @@ const { title, description } = Astro.props;
       property="twitter:image"
       content="https://lh3.googleusercontent.com/pw/ABLVV86qnTM77RwNgDYwbw2Ga-k9LalCJE9wdKrE-hUloRvXNPlnnHPTrNhbr4eTrvessvQBz8Jbl-ISHW6_LAlLllH2il75GPp1h484S8iq8vevGLxQqvK-jXjL1-dVJnj1YUqb6sUin3rG-PfJTcbMZukG2-LVZ-H_vNXYBIeaB8SmgWNgDhIUgqfRvbgt7BHl4rfhHUpvPInhAZv0e7WF0qXos4GKbTv0gT-zj8gag66mQc3P0_GTXzLtJ2kuskmNwK5v_JeaonWb7j8EPPJt9jxo0Z8J4NDBoy7y4FOG5RTVabvVnfaS6Xrsihx96jI7ulQmfciuFEYk6APLo8yuE7bQybQjkJeGWmptOxES_QnnRrLzFIDFH-roexyYkoATILw4IAOZPfYHZV14NKaWBhkFZGMDl0cxm5OvAiRp6y4WM7BFcpK-rLwmo01pDcxFJKxZNfX0JTT_E6Wh4iCH6j02MEB9tYCipAGrWmF_ml_sU5ssltPqZKQ0qtmtLsaZmYRHeFKJNSNZmPVjxeivIhlHsOg8ihMFE1_SWj3GaAm3Aw3fIDhKJW3Ub_bCgap7v6yu0qpK5g_eJT7xGJ8p1OrIuie3lm8wXZHsKJx_gOe1NxFeaIjBYTdkOnMYrVZZowt1oHhFC83DSX2MdYOZoBl9guJI28jHn44JHhRntEZ6UTkkDpAPhO-iuL5lppXGd3VtQtBFlS2_w_o1hVQMLW7kE9Mxf0VIxWlWSLvgIM74-2NlQXsFZt_eiusQoc0y9OAx2khzg1WLOIEyB_Bxljc2ySTz1xfyzmiEWdlHA3kR3ABU_iepRYwYoE427Jw2SmwWYYdEi7odXhRDDogrZNb6IGdFv1FFG-_T4d2i1080g-5WwrgOERTSc9gkXUO_vM0DTveKIe38BcnCcDwVgoMd=w1258-h621-s-no-gm?authuser=0"
     />
-
-    <meta charset="UTF-8" />
-    <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <link
-      href="https://assets.calendly.com/assets/external/widget.css"
-      rel="stylesheet"
-    />
-    <link rel="icon" type="image/svg+xml" href="../../public/favicon.svg" />
   </head>
   <body class="dark-mode">
     <slot />
   </body>
-
-  <script
-    src="https://assets.calendly.com/assets/external/widget.js"
-    type="text/javascript"
-    async></script>
-  <script type="text/javascript">
-    window.onload = function () {
-      Calendly.initBadgeWidget({
-        url: "https://calendly.com/ferreyra-ricardo/job-meeting",
-        text: "Programe una reunión conmigo",
-        color: "#1a1a1a",
-        textColor: "#ffffff",
-        branding: undefined,
-      });
-    };
-  </script>
 </html>
 
 <style is:global>
