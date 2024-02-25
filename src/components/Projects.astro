@@ -99,11 +99,15 @@ const PROJECTS: ProjectsProps[] = [
               sizes="calc(100vw - 24px)"
             />
             <section>
-              <a href={`${github}`} target="_target">
+              <a rel="noopener noreferrer" href={`${github}`} target="_target">
                 <GitHub class="github" /> Código fuente
               </a>
               {deploy !== "" ? (
-                <a href={`${deploy}`} target="_target">
+                <a
+                  rel="noopener noreferrer"
+                  href={`${deploy}`}
+                  target="_target"
+                >
                   <WebSite class="github" /> Sitio web
                 </a>
               ) : (
