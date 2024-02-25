@@ -82,18 +82,16 @@ import Moon from "../icons/Moon.astro";
     toggleInput.checked = theme === "light";
   }
 
-  function defaultThemeUser() {
-    const storedTheme = localStorage.getItem("theme");
+  function getDefaultSystemTheme() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
 
-    if (!storedTheme) {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-      applyTheme(systemTheme);
-    } else {
-      applyTheme(storedTheme);
-    }
+  function setDefaultUserTheme() {
+    const storedTheme = localStorage.getItem("theme");
+    const systemTheme = getDefaultSystemTheme();
+    applyTheme(storedTheme || systemTheme);
   }
 
   function handleToggle() {
@@ -101,6 +99,14 @@ import Moon from "../icons/Moon.astro";
     applyTheme(newTheme);
   }
 
-  document.addEventListener("DOMContentLoaded", defaultThemeUser);
+  function handleSystemThemeChange(event: MediaQueryListEvent) {
+    const newTheme = event.matches ? "dark" : "light";
+    applyTheme(newTheme);
+  }
+
+  document.addEventListener("DOMContentLoaded", setDefaultUserTheme);
   toggleInput.addEventListener("change", handleToggle);
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", handleSystemThemeChange);
 </script>
