@@ -1,6 +1,7 @@
 ---
 import Linkedin from "../icons/Linkedin.astro";
 import GitHub from "../icons/GitHub.astro";
+import Cv from "../icons/cv.astro";
 ---
 
 <div>
@@ -17,53 +18,171 @@ import GitHub from "../icons/GitHub.astro";
     <GitHub class="github" />
     <span>GitHub</span>
   </a>
+
+  <a
+    href="https://drive.google.com/file/d/1ynbMpH_FxUC3jbnAlnPLsdJwrN8rMA2U/view?usp=sharing"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <Cv class="cv" />
+    <span>Resumen</span>
+  </a>
 </div>
 
 <style>
   div {
     display: flex;
     gap: 1rem;
-    justify-content: start;
+    justify-content: center;
     width: fit-content;
     height: fit-content;
     font-size: 1rem;
+  }
 
-    & a {
-      display: flex;
-      align-items: center;
-      padding: 6px 8px;
-      text-decoration: none;
-      gap: 0.5rem;
+  div a {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    text-decoration: none;
+    gap: 0.5rem;
+    border-radius: 12px;
+    background-color: var(--secundary-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    min-width: fit-content;
+  }
+
+  div a:visited {
+    color: var(--text-title);
+  }
+
+  div a:hover {
+    background-color: var(--btn-hover);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  div a:hover span {
+    color: var(--text-title);
+  }
+
+  div a span {
+    color: var(--text-normal-variant);
+    font-weight: 500;
+  }
+
+  .linkedin,
+  .github,
+  .cv {
+    width: 25px;
+    height: 25px;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    div {
+      gap: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    div a {
+      padding: 7px 10px;
       border-radius: 10px;
-      background-color: var(--secundary-color);
-      transition: 0.3s ease-in;
-      &:visited {
-        color: var(--text-title);
-      }
+    }
 
-      &:hover {
-        background-color: var(--btn-hover);
-        transform: scale(1.1);
-        & span {
-          color: var(--text-title);
-        }
-      }
-
-      & span {
-        color: var(--text-normal-variant);
-      }
+    .linkedin,
+    .github {
+      width: 22px;
+      height: 22px;
     }
   }
 
-  .linkedin {
-    width: 25px;
-    height: 25px;
-    color: white;
+  /* Mobile Large */
+  @media (max-width: 768px) {
+    div {
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    div a {
+      padding: 6px 10px;
+      gap: 0.4rem;
+      border-radius: 10px;
+    }
+
+    .linkedin,
+    .github {
+      width: 20px;
+      height: 20px;
+    }
   }
 
-  .github {
-    width: 25px;
-    height: 25px;
-    color: white;
+  /* Mobile Medium */
+  @media (max-width: 480px) {
+    div {
+      gap: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    div a {
+      padding: 5px 8px;
+      gap: 0.35rem;
+      border-radius: 8px;
+    }
+
+    div a:hover {
+      transform: translateY(-1px) scale(1.01);
+    }
+
+    .linkedin,
+    .github {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  /* Mobile Small */
+  @media (max-width: 390px) {
+    div {
+      gap: 0.4rem;
+      font-size: 0.8rem;
+    }
+
+    div a {
+      padding: 4px 6px;
+      gap: 0.3rem;
+    }
+
+    .linkedin,
+    .github {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  /* Mobile Extra Small */
+  @media (max-width: 320px) {
+    div {
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    div a {
+      padding: 4px 8px;
+      justify-content: center;
+      min-width: 80px;
+    }
+
+    .linkedin,
+    .github {
+      width: 14px;
+      height: 14px;
+    }
   }
 </style>

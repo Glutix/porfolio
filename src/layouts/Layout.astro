@@ -53,17 +53,25 @@ const { title, description } = Astro.props;
   }
 
   [data-color-scheme="light"] {
-    --primary-color: #fdfbf6;
-    --secundary-color: #011627;
+    --primary-color: #f8f9ff;
+    --secundary-color: #333;
     --secundary-color-variant: #5f5f5f;
     --btn-hover: #eab308;
     --text-title: #000000;
     --text-normal: #242422;
     --text-normal-variant: #fff;
-    --text-enfasis: #ffc001;
-    --text-enfasis-1: #b00113;
+    --text-enfasis: #ffbf00;
+    --text-enfasis-1: #ff0019b2;
     --text-enfasis-2: #00429a;
-    --image-shadow: #011627;
+    --image-shadow: #c5a134;
+
+    --form-btn-text: #fff;
+    --form-btn-backgroud: #333;
+    --form-btn-hover: #eab308;
+    --form-btn-disable: #5f5f5f;
+
+    --form-input-bg: #fff;
+    --form-input-bg-focus: #fff;
   }
 
   [data-color-scheme="dark"] {
@@ -75,9 +83,18 @@ const { title, description } = Astro.props;
     --text-normal: #d7d7d7;
     --text-normal-variant: #d7d7d7;
     --text-enfasis: #f0e480;
-    --text-enfasis-1: #e7a2b3;
+    --text-enfasis-1: #ec829d;
     --text-enfasis-2: #b8d2ef;
     --image-shadow: #ffffff80;
+
+    --form-btn-text: #000;
+    --form-btn-backgroud: #f0e480;
+    --form-btn-hover: #fded5b;
+    --form-btn-disable: #f0e480;
+
+    --form-input-text: #fff;
+    --form-input-bg: #272727;
+    --form-input-bg-focus: #3f3f3f;
   }
 
   html {

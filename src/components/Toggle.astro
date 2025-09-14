@@ -18,10 +18,10 @@ import Moon from "../icons/Moon.astro";
 <style>
   .container {
     position: fixed;
-    top: 1rem;
-    right: 1.3rem;
+    top: 1.3rem;
+    right: 2rem;
     border-radius: 50%;
-    z-index: 5;
+    z-index: 10;
   }
 
   .toggle {
@@ -32,8 +32,13 @@ import Moon from "../icons/Moon.astro";
     display: grid;
     place-items: center;
     cursor: pointer;
-    box-shadow: 0 0 50px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 2px 2px var(--text-normal-variant);
     line-height: 1;
+    transition: all 0.3s ease;
+  }
+
+  .toggle:hover {
+    box-shadow: 0 0 4px 4px var(--text-title);
   }
 
   .input {
@@ -66,9 +71,37 @@ import Moon from "../icons/Moon.astro";
     transform: rotate(360deg) scale(0);
   }
 
-  @media (max-width: 697px) {
+  /* Mobile Large */
+  @media (max-width: 768px) {
+    .toggle {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  /* Mobile Medium */
+  @media (max-width: 480px) {
     .container {
+      top: 0.8rem;
       right: 0.5rem;
+    }
+
+    .toggle {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  /* Mobile Small */
+  @media (max-width: 390px) {
+    .container {
+      top: 0.6rem;
+      right: 0.4rem;
+    }
+
+    .toggle {
+      width: 24px;
+      height: 24px;
     }
   }
 </style>

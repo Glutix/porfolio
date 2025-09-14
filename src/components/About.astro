@@ -2,7 +2,7 @@
 import SectionTitle from "./SectionTitle.astro";
 import UserCheckbox from "../icons/UserCeck.astro";
 import { Image } from "astro:assets";
-import glutix2 from "../assets/glutix2.jpg";
+import imagenAbout from "../assets/imagen-about.png";
 ---
 
 <div>
@@ -10,38 +10,29 @@ import glutix2 from "../assets/glutix2.jpg";
   <section>
     <article>
       <p>
-        Me llamo <strong>Ricardo</strong>, también conocido como <strong
+        Soy <strong>Ricardo</strong>, también conocido como <strong
           >Glutix</strong
-        >. Comencé en el mundo de la programación durante mis días
-        universitarios, donde adquirí las bases utilizando el <strong
-          >lenguaje C</strong
-        >. Desde entonces, he evolucionado mis habilidades, <strong
-          >creando fascinantes sitios web y APIs.</strong
-        >
+        >. Mi camino en la programación comenzó en la universidad, y desde
+        entonces descubrí en el <strong>desarrollo web y de software</strong> una
+        forma de expresar mi creatividad y resolver problemas.
       </p>
       <p>
-        Entre mis logros, destaco mi colaboración en el desarrollo de un
-        increíble <strong>marketplace</strong>, donde tuve la oportunidad de
-        aprender valiosas lecciones sobre <strong
-          >trabajo en equipo y metodologías como Scrum.</strong
-        >
+        A lo largo de este recorrido participé en proyectos colaborativos y
+        personales que me ayudaron a crecer, no solo en lo técnico, sino también
+        en lo <strong>humano</strong>: aprendí el valor del trabajo en equipo,
+        la constancia y la búsqueda de soluciones simples para desafíos
+        complejos.
       </p>
       <p>
-        En la actualidad, me dedico a explorar nuevas tecnologías y a la <strong
-          >creación activa de software</strong
-        >
-        para mejorar constantemente mis habilidades. Mi objetivo principal es <strong
-          >crecer tanto a nivel personal como profesional.</strong
-        >
+        Hoy sigo explorando nuevas ideas y tecnologías, con el objetivo de
+        <strong>crear aplicaciones útiles e innovadoras</strong> que generen un impacto
+        positivo, mientras continúo creciendo tanto en lo <strong
+          >profesional</strong
+        > como en lo
+        <strong>personal</strong>.
       </p>
     </article>
-    <Image
-      class="image"
-      src={glutix2}
-      alt="retrato mio con auriculares"
-      widths={[236]}
-      sizes="236px"
-    />
+    <Image class="image" src={imagenAbout} alt="imagen acerca de mi" />
   </section>
 </div>
 
@@ -57,15 +48,16 @@ import glutix2 from "../assets/glutix2.jpg";
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
 
     article {
       display: flex;
       flex-direction: column;
 
       p {
-        max-width: 50ch;
         color: var(--text-normal);
+        text-wrap: pretty;
+        padding-right: 1rem;
       }
 
       strong {
@@ -75,30 +67,37 @@ import glutix2 from "../assets/glutix2.jpg";
   }
 
   .image {
-    width: 236px;
-    height: 236px;
+    width: 320px;
+    height: 430px;
     border-radius: 16px;
     box-shadow: var(--secundary-color-bg) 0px 0px 0px 4px;
     transform: rotate(4deg);
     object-fit: cover;
     aspect-ratio: 1/1;
-    filter: drop-shadow(2px 2px 12px var(--image-shadow));
+    filter: drop-shadow(0 8px 32px var(--image-shadow));
+    transition:
+      transform 0.3s ease,
+      filter 0.3s ease;
   }
 
-  @media (max-width: 697px) {
+  .image:hover {
+    transform: translateY(-4px);
+    filter: drop-shadow(0 12px 40px var(--image-shadow));
+  }
+
+  @media (max-width: 950px) {
     section {
-      display: flex;
-      flex-direction: column-reverse;
-      gap: 1rem;
-      justify-content: start;
-      align-items: start;
-    }
+
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
 
     .image {
       margin: 0 auto;
       transform: rotate(0deg);
-      width: 228px;
-      height: 228px;
+      width: 300px;
+      height: 350px;
     }
   }
 </style>

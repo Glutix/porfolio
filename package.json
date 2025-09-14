@@ -13,9 +13,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.4.1",
+    "@astrojs/check": "^0.9.4",
+    "@emailjs/browser": "^4.4.1",
     "@fontsource-variable/montserrat": "^5.0.17",
-    "astro": "^4.3.1",
+    "astro": "^5.13.7",
     "astro-robots-txt": "^1.0.0",
     "sharp": "^0.33.2",
     "typescript": "^5.3.3"
