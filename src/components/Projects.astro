@@ -8,6 +8,8 @@ import facilMarketDesktop from "../assets/facil-market-desktop.png";
 import facilMarketMobile from "../assets/facil-market-mobile.png";
 import quinchoDesktop from "../assets/quincho-desktop.png";
 import quinMobile from "../assets/quincho-mobile.png";
+import integrateDesktop from "../assets/integrate-desktop.png";
+import integrateMobile from "../assets/integrate-mobile.png";
 
 //icons
 import TypeScript from "../icons/TypeScript.astro";
@@ -17,6 +19,8 @@ import Redux from "../icons/Redux.astro";
 import Code from "../icons/Code.astro";
 import GitHub from "../icons/GitHub.astro";
 import WebSite from "../icons/WebSite.astro";
+import Python from "../icons/Python.astro";
+import Django from "../icons/Django.astro";
 
 type PropsImage = {
   urlDesktop: ImageMetadata;
@@ -36,9 +40,9 @@ interface ProjectsProps {
 
 const PROJECTS: ProjectsProps[] = [
   {
-    title: "Facil Market - Markplace para compradores y vendedores",
+    title: "Facil Market - Marketplace para compradores y vendedores",
     description:
-      "Este proyecto consiste en una aplicación de Marketplace que proporciona una plataforma donde compradores y vendedores pueden realizar transacciones de manera sencilla y accesible.",
+      "Aplicación web de Marketplace que conecta a compradores y vendedores en una plataforma accesible e intuitiva. Permite gestionar publicaciones, realizar transacciones y facilitar la interacción entre ambas partes de forma sencilla.",
     tags: [TypeScript, Express, Redux, React],
     images: {
       urlDesktop: facilMarketDesktop,
@@ -51,9 +55,9 @@ const PROJECTS: ProjectsProps[] = [
   },
 
   {
-    title: "Quincho Alto Norte - Un lugar para disfrutar con la familia",
+    title: "Quincho Alto Norte - Sitio web promocional",
     description:
-      "Este sitio web fue creado específicamente para promover el negocio de un familiar. El objetivo principal es resaltar este lugar excepcional, perfecto para disfrutar con familiares o amigos en momentos especiales.",
+      "Sitio web diseñado para destacar un espacio ideal para reuniones familiares y eventos sociales. Presenta de manera clara las instalaciones, servicios y atractivos, ofreciendo a los visitantes una experiencia visual amigable y fácil de navegar.",
     tags: [TypeScript, React],
     images: {
       urlDesktop: quinchoDesktop,
@@ -63,6 +67,21 @@ const PROJECTS: ProjectsProps[] = [
     },
     github: "https://github.com/Glutix/Quincho.git",
     deploy: "https://glutix.github.io/Quincho/",
+  },
+
+  {
+    title: "Integrate - Blog Musical",
+    description:
+      "Proyecto académico que consiste en un blog dedicado a la música, donde los usuarios pueden compartir artículos, escribir reseñas y dejar comentarios. También incluye funciones sociales como dar 'me gusta' e interactuar con otros miembros de la comunidad.",
+    tags: [Python, Django],
+    images: {
+      urlDesktop: integrateDesktop,
+      altDesktop: "integrate-desktop",
+      urlMobile: integrateMobile,
+      altMobile: "integrate-mobile",
+    },
+    github: "https://github.com/Glutix/blog-musical",
+    deploy: "https://integrate.pythonanywhere.com/",
   },
 ];
 ---
@@ -84,20 +103,24 @@ const PROJECTS: ProjectsProps[] = [
                 </li>
               ))}
             </ul>
-            <Image
-              class="image-desktop"
-              src={images.urlDesktop}
-              alt={images.altDesktop}
-              widths={[600, 788]}
-              sizes="(min-width: 980px) 896px, calc(88.24vw + 49px)"
-            />
-            <Image
-              class="image-mobile"
-              src={images.urlMobile}
-              alt={images.altMobile}
-              widths={[275, 600]}
-              sizes="calc(100vw - 24px)"
-            />
+            <div class="image-wrapper-desktop">
+              <Image
+                class="image-desktop"
+                src={images.urlDesktop}
+                alt={images.altDesktop}
+                widths={[600, 788]}
+                sizes="(min-width: 980px) 896px, calc(88.24vw + 49px)"
+              />
+            </div>
+            <div class="image-wrapper-mobile">
+              <Image
+                class="image-mobile"
+                src={images.urlMobile}
+                alt={images.altMobile}
+                widths={[275, 600]}
+                sizes="calc(100vw - 24px)"
+              />
+            </div>
             <section>
               <a rel="noopener noreferrer" href={`${github}`} target="_target">
                 <GitHub class="github" /> Código fuente
@@ -147,27 +170,6 @@ const PROJECTS: ProjectsProps[] = [
     line-height: 24px;
   }
 
-  .image-desktop {
-    max-width: 100%;
-    height: 448px;
-    border-radius: 4px;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    transition: 0.3s ease;
-    border-radius: 24px;
-    aspect-ratio: 2/1;
-    filter: drop-shadow(0px 0px 12px var(--image-shadow));
-    object-fit: cover;
-
-    &:hover {
-      object-position: top;
-    }
-  }
-
-  .image-mobile {
-    display: none;
-  }
-
   article {
     gap: 1rem;
     ul {
@@ -213,18 +215,60 @@ const PROJECTS: ProjectsProps[] = [
     color: white;
   }
 
+  /* ---------- Desktop ---------- */
+  .image-wrapper-desktop {
+    position: relative;
+    width: 100%;
+    height: 448px;
+    border-radius: 24px;
+    overflow: hidden;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .image-desktop {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.1);
+    transition: transform 0.5s ease;
+  }
+
+  .image-desktop:hover {
+    transform: scale(1);
+  }
+
+  /* ---------- Mobile ---------- */
+  .image-mobile {
+    display: none;
+  }
+
+  .image-mobile:active {
+    transform: scale(1); /* Zoom out al hacer tap */
+  }
+
   @media (max-width: 600px) {
-    .image-desktop {
+    .image-wrapper-desktop {
       display: none;
     }
 
-    .image-mobile {
-      display: flex;
+    .image-wrapper-mobile {
+      position: relative;
       width: 100%;
-      height: 100%;
-      border-radius: 4px;
-      padding-bottom: 0.5rem;
+      border-radius: 24px;
+      overflow: hidden;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .image-mobile {
+      display: block;
+      width: 100%;
+      height: auto; /* mantiene proporción natural */
+      border-radius: 24px; /* consistente con wrapper */
       object-fit: cover;
+      transform: scale(1.1); /* zoom in inicial */
+      transition: transform 0.5s ease;
     }
   }
 </style>
