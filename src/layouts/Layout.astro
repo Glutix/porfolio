@@ -12,35 +12,47 @@ const { title, description } = Astro.props;
 <!doctype html>
 <html lang="es">
   <head>
-    <!-- Primary Meta Tags -->
-    <title>{title}</title>
-    <meta name="title" content={title} />
-    <meta name="description" content={description} />
+    <title>Porfolio de Gluitx - Desarrollador y Programador Web</title>
+    <meta
+      name="title"
+      content="Porfolio de Gluitx - Desarrollador y Programador Web"
+    />
+    <meta
+      name="description"
+      content="¡He lanzado mi nuevo portafolio! 🚀 Creado con Astro, no solo es un sitio web, es una experiencia ultrarrápida. Echa un vistazo a los proyectos y a la magia detrás del framework."
+    />
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="../../public/favicon.svg" />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
     <meta property="og:url" content="https://glutix.github.io/porfolio/" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
     <meta
-      property="og:image"
-      content="https://lh3.googleusercontent.com/pw/ABLVV86qnTM77RwNgDYwbw2Ga-k9LalCJE9wdKrE-hUloRvXNPlnnHPTrNhbr4eTrvessvQBz8Jbl-ISHW6_LAlLllH2il75GPp1h484S8iq8vevGLxQqvK-jXjL1-dVJnj1YUqb6sUin3rG-PfJTcbMZukG2-LVZ-H_vNXYBIeaB8SmgWNgDhIUgqfRvbgt7BHl4rfhHUpvPInhAZv0e7WF0qXos4GKbTv0gT-zj8gag66mQc3P0_GTXzLtJ2kuskmNwK5v_JeaonWb7j8EPPJt9jxo0Z8J4NDBoy7y4FOG5RTVabvVnfaS6Xrsihx96jI7ulQmfciuFEYk6APLo8yuE7bQybQjkJeGWmptOxES_QnnRrLzFIDFH-roexyYkoATILw4IAOZPfYHZV14NKaWBhkFZGMDl0cxm5OvAiRp6y4WM7BFcpK-rLwmo01pDcxFJKxZNfX0JTT_E6Wh4iCH6j02MEB9tYCipAGrWmF_ml_sU5ssltPqZKQ0qtmtLsaZmYRHeFKJNSNZmPVjxeivIhlHsOg8ihMFE1_SWj3GaAm3Aw3fIDhKJW3Ub_bCgap7v6yu0qpK5g_eJT7xGJ8p1OrIuie3lm8wXZHsKJx_gOe1NxFeaIjBYTdkOnMYrVZZowt1oHhFC83DSX2MdYOZoBl9guJI28jHn44JHhRntEZ6UTkkDpAPhO-iuL5lppXGd3VtQtBFlS2_w_o1hVQMLW7kE9Mxf0VIxWlWSLvgIM74-2NlQXsFZt_eiusQoc0y9OAx2khzg1WLOIEyB_Bxljc2ySTz1xfyzmiEWdlHA3kR3ABU_iepRYwYoE427Jw2SmwWYYdEi7odXhRDDogrZNb6IGdFv1FFG-_T4d2i1080g-5WwrgOERTSc9gkXUO_vM0DTveKIe38BcnCcDwVgoMd=w1258-h621-s-no-gm?authuser=0"
+      property="og:title"
+      content="Porfolio de Gluitx - Desarrollador y Programador Web"
     />
+    <meta
+      property="og:description"
+      content="¡He lanzado mi nuevo portafolio! 🚀 Creado con Astro, no solo es un sitio web, es una experiencia ultrarrápida. Echa un vistazo a los proyectos y a la magia detrás del framework.
+  
+  #DesarrolloWeb #AstroJS #UXUI #Portfolio"
+    />
+    <meta property="og:image" content="https://i.imgur.com/7Gt1YhH.jpg" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="glutix.github.io" />
     <meta property="twitter:url" content="https://glutix.github.io/porfolio/" />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
     <meta
-      property="twitter:image"
-      content="https://lh3.googleusercontent.com/pw/ABLVV86qnTM77RwNgDYwbw2Ga-k9LalCJE9wdKrE-hUloRvXNPlnnHPTrNhbr4eTrvessvQBz8Jbl-ISHW6_LAlLllH2il75GPp1h484S8iq8vevGLxQqvK-jXjL1-dVJnj1YUqb6sUin3rG-PfJTcbMZukG2-LVZ-H_vNXYBIeaB8SmgWNgDhIUgqfRvbgt7BHl4rfhHUpvPInhAZv0e7WF0qXos4GKbTv0gT-zj8gag66mQc3P0_GTXzLtJ2kuskmNwK5v_JeaonWb7j8EPPJt9jxo0Z8J4NDBoy7y4FOG5RTVabvVnfaS6Xrsihx96jI7ulQmfciuFEYk6APLo8yuE7bQybQjkJeGWmptOxES_QnnRrLzFIDFH-roexyYkoATILw4IAOZPfYHZV14NKaWBhkFZGMDl0cxm5OvAiRp6y4WM7BFcpK-rLwmo01pDcxFJKxZNfX0JTT_E6Wh4iCH6j02MEB9tYCipAGrWmF_ml_sU5ssltPqZKQ0qtmtLsaZmYRHeFKJNSNZmPVjxeivIhlHsOg8ihMFE1_SWj3GaAm3Aw3fIDhKJW3Ub_bCgap7v6yu0qpK5g_eJT7xGJ8p1OrIuie3lm8wXZHsKJx_gOe1NxFeaIjBYTdkOnMYrVZZowt1oHhFC83DSX2MdYOZoBl9guJI28jHn44JHhRntEZ6UTkkDpAPhO-iuL5lppXGd3VtQtBFlS2_w_o1hVQMLW7kE9Mxf0VIxWlWSLvgIM74-2NlQXsFZt_eiusQoc0y9OAx2khzg1WLOIEyB_Bxljc2ySTz1xfyzmiEWdlHA3kR3ABU_iepRYwYoE427Jw2SmwWYYdEi7odXhRDDogrZNb6IGdFv1FFG-_T4d2i1080g-5WwrgOERTSc9gkXUO_vM0DTveKIe38BcnCcDwVgoMd=w1258-h621-s-no-gm?authuser=0"
+      name="twitter:title"
+      content="Porfolio de Gluitx - Desarrollador y Programador Web"
     />
+    <meta
+      name="twitter:description"
+      content="¡He lanzado mi nuevo portafolio! 🚀 Creado con Astro, no solo es un sitio web, es una experiencia ultrarrápida. Echa un vistazo a los proyectos y a la magia detrás del framework.
+  
+  #DesarrolloWeb #AstroJS #UXUI #Portfolio"
+    />
+    <meta name="twitter:image" content="https://i.imgur.com/7Gt1YhH.jpg" />
   </head>
   <body data-color-scheme="dark">
     <slot />
