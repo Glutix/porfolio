@@ -1,6 +1,7 @@
 ---
 // Supports weights 100-900
 import "@fontsource-variable/montserrat";
+
 interface Props {
   title: string;
   description: string;
@@ -60,22 +61,29 @@ interface Props {
 </html>
 
 <style is:global>
+  @font-face {
+    font-family: "Geist Pixel Square";
+    src: url("/fonts/geist-pixel-square.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+
   :root {
     color-scheme: light dark;
   }
 
   [data-color-scheme="light"] {
-    --primary-color: #f8f9ff;
+    --primary-color: #e2e2e2;
     --secundary-color: #333;
     --secundary-color-variant: #5f5f5f;
     --btn-hover: #eab308;
     --text-title: #000000;
     --text-normal: #242422;
     --text-normal-variant: #fff;
-    --text-enfasis: #ffbf00;
-    --text-enfasis-1: #ff0019b2;
-    --text-enfasis-2: #00429a;
-    --image-shadow: #c5a134;
+    --text-enfasis: #9a6f00 ;
+    --text-enfasis-1: #c0001a ;
+    --text-enfasis-2: #003580 ;
+    --image-shadow: #eab308;
 
     --form-btn-text: #fff;
     --form-btn-backgroud: #333;
@@ -110,7 +118,8 @@ interface Props {
   }
 
   html {
-    font-family: "Montserrat Variable", system-ui, sans-serif;
+    font-family:
+      "Geist Pixel Square", "Montserrat Variable", system-ui, sans-serif;
     scroll-behavior: smooth;
     background-color: var(--primary-color);
 

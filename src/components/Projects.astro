@@ -84,15 +84,17 @@ const PROJECTS: ProjectsProps[] = [
     deploy: "https://integrate.pythonanywhere.com/",
   },
 ];
+
+const VISIBLE_BY_DEFAULT = 2;
 ---
 
 <div>
   <SectionTitle id="projects" title="Proyectos" icon={Code} />
   <div class="projects">
     {
-      PROJECTS.map(({ title, description, tags, images, github, deploy }) => {
+      PROJECTS.map(({ title, description, tags, images, github, deploy }, index) => {
         return (
-          <article>
+          <article class={index >= VISIBLE_BY_DEFAULT ? "project-hidden" : ""}>
             <h3>{title}</h3>
             <p>{description}</p>
 
@@ -142,7 +144,53 @@ const PROJECTS: ProjectsProps[] = [
       })
     }
   </div>
+
+  {PROJECTS.length > VISIBLE_BY_DEFAULT && (
+    <div class="show-more-wrapper">
+      <button id="show-more-btn" class="show-more-btn">
+        Ver más proyectos
+        <svg class="btn-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M7 2v10M2 7l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  )}
 </div>
+
+<script>
+  const btn = document.getElementById("show-more-btn");
+  if (btn) {
+    const hiddenCards = document.querySelectorAll<HTMLElement>(".project-hidden");
+    let expanded = false;
+
+    btn.addEventListener("click", () => {
+      expanded = !expanded;
+
+      hiddenCards.forEach((card) => {
+        if (expanded) {
+          card.classList.remove("project-hidden");
+          card.classList.add("project-revealing");
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => card.classList.add("project-visible"));
+          });
+        } else {
+          card.classList.remove("project-visible");
+          card.addEventListener(
+            "transitionend",
+            () => {
+              card.classList.remove("project-revealing");
+              card.classList.add("project-hidden");
+            },
+            { once: true }
+          );
+        }
+      });
+
+      btn.querySelector(".btn-label")!.textContent = expanded ? "Ver menos" : "Ver más proyectos";
+      btn.classList.toggle("is-expanded", expanded);
+    });
+  }
+</script>
 
 <style>
   div {
@@ -244,7 +292,62 @@ const PROJECTS: ProjectsProps[] = [
   }
 
   .image-mobile:active {
-    transform: scale(1); /* Zoom out al hacer tap */
+    transform: scale(1);
+  }
+
+  /* ── Hidden / reveal ─────────────────────────────────────── */
+  .project-hidden {
+    display: none;
+  }
+
+  .project-revealing {
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .project-revealing.project-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Show more button ────────────────────────────────────── */
+  .show-more-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .show-more-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: 1px solid var(--secundary-color);
+    border-radius: 24px;
+    padding: 0.55rem 1.25rem;
+    color: var(--text-normal);
+    font-family: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  }
+
+  .show-more-btn:hover {
+    border-color: var(--btn-hover);
+    color: var(--text-enfasis);
+    transform: translateY(-2px);
+  }
+
+  .btn-arrow {
+    color: var(--text-enfasis);
+    opacity: 0.7;
+    transition: transform 0.35s ease;
+  }
+
+  .show-more-btn.is-expanded .btn-arrow {
+    transform: rotate(180deg);
   }
 
   @media (max-width: 600px) {
@@ -264,10 +367,10 @@ const PROJECTS: ProjectsProps[] = [
     .image-mobile {
       display: block;
       width: 100%;
-      height: auto; /* mantiene proporción natural */
-      border-radius: 24px; /* consistente con wrapper */
+      height: auto;
+      border-radius: 24px;
       object-fit: cover;
-      transform: scale(1.1); /* zoom in inicial */
+      transform: scale(1.1);
       transition: transform 0.5s ease;
     }
   }

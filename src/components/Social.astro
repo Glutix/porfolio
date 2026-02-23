@@ -58,8 +58,13 @@ import Cv from "../icons/cv.astro";
 
   div a:hover {
     background-color: var(--btn-hover);
+
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    filter: drop-shadow(0 2px 16px var(--image-shadow));
+    transition:
+      transform 0.3s ease,
+      filter 0.3s ease;
   }
 
   div a:hover span {

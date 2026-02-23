@@ -7,47 +7,55 @@ import UserContact from "../icons/UserContact.astro";
   <SectionTitle id="contact" title="Contacto" icon={UserContact} />
 
   <div class="contact-wrapper">
-    <form id="contact-form" class="contact-form">
-      <div class="form-group">
-        <input
-          type="text"
-          name="user_name"
-          id="user_name"
-          placeholder="Tu nombre"
-          minlength="2"
-          maxlength="50"
-          required
-        />
-        <span class="error-message" id="name-error"></span>
-      </div>
+    <!-- Decorative corner brackets — same as header/about -->
+    <div class="form-frame">
+      <span class="corner tl" aria-hidden="true"></span>
+      <span class="corner tr" aria-hidden="true"></span>
+      <span class="corner bl" aria-hidden="true"></span>
+      <span class="corner br" aria-hidden="true"></span>
 
-      <div class="form-group">
-        <input
-          type="email"
-          name="user_email"
-          id="user_email"
-          placeholder="tu@email.com"
-          required
-        />
-        <span class="error-message" id="email-error"></span>
-      </div>
+      <form id="contact-form" class="contact-form">
+        <div class="form-group">
+          <input
+            type="text"
+            name="user_name"
+            id="user_name"
+            placeholder="Tu nombre"
+            minlength="2"
+            maxlength="50"
+            required
+          />
+          <span class="error-message" id="name-error"></span>
+        </div>
 
-      <div class="form-group">
-        <textarea
-          name="message"
-          id="message"
-          placeholder="Escribe tu mensaje aquí (mínimo 10 caracteres)..."
-          rows="5"
-          minlength="10"
-          maxlength="1000"
-          required></textarea>
-        <span class="error-message" id="message-error"></span>
-      </div>
+        <div class="form-group">
+          <input
+            type="email"
+            name="user_email"
+            id="user_email"
+            placeholder="tu@email.com"
+            required
+          />
+          <span class="error-message" id="email-error"></span>
+        </div>
 
-      <button type="submit" class="submit-btn" id="submit-btn" disabled>
-        <span class="btn-text">Completar campos</span>
-      </button>
-    </form>
+        <div class="form-group">
+          <textarea
+            name="message"
+            id="message"
+            placeholder="Escribe tu mensaje aquí (mínimo 10 caracteres)..."
+            rows="5"
+            minlength="10"
+            maxlength="1000"
+            required></textarea>
+          <span class="error-message" id="message-error"></span>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn" disabled>
+          <span class="btn-text">Completar campos</span>
+        </button>
+      </form>
+    </div>
   </div>
 </div>
 
@@ -65,9 +73,39 @@ import UserContact from "../icons/UserContact.astro";
     margin-top: 3rem;
   }
 
-  .contact-form {
+  /* ── Frame with corners — same pattern as header image ───── */
+  .form-frame {
+    position: relative;
     width: 100%;
     max-width: 500px;
+    /* Subtle glow behind the form */
+    filter: drop-shadow(0 8px 32px rgba(240, 228, 128, 0.06));
+  }
+
+  .corner {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-color: var(--text-enfasis);
+    border-style: solid;
+    opacity: 0.45;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .form-frame:focus-within .corner {
+    opacity: 0.85;
+  }
+
+  .corner.tl { top: -8px;    left: -8px;  border-width: 2px 0 0 2px; }
+  .corner.tr { top: -8px;    right: -8px; border-width: 2px 2px 0 0; }
+  .corner.bl { bottom: -8px; left: -8px;  border-width: 0 0 2px 2px; }
+  .corner.br { bottom: -8px; right: -8px; border-width: 0 2px 2px 0; }
+
+  /* ── Everything below is your original CSS unchanged ──────── */
+  .contact-form {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -171,7 +209,6 @@ import UserContact from "../icons/UserContact.astro";
     transition: all 0.3s ease;
   }
 
-  /* Estados de validación mejorados */
   .contact-form input:invalid:not(:focus):not(:placeholder-shown),
   .contact-form textarea:invalid:not(:focus):not(:placeholder-shown) {
     border-color: var(--text-enfasis-1);
@@ -192,7 +229,6 @@ import UserContact from "../icons/UserContact.astro";
     );
   }
 
-  /* Responsive Design */
   @media (max-width: 1024px) {
     .contact-section {
       padding: 2rem 1.5rem;
@@ -237,7 +273,6 @@ import UserContact from "../icons/UserContact.astro";
     }
   }
 
-  /* Responsive para iconos del botón */
   @media (max-width: 480px) {
     .contact-section {
       padding: 1rem 0.75rem;
@@ -282,7 +317,6 @@ import UserContact from "../icons/UserContact.astro";
     }
   }
 
-  /* Mejoras de accesibilidad */
   @media (prefers-reduced-motion: reduce) {
     .contact-form input,
     .contact-form textarea,
@@ -296,7 +330,6 @@ import UserContact from "../icons/UserContact.astro";
     }
   }
 
-  /* Mejora para pantallas de alta densidad */
   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .contact-form input,
     .contact-form textarea {
@@ -312,96 +345,49 @@ import UserContact from "../icons/UserContact.astro";
   const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
   const btnText = submitBtn?.querySelector(".btn-text") as HTMLSpanElement;
 
-  // Obtener elementos de entrada
   const nameInput = document.getElementById("user_name") as HTMLInputElement;
   const emailInput = document.getElementById("user_email") as HTMLInputElement;
-  const messageInput = document.getElementById(
-    "message"
-  ) as HTMLTextAreaElement;
+  const messageInput = document.getElementById("message") as HTMLTextAreaElement;
 
-  // Obtener elementos de error
   const nameError = document.getElementById("name-error") as HTMLSpanElement;
   const emailError = document.getElementById("email-error") as HTMLSpanElement;
-  const messageError = document.getElementById(
-    "message-error"
-  ) as HTMLSpanElement;
+  const messageError = document.getElementById("message-error") as HTMLSpanElement;
 
-  // Configuración de validaciones
   const MIN_NAME_LENGTH = 2;
   const MIN_MESSAGE_LENGTH = 10;
   const MAX_NAME_LENGTH = 50;
   const MAX_MESSAGE_LENGTH = 1000;
 
-  // Estado de validaciones
   let isNameValid = false;
   let isEmailValid = false;
   let isMessageValid = false;
 
-  // Función para validar nombre
   function validateName(value: string): { isValid: boolean; message: string } {
-    if (!value.trim()) {
-      return { isValid: false, message: "El nombre es obligatorio" };
-    }
-    if (value.trim().length < MIN_NAME_LENGTH) {
-      return {
-        isValid: false,
-        message: `Mínimo ${MIN_NAME_LENGTH} caracteres`,
-      };
-    }
-    if (value.length > MAX_NAME_LENGTH) {
-      return {
-        isValid: false,
-        message: `Máximo ${MAX_NAME_LENGTH} caracteres`,
-      };
-    }
-    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(value.trim())) {
-      return { isValid: false, message: "Solo se permiten letras y espacios" };
-    }
+    if (!value.trim()) return { isValid: false, message: "El nombre es obligatorio" };
+    if (value.trim().length < MIN_NAME_LENGTH) return { isValid: false, message: `Mínimo ${MIN_NAME_LENGTH} caracteres` };
+    if (value.length > MAX_NAME_LENGTH) return { isValid: false, message: `Máximo ${MAX_NAME_LENGTH} caracteres` };
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(value.trim())) return { isValid: false, message: "Solo se permiten letras y espacios" };
     return { isValid: true, message: "" };
   }
 
-  // Función para validar email
   function validateEmail(value: string): { isValid: boolean; message: string } {
-    if (!value.trim()) {
-      return { isValid: false, message: "El email es obligatorio" };
-    }
+    if (!value.trim()) return { isValid: false, message: "El email es obligatorio" };
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) {
-      return { isValid: false, message: "Formato de email inválido" };
-    }
+    if (!emailRegex.test(value)) return { isValid: false, message: "Formato de email inválido" };
     return { isValid: true, message: "" };
   }
 
-  // Función para validar mensaje
-  function validateMessage(value: string): {
-    isValid: boolean;
-    message: string;
-  } {
-    if (!value.trim()) {
-      return { isValid: false, message: "El mensaje es obligatorio" };
-    }
-    if (value.trim().length < MIN_MESSAGE_LENGTH) {
-      return {
-        isValid: false,
-        message: `Mínimo ${MIN_MESSAGE_LENGTH} caracteres`,
-      };
-    }
-    if (value.length > MAX_MESSAGE_LENGTH) {
-      return {
-        isValid: false,
-        message: `Máximo ${MAX_MESSAGE_LENGTH} caracteres`,
-      };
-    }
+  function validateMessage(value: string): { isValid: boolean; message: string } {
+    if (!value.trim()) return { isValid: false, message: "El mensaje es obligatorio" };
+    if (value.trim().length < MIN_MESSAGE_LENGTH) return { isValid: false, message: `Mínimo ${MIN_MESSAGE_LENGTH} caracteres` };
+    if (value.length > MAX_MESSAGE_LENGTH) return { isValid: false, message: `Máximo ${MAX_MESSAGE_LENGTH} caracteres` };
     return { isValid: true, message: "" };
   }
 
-  // Función para actualizar el estado del botón
   function updateButtonState() {
     const allValid = isNameValid && isEmailValid && isMessageValid;
-
     if (submitBtn && btnText) {
       submitBtn.disabled = !allValid;
-
       if (allValid) {
         btnText.textContent = "Enviar mensaje";
         submitBtn.classList.remove("disabled");
@@ -412,13 +398,11 @@ import UserContact from "../icons/UserContact.astro";
     }
   }
 
-  // Función para mostrar/ocultar mensajes de error
   function showError(errorElement: HTMLSpanElement, message: string) {
     errorElement.textContent = message;
     errorElement.style.display = message ? "block" : "none";
   }
 
-  // Event listeners para validación en tiempo real
   nameInput?.addEventListener("input", (e) => {
     const target = e.target as HTMLInputElement;
     const validation = validateName(target.value);
@@ -467,16 +451,10 @@ import UserContact from "../icons/UserContact.astro";
     updateButtonState();
   });
 
-  // Envío del formulario - CÓDIGO CORREGIDO
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (!isNameValid || !isEmailValid || !isMessageValid) return;
 
-    // Validación final antes del envío
-    if (!isNameValid || !isEmailValid || !isMessageValid) {
-      return;
-    }
-
-    // Estado de carga
     if (submitBtn && btnText) {
       submitBtn.disabled = true;
       btnText.textContent = "Enviando...";
@@ -484,10 +462,7 @@ import UserContact from "../icons/UserContact.astro";
     }
 
     try {
-      // Inicializar EmailJS con tu public key
       emailjs.init(import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY);
-
-      // Preparar los datos del formulario
       const formData = new FormData(form);
       const templateParams = {
         user_name: formData.get("user_name"),
@@ -495,7 +470,6 @@ import UserContact from "../icons/UserContact.astro";
         message: formData.get("message"),
       };
 
-      // Enviar el email directamente
       const response = await emailjs.send(
         import.meta.env.PUBLIC_EMAILJS_SERVICE_ID,
         import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID,
@@ -504,24 +478,20 @@ import UserContact from "../icons/UserContact.astro";
 
       console.log("Email enviado exitosamente:", response);
 
-      // Éxito
       if (btnText) {
         btnText.textContent = "✓ Enviado";
         submitBtn?.classList.add("success");
       }
       form.reset();
 
-      // Resetear estados de validación
       isNameValid = false;
       isEmailValid = false;
       isMessageValid = false;
 
-      // Limpiar mensajes de error
       showError(nameError, "");
       showError(emailError, "");
       showError(messageError, "");
 
-      // Restaurar botón después de 3 segundos
       setTimeout(() => {
         if (submitBtn && btnText) {
           submitBtn.disabled = true;
@@ -532,14 +502,10 @@ import UserContact from "../icons/UserContact.astro";
       }, 3000);
     } catch (err) {
       console.error("Error al enviar email:", err);
-
-      // Error
       if (btnText) {
         btnText.textContent = "Error al enviar";
         submitBtn?.classList.add("error");
       }
-
-      // Restaurar botón después de 3 segundos
       setTimeout(() => {
         if (submitBtn && btnText) {
           submitBtn.classList.remove("error", "loading");
@@ -549,6 +515,5 @@ import UserContact from "../icons/UserContact.astro";
     }
   });
 
-  // Inicializar estado del botón
   updateButtonState();
 </script>

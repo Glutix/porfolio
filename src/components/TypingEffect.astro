@@ -1,0 +1,155 @@
+---
+interface Props {
+  text: string;
+  className?: string;
+  speed?: number;
+  groupId?: string;
+  order?: number;
+}
+
+const { text, className = "", speed = 50, groupId = "", order = 0 } = Astro.props;
+const lines = text
+  .split(". ")
+  .map((line, i) => (i < text.split(". ").length - 1 ? line + "." : line));
+---
+
+<div
+  class={`typing-container ${className}`}
+  data-group={groupId}
+  data-order={order}
+>
+  {
+    lines.map((line, i) => (
+      <span class="typing-line">
+        <span
+          class="typing"
+          data-text={line}
+          data-speed={speed}
+          data-index={i}
+        /><span class="cursor" aria-hidden="true" />
+      </span>
+    ))
+  }
+</div>
+
+<style>
+  .typing-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .typing-line {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    width: fit-content;
+  }
+
+  .typing {
+    display: inline;
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+
+  /*
+    HIDDEN BY DEFAULT in CSS — JS adds .active to show it
+    while the line is typing. This way no cursor flashes
+    before JS runs.
+  */
+  .cursor {
+    display: none;
+    width: 2px;
+    height: 1.1em;
+    background: var(--text-enfasis);
+    margin-left: 1px;
+    vertical-align: text-bottom;
+    flex-shrink: 0;
+  }
+
+  .cursor.active {
+    display: inline-block;
+    animation: blink 0.75s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+</style>
+
+<script>
+  type TypingGroup = {
+    containers: { el: HTMLElement; order: number }[];
+    started: boolean;
+  };
+
+  const groups: Record<string, TypingGroup> = {};
+
+  function typeContainer(container: HTMLElement): Promise<void> {
+    return new Promise((resolve) => {
+      const lines = container.querySelectorAll<HTMLElement>(".typing-line");
+      let completedLines = 0;
+      let cumulativeDelay = 0;
+
+      lines.forEach((line) => {
+        const typingEl = line.querySelector<HTMLElement>(".typing")!;
+        const cursorEl = line.querySelector<HTMLElement>(".cursor")!;
+        const text = typingEl.getAttribute("data-text") ?? "";
+        const speed = parseInt(typingEl.getAttribute("data-speed") ?? "50", 10);
+        const lineDelay = cumulativeDelay;
+
+        cumulativeDelay += text.length * speed + 150;
+
+        setTimeout(() => {
+          // Show cursor only when this line starts
+          cursorEl.classList.add("active");
+          let index = 0;
+          typingEl.textContent = "";
+
+          const type = () => {
+            if (index < text.length) {
+              typingEl.textContent += text.charAt(index);
+              index++;
+              setTimeout(type, speed);
+            } else {
+              // Hide cursor when line finishes
+              cursorEl.classList.remove("active");
+              completedLines++;
+              if (completedLines === lines.length) resolve();
+            }
+          };
+
+          type();
+        }, lineDelay);
+      });
+
+      if (lines.length === 0) resolve();
+    });
+  }
+
+  async function runGroup(groupId: string) {
+    const group = groups[groupId];
+    if (!group || group.started) return;
+    group.started = true;
+
+    const sorted = [...group.containers].sort((a, b) => a.order - b.order);
+
+    for (const { el } of sorted) {
+      await typeContainer(el);
+      await new Promise((r) => setTimeout(r, 120));
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>(".typing-container").forEach((el) => {
+    const groupId = el.getAttribute("data-group") ?? "";
+    const order = parseInt(el.getAttribute("data-order") ?? "0", 10);
+
+    if (!groups[groupId]) {
+      groups[groupId] = { containers: [], started: false };
+    }
+    groups[groupId].containers.push({ el, order });
+  });
+
+  Object.keys(groups).forEach(runGroup);
+</script>

@@ -5,34 +5,47 @@ import { Image } from "astro:assets";
 import imagenAbout from "../assets/imagen-about.jpg";
 ---
 
-<div>
+<div id="about">
   <SectionTitle id="about" title="Sobre mi" icon={UserCheckbox} />
   <section>
     <article>
       <p>
-        Soy <strong>Ricardo</strong>, también conocido como <strong
-          >Glutix</strong
-        >. Mi camino en la programación comenzó en la universidad, y desde
-        entonces descubrí en el <strong>desarrollo web y de software</strong> una
-        forma de expresar mi creatividad y resolver problemas.
+        Soy <strong>Ricardo</strong>, también conocido como <strong>Glutix</strong>.
+        Mi camino en la programación comenzó en la universidad, y desde entonces
+        descubrí en el <strong>desarrollo web y de software</strong> una forma de
+        expresar mi creatividad y resolver problemas.
       </p>
       <p>
         A lo largo de este recorrido participé en proyectos colaborativos y
         personales que me ayudaron a crecer, no solo en lo técnico, sino también
         en lo <strong>humano</strong>: aprendí el valor del trabajo en equipo,
-        la constancia y la búsqueda de soluciones simples para desafíos
-        complejos.
+        la constancia y la búsqueda de soluciones simples para desafíos complejos.
       </p>
       <p>
         Hoy sigo explorando nuevas ideas y tecnologías, con el objetivo de
-        <strong>crear aplicaciones útiles e innovadoras</strong> que generen un impacto
-        positivo, mientras continúo creciendo tanto en lo <strong
-          >profesional</strong
-        > como en lo
-        <strong>personal</strong>.
+        <strong>crear aplicaciones útiles e innovadoras</strong> que generen un
+        impacto positivo, mientras continúo creciendo tanto en lo <strong>profesional</strong>
+        como en lo <strong>personal</strong>.
       </p>
     </article>
-    <Image class="image" src={imagenAbout} alt="imagen acerca de mi" />
+
+    <!-- Image wrapped to add the same effects as the header -->
+    <div class="image-wrapper">
+      <!-- Glow behind the image -->
+      <div class="glow" aria-hidden="true"></div>
+
+      <Image class="image" src={imagenAbout} alt="imagen acerca de mi" />
+
+      <!-- Scanlines overlay -->
+      <div class="scanlines" aria-hidden="true"></div>
+
+      <!-- Accent tint -->
+      <div class="tint" aria-hidden="true"></div>
+
+      <!-- Only 2 corners to not overcrowd the rotated image -->
+      <span class="corner tl" aria-hidden="true"></span>
+      <span class="corner br" aria-hidden="true"></span>
+    </div>
   </section>
 </div>
 
@@ -42,6 +55,8 @@ import imagenAbout from "../assets/imagen-about.jpg";
     flex-direction: column;
     gap: 2rem;
     width: 100%;
+    height: 100vh;
+    justify-content: center;
   }
 
   section {
@@ -66,36 +81,148 @@ import imagenAbout from "../assets/imagen-about.jpg";
     }
   }
 
-  .image {
+  /* ── Image wrapper — same pattern as header ──────────────── */
+  .image-wrapper {
+    position: relative;
+    flex-shrink: 0;
+    /* Preserve the original rotation */
+    transform: rotate(4deg);
+    transition: transform 0.3s ease;
+    /* Size matches original image */
     width: 320px;
     height: 430px;
     border-radius: 16px;
-    box-shadow: var(--secundary-color-bg) 0px 0px 0px 4px;
-    transform: rotate(4deg);
+    
+    
+  }
+
+  .image-wrapper:hover {
+    transform: rotate(2deg) translateY(-4px);
+    
+  }
+
+  /* Glow — same recipe as header, behind everything */
+  .glow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 18px;
+    z-index: 0;
+    box-shadow:
+      0 22px 55px rgba(240, 228, 128, 0.28),
+      0 8px 20px  rgba(240, 228, 128, 0.12),
+      0 -4px 16px rgba(240, 228, 128, 0.05);
+    transition: box-shadow 0.4s ease;
+    height: fit-content;
+  }
+
+  .image-wrapper:hover .glow {
+    box-shadow:
+      0 32px 80px rgba(240, 228, 128, 0.42),
+      0 12px 30px rgba(240, 228, 128, 0.22),
+      0 -6px 20px rgba(240, 228, 128, 0.08);
+  }
+
+  /* Original image styles preserved, transform moved to wrapper */
+  .image {
+    display: block;
+    position: relative;
+    z-index: 1;
+    width: 320px;
+    height: 430px;
+    border-radius: 16px;
     object-fit: cover;
     aspect-ratio: 1/1;
     filter: drop-shadow(0 4px 24px var(--image-shadow));
-    transition:
-      transform 0.3s ease,
-      filter 0.3s ease;
+    transition: filter 0.3s ease;
+    
+    
   }
 
-  .image:hover {
-    transform: translateY(-4px);
+  .image-wrapper:hover .image {
     filter: drop-shadow(0 8px 32px var(--image-shadow));
   }
 
+  /* Scanlines — same as header, fades on hover */
+  .scanlines {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: 16px;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.10) 2px,
+      rgba(0, 0, 0, 0.10) 4px
+    );
+    opacity: 1;
+    transition: opacity 0.4s ease;
+    height: fit-content;
+  }
+
+  .image-wrapper:hover .scanlines {
+    opacity: 0.35;
+  }
+
+  /* Accent tint top-left */
+  .tint {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: 16px;
+    pointer-events: none;
+    background: linear-gradient(
+      135deg,
+      rgba(240, 228, 128, 0.07) 0%,
+      transparent 55%
+    );
+    mix-blend-mode: screen;
+    height: fit-content;
+  }
+
+  /* Corners — expand on hover like in header */
+  .corner {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-color: var(--text-enfasis);
+    border-style: solid;
+    opacity: 0.6;
+    z-index: 3;
+    transition: opacity 0.4s ease, width 0.3s ease, height 0.3s ease;
+  }
+
+  .corner.tl { top: 8px;    left: 8px;  border-width: 2px 0 0 2px; }
+  .corner.br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+  .image-wrapper:hover .corner {
+    opacity: 1;
+    width: 18px;
+    height: 18px;
+  }
+
+  /* ── Responsive ──────────────────────────────────────────── */
   @media (max-width: 950px) {
     section {
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+    }
 
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: center;
-    align-items: center;
-
-    .image {
+    .image-wrapper {
       margin: 0 auto;
       transform: rotate(0deg);
+      width: 300px;
+      height: 350px;
+    }
+
+    .image-wrapper:hover {
+      transform: translateY(-4px);
+    }
+
+    .image {
       width: 300px;
       height: 350px;
     }

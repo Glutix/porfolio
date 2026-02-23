@@ -1,34 +1,72 @@
 ---
 import Social from "./Social.astro";
 import { Image } from "astro:assets";
-import imagenHeader from "../assets/imagen-header.jpg";
+import img1 from "../assets/img1.jpg";
+import TypingEffect from "./TypingEffect.astro";
 ---
 
 <header id="home">
-  <picture class="image-container">
-    <Image
-      class="image"
-      src={imagenHeader}
-      alt="fotografia de perfil"
-      loading={"eager"}
-    />
-  </picture>
+  <div class="eyebrow">
+    <span class="dot"></span>
+    <span>Disponible para proyectos</span>
+  </div>
 
-  <div class="container">
-    <h1>Hola, soy Ricardo</h1>
-    <article>
-      <h2>
-        <span class="enfasis">Desarrollador Web Full Stack.</span>
-        <span class="low-enfasis">De Chaco, Argentina.</span>
-        <span class="low-enfasis-1"
-          >Especializado en crear aplicaciones únicas.</span
-        >
-      </h2>
-    </article>
+  <div class="layout">
+    <div class="content">
+      <h1>
+        <TypingEffect
+          text="Hola, soy Ricardo"
+          speed={42}
+          groupId="header"
+          order={0}
+        />
+      </h1>
 
-    <section class="social-section">
-      <Social />
-    </section>
+      <div class="divider"></div>
+
+      <article>
+        <TypingEffect
+          text="Desarrollador Web Full Stack. De Chaco, Argentina. Especializado en crear aplicaciones únicas."
+          className="multi-enfasis subtitle-typing"
+          speed={22}
+          groupId="header"
+          order={1}
+        />
+      </article>
+
+      <section class="social-section">
+        <Social />
+      </section>
+    </div>
+
+    <!-- Image with Option A effect -->
+    <div class="image-wrapper">
+      <!-- Animated glow layer (behind image) -->
+      <div class="glow" aria-hidden="true"></div>
+
+      <picture class="image-container">
+        <Image
+          class="image"
+          src={img1}
+          alt="Fotografía de perfil de Ricardo"
+          loading="eager"
+          width={400}
+          height={560}
+        />
+      </picture>
+
+      <!-- Scanlines overlay -->
+      <div class="scanlines" aria-hidden="true"></div>
+
+      <!-- Subtle accent tint top-left -->
+      <div class="tint" aria-hidden="true"></div>
+
+      <!-- Corner brackets -->
+      <span class="corner tl" aria-hidden="true"></span>
+      <span class="corner tr" aria-hidden="true"></span>
+      <span class="corner bl" aria-hidden="true"></span>
+      <span class="corner br" aria-hidden="true"></span>
+    </div>
   </div>
 </header>
 
@@ -37,235 +75,314 @@ import imagenHeader from "../assets/imagen-header.jpg";
     width: 100%;
     min-height: 100vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    gap: 3rem;
+    align-items: flex-start;
+    padding: 5.5rem 0 4rem;
     box-sizing: border-box;
+    gap: 1.5rem;
   }
 
-  .image-container {
+  /* ─── Eyebrow ────────────────────────────────────────────── */
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-normal);
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--text-enfasis);
+    box-shadow: 0 0 7px var(--text-enfasis);
     flex-shrink: 0;
-    position: relative;
-    max-height: 50%;
+    animation: pulse 2.5s ease infinite;
   }
 
-  .image {
-    border-radius: 24px;
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  /* ─── Layout row ─────────────────────────────────────────── */
+  .layout {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 3.5rem;
     width: 100%;
-    height: 430px;
-    margin-top: 16px;
-    object-fit: cover;
-    filter: drop-shadow(0 4px 24px var(--image-shadow));
-    transition:
-      transform 0.3s ease,
-      filter 0.3s ease;
+    min-height: 380px;
   }
 
-  .image:hover {
-    transform: translateY(-4px);
-    filter: drop-shadow(0 8px 32px var(--image-shadow));
-  }
-
-  .container {
+  /* ─── Text block ─────────────────────────────────────────── */
+  .content {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    flex: 1;
+    min-width: 0;
   }
 
-  .container h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    height: fit-content;
-    width: fit-content;
-    margin-bottom: 1rem;
-    line-height: 1.1;
+  h1 {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    line-height: 1.15;
+    margin: 0 0 1rem;
+    color: var(--text-title);
+    min-height: calc(clamp(2.4rem, 5vw, 3.8rem) * 1.15);
+  }
+
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--text-enfasis);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: growLine 0.45s ease 0.2s forwards;
+  }
+
+  @keyframes growLine {
+    to {
+      transform: scaleX(1);
+    }
   }
 
   article {
-    display: flex;
-    flex-direction: column;
-    height: fit-content;
-    width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    min-height: 5.5rem;
   }
 
-  article h2 {
-    font-size: clamp(1.25rem, 3vw, 2rem);
-    max-width: 50ch;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    padding-left: 2px;
-    line-height: 1.3;
-  }
-
-  .enfasis {
-    color: var(--text-enfasis);
+  :global(.subtitle-typing .typing-line:nth-child(1) .typing) {
+    font-size: 1.2rem;
+    color: var(--text-title);
     font-weight: 600;
   }
 
-  .low-enfasis {
-    color: var(--text-enfasis-1);
-    font-weight: 500;
+  :global(.subtitle-typing .typing-line:nth-child(2) .typing) {
+    font-size: 1.1rem;
+    color: var(--text-normal);
   }
 
-  .low-enfasis-1 {
-    color: var(--text-enfasis-2);
-    font-weight: 400;
+  :global(.subtitle-typing .typing-line:nth-child(3) .typing) {
+    font-size: 1.1rem;
+    color: var(--text-enfasis);
+    font-style: italic;
+  }
+
+  h1 :global(.typing) {
+    color: var(--text-title);
   }
 
   .social-section {
     margin-top: auto;
+    padding-top: 1rem;
   }
 
-  /* Tablet */
-  @media (max-width: 1024px) {
-    header {
-      gap: 2rem;
-      padding: 1.5rem;
-    }
-
-    .image {
-      height: 350px;
-    }
-
-    .container {
-      max-height: 300px;
-    }
+  /* ─── Image wrapper ──────────────────────────────────────── */
+  .image-wrapper {
+    position: relative;
+    flex-shrink: 0;
+    width: 260px;
+    aspect-ratio: 5 / 7;
+    border-radius: 8px;
+    /* Transition for hover lift */
+    transition: transform 0.4s ease;
   }
 
-  /* Mobile Large */
+  .image-wrapper:hover {
+    transform: translateY(-6px);
+  }
+
+  /* ── Glow (behind image, z-index 0) ─────────────────────── */
+  .glow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 10px;
+    z-index: 0;
+    /*
+      Two-layer shadow:
+      - Bottom: warm yellow glow (matches --text-enfasis)
+      - Top edge: very subtle lift
+      Uses the yellow from your palette directly so it
+      adapts naturally between dark/light mode glow intensity.
+    */
+    box-shadow:
+      0 22px 55px rgba(240, 228, 128, 0.32),
+      0 8px 20px rgba(240, 228, 128, 0.15),
+      0 -4px 16px rgba(240, 228, 128, 0.06);
+    transition: box-shadow 0.4s ease;
+  }
+
+  .image-wrapper:hover .glow {
+    box-shadow:
+      0 32px 80px rgba(240, 228, 128, 0.48),
+      0 12px 30px rgba(240, 228, 128, 0.25),
+      0 -6px 20px rgba(240, 228, 128, 0.1);
+  }
+
+  /* ── Image itself ────────────────────────────────────────── */
+  .image-container {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 8px;
+  }
+
+  /* ── Scanlines (above image, z-index 2) ──────────────────── */
+  .scanlines {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: 8px;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.1) 2px,
+      rgba(0, 0, 0, 0.1) 4px
+    );
+    /* Fade scanlines a bit on hover for a "power-up" feel */
+    opacity: 1;
+    transition: opacity 0.4s ease;
+  }
+
+  .image-wrapper:hover .scanlines {
+    opacity: 0.4;
+  }
+
+  /* ── Accent tint top-left (z-index 2) ────────────────────── */
+  .tint {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: 8px;
+    pointer-events: none;
+    background: linear-gradient(
+      135deg,
+      rgba(240, 228, 128, 0.07) 0%,
+      transparent 55%
+    );
+    mix-blend-mode: screen;
+  }
+
+  /* ── Corner brackets (z-index 3) ─────────────────────────── */
+  .corner {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-color: var(--text-enfasis);
+    border-style: solid;
+    opacity: 0.7;
+    z-index: 3;
+    transition:
+      opacity 0.4s ease,
+      width 0.4s ease,
+      height 0.4s ease;
+  }
+
+  .corner.tl {
+    top: 6px;
+    left: 6px;
+    border-width: 2px 0 0 2px;
+  }
+  .corner.tr {
+    top: 6px;
+    right: 6px;
+    border-width: 2px 2px 0 0;
+  }
+  .corner.bl {
+    bottom: 6px;
+    left: 6px;
+    border-width: 0 0 2px 2px;
+  }
+  .corner.br {
+    bottom: 6px;
+    right: 6px;
+    border-width: 0 2px 2px 0;
+  }
+
+  /* Corners expand slightly on hover */
+  .image-wrapper:hover .corner {
+    opacity: 1;
+    width: 18px;
+    height: 18px;
+  }
+
+  /* ─── Tablet ─────────────────────────────────────────────── */
   @media (max-width: 768px) {
     header {
-      flex-direction: column;
+      align-items: center;
+      padding: 5rem 0 3.5rem;
+      text-align: center;
+    }
+
+    .eyebrow {
       justify-content: center;
+    }
+
+    .layout {
+      flex-direction: column-reverse;
       align-items: center;
       gap: 2rem;
-      padding: 8rem 1rem 2rem;
-      text-align: center;
-      min-height: 100vh;
+      min-height: unset;
     }
 
-    .image-container {
-      order: 1;
-    }
-
-    .image {
-      width: 100%;
-      height: 45vh;
-    }
-
-    .container {
-      order: 2;
+    .content {
       align-items: center;
-      text-align: center;
-      max-height: none;
-      width: 100%;
-      height: auto;
-      justify-content: flex-start;
+    }
+    .divider {
+      transform-origin: center;
     }
 
-    .container h1 {
-      margin-bottom: 1rem;
-    }
-
-    article {
-      margin-bottom: 2rem;
-    }
-
-    article h2 {
-      max-width: 100%;
-      justify-content: center;
+    :global(.subtitle-typing) {
       align-items: center;
-      padding-left: 0;
-      gap: 0.5rem;
+    }
+
+    .image-wrapper {
+      width: 200px;
+      aspect-ratio: 5 / 7;
     }
 
     .social-section {
       margin-top: 0;
+      display: flex;
+      justify-content: center;
     }
   }
 
-  /* Mobile Medium */
   @media (max-width: 480px) {
     header {
-      gap: 1.5rem;
-      padding: 5rem 0.75rem 2rem;
-      min-height: 100vh;
+      padding: 4.5rem 0 3rem;
     }
-
-    .image {
-      height: 45vh;
+    h1 {
+      font-size: clamp(1.9rem, 7vw, 2.5rem);
     }
-
-    article {
-      margin-bottom: 1.5rem;
-    }
-
-    article h2 {
-      gap: 0.5rem;
-      font-size: clamp(1rem, 4vw, 1.25rem);
-    }
-
-    .container h1 {
-      font-size: clamp(1.75rem, 6vw, 2.5rem);
-      margin-bottom: 0.75rem;
-    }
-
-    .social-section {
-      margin-top: 0;
-    }
-  }
-
-  /* Mobile Small */
-  @media (max-width: 390px) {
-    header {
-      padding: 4.5rem 0.5rem 2rem;
-      gap: 1rem;
-    }
-
-    .image-container {
-      height: 45dvh;
-    }
-
-    .container {
-      height: 50dvh;
-      justify-content: center;
-      gap: 1rem;
-    }
-
-    .container h1 {
-      font-size: clamp(1.5rem, 5vw, 2rem);
-    }
-
-    article {
-      margin-bottom: 1rem;
-    }
-
-    article h2 {
-      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
-      gap: 0.4rem;
-    }
-  }
-
-  /* Mobile Extra Small */
-  @media (max-width: 320px) {
-    header {
-      padding: 4rem 0.25rem 1.5rem;
-    }
-
-    .image {
-      height: 30vh;
-    }
-
-    .container h1 {
-      font-size: clamp(1.25rem, 4vw, 1.75rem);
-    }
-
-    article h2 {
-      font-size: clamp(0.85rem, 3vw, 1rem);
+    .image-wrapper {
+      width: 160px;
     }
   }
 </style>
