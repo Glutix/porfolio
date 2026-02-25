@@ -70,7 +70,7 @@ import UserContact from "../icons/UserContact.astro";
   .contact-wrapper {
     display: flex;
     justify-content: center;
-    margin-top: 3rem;
+    margin-top: 4rem;
   }
 
   /* ── Frame with corners — same pattern as header image ───── */
@@ -98,10 +98,26 @@ import UserContact from "../icons/UserContact.astro";
     opacity: 0.85;
   }
 
-  .corner.tl { top: -8px;    left: -8px;  border-width: 2px 0 0 2px; }
-  .corner.tr { top: -8px;    right: -8px; border-width: 2px 2px 0 0; }
-  .corner.bl { bottom: -8px; left: -8px;  border-width: 0 0 2px 2px; }
-  .corner.br { bottom: -8px; right: -8px; border-width: 0 2px 2px 0; }
+  .corner.tl {
+    top: -8px;
+    left: -8px;
+    border-width: 2px 0 0 2px;
+  }
+  .corner.tr {
+    top: -8px;
+    right: -8px;
+    border-width: 2px 2px 0 0;
+  }
+  .corner.bl {
+    bottom: -8px;
+    left: -8px;
+    border-width: 0 0 2px 2px;
+  }
+  .corner.br {
+    bottom: -8px;
+    right: -8px;
+    border-width: 0 2px 2px 0;
+  }
 
   /* ── Everything below is your original CSS unchanged ──────── */
   .contact-form {
@@ -347,11 +363,15 @@ import UserContact from "../icons/UserContact.astro";
 
   const nameInput = document.getElementById("user_name") as HTMLInputElement;
   const emailInput = document.getElementById("user_email") as HTMLInputElement;
-  const messageInput = document.getElementById("message") as HTMLTextAreaElement;
+  const messageInput = document.getElementById(
+    "message",
+  ) as HTMLTextAreaElement;
 
   const nameError = document.getElementById("name-error") as HTMLSpanElement;
   const emailError = document.getElementById("email-error") as HTMLSpanElement;
-  const messageError = document.getElementById("message-error") as HTMLSpanElement;
+  const messageError = document.getElementById(
+    "message-error",
+  ) as HTMLSpanElement;
 
   const MIN_NAME_LENGTH = 2;
   const MIN_MESSAGE_LENGTH = 10;
@@ -363,24 +383,48 @@ import UserContact from "../icons/UserContact.astro";
   let isMessageValid = false;
 
   function validateName(value: string): { isValid: boolean; message: string } {
-    if (!value.trim()) return { isValid: false, message: "El nombre es obligatorio" };
-    if (value.trim().length < MIN_NAME_LENGTH) return { isValid: false, message: `Mínimo ${MIN_NAME_LENGTH} caracteres` };
-    if (value.length > MAX_NAME_LENGTH) return { isValid: false, message: `Máximo ${MAX_NAME_LENGTH} caracteres` };
-    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(value.trim())) return { isValid: false, message: "Solo se permiten letras y espacios" };
+    if (!value.trim())
+      return { isValid: false, message: "El nombre es obligatorio" };
+    if (value.trim().length < MIN_NAME_LENGTH)
+      return {
+        isValid: false,
+        message: `Mínimo ${MIN_NAME_LENGTH} caracteres`,
+      };
+    if (value.length > MAX_NAME_LENGTH)
+      return {
+        isValid: false,
+        message: `Máximo ${MAX_NAME_LENGTH} caracteres`,
+      };
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(value.trim()))
+      return { isValid: false, message: "Solo se permiten letras y espacios" };
     return { isValid: true, message: "" };
   }
 
   function validateEmail(value: string): { isValid: boolean; message: string } {
-    if (!value.trim()) return { isValid: false, message: "El email es obligatorio" };
+    if (!value.trim())
+      return { isValid: false, message: "El email es obligatorio" };
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) return { isValid: false, message: "Formato de email inválido" };
+    if (!emailRegex.test(value))
+      return { isValid: false, message: "Formato de email inválido" };
     return { isValid: true, message: "" };
   }
 
-  function validateMessage(value: string): { isValid: boolean; message: string } {
-    if (!value.trim()) return { isValid: false, message: "El mensaje es obligatorio" };
-    if (value.trim().length < MIN_MESSAGE_LENGTH) return { isValid: false, message: `Mínimo ${MIN_MESSAGE_LENGTH} caracteres` };
-    if (value.length > MAX_MESSAGE_LENGTH) return { isValid: false, message: `Máximo ${MAX_MESSAGE_LENGTH} caracteres` };
+  function validateMessage(value: string): {
+    isValid: boolean;
+    message: string;
+  } {
+    if (!value.trim())
+      return { isValid: false, message: "El mensaje es obligatorio" };
+    if (value.trim().length < MIN_MESSAGE_LENGTH)
+      return {
+        isValid: false,
+        message: `Mínimo ${MIN_MESSAGE_LENGTH} caracteres`,
+      };
+    if (value.length > MAX_MESSAGE_LENGTH)
+      return {
+        isValid: false,
+        message: `Máximo ${MAX_MESSAGE_LENGTH} caracteres`,
+      };
     return { isValid: true, message: "" };
   }
 
@@ -473,7 +517,7 @@ import UserContact from "../icons/UserContact.astro";
       const response = await emailjs.send(
         import.meta.env.PUBLIC_EMAILJS_SERVICE_ID,
         import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID,
-        templateParams
+        templateParams,
       );
 
       console.log("Email enviado exitosamente:", response);

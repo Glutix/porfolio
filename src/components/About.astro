@@ -33,20 +33,18 @@ import imagenAbout from "../assets/imagen-about.jpg";
       </p>
     </article>
 
-    <!-- Image wrapped to add the same effects as the header -->
-    <div class="image-wrapper">
-      <!-- Glow behind the image -->
-      <div class="glow" aria-hidden="true"></div>
-
-      <Image class="image" src={imagenAbout} alt="imagen acerca de mi" />
-
-      <!-- Scanlines overlay -->
-      <div class="scanlines" aria-hidden="true"></div>
-
-      <!-- Accent tint -->
-      <div class="tint" aria-hidden="true"></div>
-
-      <!-- Only 2 corners to not overcrowd the rotated image -->
+    <!--
+      Two-layer structure:
+      .image-outer  → rotation + glow (box-shadow) + corners (NOT overflow:hidden)
+      .image-inner  → overflow:hidden to clip image + scanlines + tint to border-radius
+    -->
+    <div class="image-outer">
+      <div class="image-inner">
+        <Image class="image" src={imagenAbout} alt="imagen acerca de mi" />
+        <div class="scanlines" aria-hidden="true"></div>
+        <div class="tint" aria-hidden="true"></div>
+      </div>
+      <!-- Corners outside inner so they're not clipped -->
       <span class="corner tl" aria-hidden="true"></span>
       <span class="corner br" aria-hidden="true"></span>
     </div>
@@ -62,6 +60,15 @@ import imagenAbout from "../assets/imagen-about.jpg";
     min-height: 100dvh;
     height: fit-content;
     justify-content: center;
+  }
+
+  /* Reset the generic div styles for image containers */
+  .image-outer,
+  .image-inner {
+    min-height: unset;
+    height: 430px;
+    gap: 0;
+    width: 320px;
   }
 
   section {
@@ -86,91 +93,78 @@ import imagenAbout from "../assets/imagen-about.jpg";
     }
   }
 
-  /* ── Image wrapper — same pattern as header ──────────────── */
-  .image-wrapper {
+  /* ── Outer: rotation + glow + corners ───────────────────── */
+  .image-outer {
     position: relative;
     flex-shrink: 0;
-    /* Preserve the original rotation */
-    transform: rotate(4deg);
-    transition: transform 0.3s ease;
-    /* Size matches original image */
     width: 320px;
     height: 430px;
-    border-radius: 16px;
-  }
-
-  .image-wrapper:hover {
-    transform: rotate(2deg) translateY(-4px);
-  }
-
-  /* Glow — same recipe as header, behind everything */
-  .glow {
-    position: absolute;
-    inset: -2px;
-    border-radius: 18px;
-    z-index: 0;
+    transform: rotate(4deg);
+    transition: transform 0.3s ease, box-shadow 0.4s ease;
     box-shadow:
       0 22px 55px rgba(240, 228, 128, 0.28),
-      0 8px 20px rgba(240, 228, 128, 0.12),
+      0 8px 20px  rgba(240, 228, 128, 0.12),
       0 -4px 16px rgba(240, 228, 128, 0.05);
-    transition: box-shadow 0.4s ease;
-    height: fit-content;
+    border-radius: 16px;
+    /* No overflow:hidden here — corners must stay visible */
   }
 
-  .image-wrapper:hover .glow {
+  .image-outer:hover {
+    transform: rotate(2deg) translateY(-4px);
     box-shadow:
       0 32px 80px rgba(240, 228, 128, 0.42),
       0 12px 30px rgba(240, 228, 128, 0.22),
       0 -6px 20px rgba(240, 228, 128, 0.08);
   }
 
-  /* Original image styles preserved, transform moved to wrapper */
-  .image {
-    display: block;
+  /* ── Inner: clips image + overlays to border-radius ─────── */
+  .image-inner {
     position: relative;
-    z-index: 1;
     width: 320px;
     height: 430px;
     border-radius: 16px;
+    overflow: hidden;   /* clips image, scanlines, tint */
+  }
+
+  /* ── Image ───────────────────────────────────────────────── */
+  .image {
+    display: block;
+    width: 320px;
+    height: 430px;
     object-fit: cover;
-    aspect-ratio: 1/1;
-    filter: drop-shadow(0 4px 24px var(--image-shadow));
+    object-position: top center;
     transition: filter 0.3s ease;
   }
 
-  .image-wrapper:hover .image {
-    filter: drop-shadow(0 8px 32px var(--image-shadow));
+  .image-outer:hover .image {
+    filter: brightness(1.04);
   }
 
-  /* Scanlines — same as header, fades on hover */
+  /* ── Scanlines ───────────────────────────────────────────── */
   .scanlines {
     position: absolute;
     inset: 0;
     z-index: 2;
-    border-radius: 16px;
     pointer-events: none;
     background: repeating-linear-gradient(
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 0, 0, 0.1) 2px,
-      rgba(0, 0, 0, 0.1) 4px
+      rgba(0, 0, 0, 0.10) 2px,
+      rgba(0, 0, 0, 0.10) 4px
     );
-    opacity: 1;
     transition: opacity 0.4s ease;
-    height: fit-content;
   }
 
-  .image-wrapper:hover .scanlines {
+  .image-outer:hover .scanlines {
     opacity: 0.35;
   }
 
-  /* Accent tint top-left */
+  /* ── Tint ────────────────────────────────────────────────── */
   .tint {
     position: absolute;
     inset: 0;
     z-index: 2;
-    border-radius: 16px;
     pointer-events: none;
     background: linear-gradient(
       135deg,
@@ -178,10 +172,9 @@ import imagenAbout from "../assets/imagen-about.jpg";
       transparent 55%
     );
     mix-blend-mode: screen;
-    height: fit-content;
   }
 
-  /* Corners — expand on hover like in header */
+  /* ── Corners — on outer so overflow:hidden doesn't clip them */
   .corner {
     position: absolute;
     width: 14px;
@@ -190,24 +183,13 @@ import imagenAbout from "../assets/imagen-about.jpg";
     border-style: solid;
     opacity: 0.6;
     z-index: 3;
-    transition:
-      opacity 0.4s ease,
-      width 0.3s ease,
-      height 0.3s ease;
+    transition: opacity 0.4s ease, width 0.3s ease, height 0.3s ease;
   }
 
-  .corner.tl {
-    top: 8px;
-    left: 8px;
-    border-width: 2px 0 0 2px;
-  }
-  .corner.br {
-    bottom: 8px;
-    right: 8px;
-    border-width: 0 2px 2px 0;
-  }
+  .corner.tl { top: 8px;    left: 8px;  border-width: 2px 0 0 2px; }
+  .corner.br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
 
-  .image-wrapper:hover .corner {
+  .image-outer:hover .corner {
     opacity: 1;
     width: 18px;
     height: 18px;
@@ -216,31 +198,25 @@ import imagenAbout from "../assets/imagen-about.jpg";
   /* ── Responsive ──────────────────────────────────────────── */
   @media (max-width: 950px) {
     section {
-      display: flex;
       flex-direction: column-reverse;
       justify-content: center;
       align-items: center;
     }
 
-    .image-wrapper {
+    .image-outer {
       margin: 0 auto;
       transform: rotate(0deg);
       width: 300px;
-      height: fit-content;
-      min-height: fit-content;
-
+      height: 350px;
     }
 
-    .glow {
-      min-height: fit-content;
-    }
-
-    .tint {
-      min-height: fit-content;
-    }
-
-    .image-wrapper:hover {
+    .image-outer:hover {
       transform: translateY(-4px);
+    }
+
+    .image-inner {
+      width: 300px;
+      height: 350px;
     }
 
     .image {
