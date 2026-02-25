@@ -92,75 +92,99 @@ const VISIBLE_BY_DEFAULT = 2;
   <SectionTitle id="projects" title="Proyectos" icon={Code} />
   <div class="projects">
     {
-      PROJECTS.map(({ title, description, tags, images, github, deploy }, index) => {
-        return (
-          <article class={index >= VISIBLE_BY_DEFAULT ? "project-hidden" : ""}>
-            <h3>{title}</h3>
-            <p>{description}</p>
+      PROJECTS.map(
+        ({ title, description, tags, images, github, deploy }, index) => {
+          return (
+            <article
+              class={index >= VISIBLE_BY_DEFAULT ? "project-hidden" : ""}
+            >
+              <h3>{title}</h3>
+              <p>{description}</p>
 
-            <ul>
-              {tags.map((Badge) => (
-                <li>
-                  <Badge />
-                </li>
-              ))}
-            </ul>
-            <div class="image-wrapper-desktop">
-              <Image
-                class="image-desktop"
-                src={images.urlDesktop}
-                alt={images.altDesktop}
-                widths={[600, 788]}
-                sizes="(min-width: 980px) 896px, calc(88.24vw + 49px)"
-              />
-            </div>
-            <div class="image-wrapper-mobile">
-              <Image
-                class="image-mobile"
-                src={images.urlMobile}
-                alt={images.altMobile}
-                widths={[275, 600]}
-                sizes="calc(100vw - 24px)"
-              />
-            </div>
-            <section>
-              <a rel="noopener noreferrer" href={`${github}`} target="_target">
-                <GitHub class="github" /> Código fuente
-              </a>
-              {deploy !== "" ? (
+              <ul>
+                {tags.map((Badge) => (
+                  <li>
+                    <Badge />
+                  </li>
+                ))}
+              </ul>
+              <div class="image-wrapper-desktop">
+                <Image
+                  class="image-desktop"
+                  src={images.urlDesktop}
+                  alt={images.altDesktop}
+                  widths={[600, 788]}
+                  sizes="(min-width: 980px) 896px, calc(88.24vw + 49px)"
+                />
+              </div>
+              <div class="image-wrapper-mobile">
+                <Image
+                  class="image-mobile"
+                  src={images.urlMobile}
+                  alt={images.altMobile}
+                  widths={[275, 600]}
+                  sizes="calc(100vw - 24px)"
+                />
+              </div>
+              <section>
                 <a
                   rel="noopener noreferrer"
-                  href={`${deploy}`}
+                  href={`${github}`}
                   target="_target"
                 >
-                  <WebSite class="github" /> Sitio web
+                  <GitHub class="github" /> Código fuente
                 </a>
-              ) : (
-                ""
-              )}
-            </section>
-          </article>
-        );
-      })
+                {deploy !== "" ? (
+                  <a
+                    rel="noopener noreferrer"
+                    href={`${deploy}`}
+                    target="_target"
+                  >
+                    <WebSite class="github" /> Sitio web
+                  </a>
+                ) : (
+                  ""
+                )}
+              </section>
+            </article>
+          );
+        },
+      )
     }
   </div>
 
-  {PROJECTS.length > VISIBLE_BY_DEFAULT && (
-    <div class="show-more-wrapper">
-      <button id="show-more-btn" class="show-more-btn">
-        Ver más proyectos
-        <svg class="btn-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <path d="M7 2v10M2 7l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-    </div>
-  )}
+  {
+    PROJECTS.length > VISIBLE_BY_DEFAULT && (
+      <div class="show-more-wrapper">
+        <button id="show-more-btn" class="show-more-btn">
+          Ver más proyectos
+          <svg
+            class="btn-arrow"
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M7 2v10M2 7l5 5 5-5"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    )
+  }
 </div>
 
 <script>
   const btn = document.getElementById("show-more-btn");
   if (btn) {
-    const hiddenCards = document.querySelectorAll<HTMLElement>(".project-hidden");
+    const hiddenCards =
+      document.querySelectorAll<HTMLElement>(".project-hidden");
     let expanded = false;
 
     btn.addEventListener("click", () => {
@@ -181,12 +205,14 @@ const VISIBLE_BY_DEFAULT = 2;
               card.classList.remove("project-revealing");
               card.classList.add("project-hidden");
             },
-            { once: true }
+            { once: true },
           );
         }
       });
 
-      btn.querySelector(".btn-label")!.textContent = expanded ? "Ver menos" : "Ver más proyectos";
+      btn.querySelector(".btn-label")!.textContent = expanded
+        ? "Ver menos"
+        : "Ver más proyectos";
       btn.classList.toggle("is-expanded", expanded);
     });
   }
@@ -196,14 +222,14 @@ const VISIBLE_BY_DEFAULT = 2;
   div {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
     width: 100%;
   }
 
   .projects {
     display: flex;
     flex-direction: column;
-    gap: 4rem;
+    gap: 5rem;
   }
 
   h3 {
@@ -219,7 +245,6 @@ const VISIBLE_BY_DEFAULT = 2;
   }
 
   article {
-    gap: 1rem;
     ul {
       list-style: none;
       display: flex;
@@ -305,7 +330,9 @@ const VISIBLE_BY_DEFAULT = 2;
     flex-direction: column;
     opacity: 0;
     transform: translateY(12px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s ease;
   }
 
   .project-revealing.project-visible {
@@ -331,7 +358,10 @@ const VISIBLE_BY_DEFAULT = 2;
     font-family: inherit;
     font-size: 0.85rem;
     cursor: pointer;
-    transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    transition:
+      border-color 0.25s ease,
+      color 0.25s ease,
+      transform 0.25s ease;
   }
 
   .show-more-btn:hover {
