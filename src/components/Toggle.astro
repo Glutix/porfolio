@@ -49,6 +49,10 @@ import Moon from "../icons/Moon.astro";
     grid-column: 1 / 1;
     grid-row: 1 / 1;
     transition: transform 500ms;
+    /* Control icon size independently from the touch target */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .icon--moon {
@@ -71,37 +75,59 @@ import Moon from "../icons/Moon.astro";
     transform: rotate(360deg) scale(0);
   }
 
-  /* Mobile Large */
+  /* ── Tablet ──────────────────────────────────────────────── */
   @media (max-width: 768px) {
+    .container {
+      top: 1rem;
+      right: 1.25rem;
+    }
+
+    /* Keep 44px touch target, shrink icon inside */
     .toggle {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
+    }
+
+    .icon :global(svg) {
+      width: 18px;
+      height: 18px;
     }
   }
 
-  /* Mobile Medium */
+  /* ── Mobile ──────────────────────────────────────────────── */
   @media (max-width: 480px) {
     .container {
-      top: 0.8rem;
+      top: 0.75rem;
+      right: 0.75rem;
+    }
+
+    /* Still 44px — minimum recommended tap target (Apple HIG / Material) */
+    .toggle {
+      width: 44px;
+      height: 44px;
+    }
+
+    .icon :global(svg) {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  /* ── Small mobile ────────────────────────────────────────── */
+  @media (max-width: 390px) {
+    .container {
+      top: 0.6rem;
       right: 0.5rem;
     }
 
     .toggle {
-      width: 30px;
-      height: 30px;
-    }
-  }
-
-  /* Mobile Small */
-  @media (max-width: 390px) {
-    .container {
-      top: 0.6rem;
-      right: 0.4rem;
+      width: 44px;
+      height: 44px;
     }
 
-    .toggle {
-      width: 24px;
-      height: 24px;
+    .icon :global(svg) {
+      width: 15px;
+      height: 15px;
     }
   }
 </style>

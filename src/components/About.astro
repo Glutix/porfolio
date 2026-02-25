@@ -10,21 +10,25 @@ import imagenAbout from "../assets/imagen-about.jpg";
   <section>
     <article>
       <p>
-        Soy <strong>Ricardo</strong>, también conocido como <strong>Glutix</strong>.
-        Mi camino en la programación comenzó en la universidad, y desde entonces
-        descubrí en el <strong>desarrollo web y de software</strong> una forma de
-        expresar mi creatividad y resolver problemas.
+        Soy <strong>Ricardo</strong>, también conocido como <strong
+          >Glutix</strong
+        >. Mi camino en la programación comenzó en la universidad, y desde
+        entonces descubrí en el <strong>desarrollo web y de software</strong> una
+        forma de expresar mi creatividad y resolver problemas.
       </p>
       <p>
         A lo largo de este recorrido participé en proyectos colaborativos y
         personales que me ayudaron a crecer, no solo en lo técnico, sino también
         en lo <strong>humano</strong>: aprendí el valor del trabajo en equipo,
-        la constancia y la búsqueda de soluciones simples para desafíos complejos.
+        la constancia y la búsqueda de soluciones simples para desafíos
+        complejos.
       </p>
       <p>
         Hoy sigo explorando nuevas ideas y tecnologías, con el objetivo de
-        <strong>crear aplicaciones útiles e innovadoras</strong> que generen un
-        impacto positivo, mientras continúo creciendo tanto en lo <strong>profesional</strong>
+        <strong>crear aplicaciones útiles e innovadoras</strong> que generen un impacto
+        positivo, mientras continúo creciendo tanto en lo <strong
+          >profesional</strong
+        >
         como en lo <strong>personal</strong>.
       </p>
     </article>
@@ -55,7 +59,8 @@ import imagenAbout from "../assets/imagen-about.jpg";
     flex-direction: column;
     gap: 2rem;
     width: 100%;
-    height: 100vh;
+    min-height: 100dvh;
+    height: fit-content;
     justify-content: center;
   }
 
@@ -92,13 +97,10 @@ import imagenAbout from "../assets/imagen-about.jpg";
     width: 320px;
     height: 430px;
     border-radius: 16px;
-    
-    
   }
 
   .image-wrapper:hover {
     transform: rotate(2deg) translateY(-4px);
-    
   }
 
   /* Glow — same recipe as header, behind everything */
@@ -109,7 +111,7 @@ import imagenAbout from "../assets/imagen-about.jpg";
     z-index: 0;
     box-shadow:
       0 22px 55px rgba(240, 228, 128, 0.28),
-      0 8px 20px  rgba(240, 228, 128, 0.12),
+      0 8px 20px rgba(240, 228, 128, 0.12),
       0 -4px 16px rgba(240, 228, 128, 0.05);
     transition: box-shadow 0.4s ease;
     height: fit-content;
@@ -134,8 +136,6 @@ import imagenAbout from "../assets/imagen-about.jpg";
     aspect-ratio: 1/1;
     filter: drop-shadow(0 4px 24px var(--image-shadow));
     transition: filter 0.3s ease;
-    
-    
   }
 
   .image-wrapper:hover .image {
@@ -153,8 +153,8 @@ import imagenAbout from "../assets/imagen-about.jpg";
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 0, 0, 0.10) 2px,
-      rgba(0, 0, 0, 0.10) 4px
+      rgba(0, 0, 0, 0.1) 2px,
+      rgba(0, 0, 0, 0.1) 4px
     );
     opacity: 1;
     transition: opacity 0.4s ease;
@@ -190,11 +190,22 @@ import imagenAbout from "../assets/imagen-about.jpg";
     border-style: solid;
     opacity: 0.6;
     z-index: 3;
-    transition: opacity 0.4s ease, width 0.3s ease, height 0.3s ease;
+    transition:
+      opacity 0.4s ease,
+      width 0.3s ease,
+      height 0.3s ease;
   }
 
-  .corner.tl { top: 8px;    left: 8px;  border-width: 2px 0 0 2px; }
-  .corner.br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+  .corner.tl {
+    top: 8px;
+    left: 8px;
+    border-width: 2px 0 0 2px;
+  }
+  .corner.br {
+    bottom: 8px;
+    right: 8px;
+    border-width: 0 2px 2px 0;
+  }
 
   .image-wrapper:hover .corner {
     opacity: 1;
@@ -215,7 +226,17 @@ import imagenAbout from "../assets/imagen-about.jpg";
       margin: 0 auto;
       transform: rotate(0deg);
       width: 300px;
-      height: 350px;
+      height: fit-content;
+      min-height: fit-content;
+
+    }
+
+    .glow {
+      min-height: fit-content;
+    }
+
+    .tint {
+      min-height: fit-content;
     }
 
     .image-wrapper:hover {

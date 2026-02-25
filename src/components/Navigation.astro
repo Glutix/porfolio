@@ -73,12 +73,14 @@
     transform: translateY(0);
   }
 
-  /* Tablet */
+  /* ── Tablet ──────────────────────────────────────────────── */
   @media (max-width: 768px) {
     nav {
       gap: 1rem;
       padding: 4px 16px;
       height: 2.75rem;
+      /* Align top with toggle (top: 1rem) */
+      top: 1rem;
     }
 
     a {
@@ -87,54 +89,57 @@
     }
   }
 
-  /* Mobile Large */
+  /* ── Mobile ──────────────────────────────────────────────── */
   @media (max-width: 480px) {
     nav {
-      gap: 0.15rem;
-      padding: 1px 6px;
-      height: 2rem;
-      top: 0.75rem;
-      max-width: calc(100vw - 2rem);
+      gap: 0rem;
+      padding: 4px 8px;
+      height: 44px; /* match toggle touch target height */
+      top: 0.75rem; /* aligned with toggle top: 0.75rem */
+      /*
+        Reserve space on the right for the toggle (44px) + its
+        right offset (0.75rem) + a small gap (0.5rem) = ~3.5rem
+      */
+      max-width: calc(100vw - 3.5rem - 1rem);
     }
 
     a {
-      padding: 3px 4px;
-      font-size: 0.7rem;
-      font-weight: 700;
+      padding: 6px 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
       min-width: fit-content;
     }
   }
 
-  /* Mobile Small */
+  /* ── Small mobile ────────────────────────────────────────── */
   @media (max-width: 390px) {
     nav {
-      gap: 0.1rem;
-      padding: 1px 4px;
-      height: 1.75rem;
-      top: 0.5rem;
-      max-width: calc(100vw - 1.5rem);
+      gap: 0rem;
+      padding: 4px 6px;
+      height: 44px;
+      top: 0.6rem; /* aligned with toggle top: 0.6rem */
+      max-width: calc(100vw - 3.5rem - 0.75rem);
     }
 
     a {
-      padding: 2px 3px;
-      font-size: 0.65rem;
-      font-weight: 700;
+      padding: 5px 6px;
+      font-size: 0.72rem;
     }
   }
 
-  /* Mobile Extra Small */
+  /* ── Extra small ─────────────────────────────────────────── */
   @media (max-width: 320px) {
     nav {
-      gap: 0.05rem;
-      padding: 1px 3px;
-      height: 1.5rem;
-      max-width: calc(100vw - 1rem);
-      top: 0.25rem;
+      gap: 0rem;
+      padding: 4px 4px;
+      height: 44px;
+      top: 0.5rem;
+      max-width: calc(100vw - 3.5rem - 0.5rem);
     }
 
     a {
-      padding: 1px 2px;
-      font-size: 0.6rem;
+      padding: 4px 5px;
+      font-size: 0.68rem;
     }
   }
 </style>
