@@ -21,6 +21,16 @@ import GitHub from "../icons/GitHub.astro";
 import WebSite from "../icons/WebSite.astro";
 import Python from "../icons/Python.astro";
 import Django from "../icons/Django.astro";
+import JavaScript from "../icons/JavaScript.astro";
+import Prisma from "../icons/Prisma.astro";
+import PostgreSQL from "../icons/PostgreSQL.astro";
+import Next from "../icons/Next.astro";
+import Tailwind from "../icons/Tailwind.astro";
+import MySQL from "../icons/MySQL.astro";
+import Sequelize from "../icons/Sequelize.astro";
+import AstroIcon from "../icons/AstroIcon.astro";
+import SQLite from "../icons/SQLite.astro";
+import Tauri from "../icons/Tauri.astro";
 
 type PropsImage = {
   urlDesktop: ImageMetadata;
@@ -40,10 +50,39 @@ interface ProjectsProps {
 
 const PROJECTS: ProjectsProps[] = [
   {
+    title: "GYM-System - Sistema de gestión para gimnasios",
+    description:
+      "Aplicación web de gestión integral para gimnasios. Permite administrar socios, controlar el estado de membresías con un sistema de 5 niveles de urgencia, enviar notificaciones por WhatsApp, renovar membresías y visualizar métricas clave desde un panel de control centralizado.",
+    tags: [AstroIcon, React, JavaScript, SQLite, Express, Tauri],
+    images: {
+      urlDesktop: facilMarketDesktop,
+      altDesktop: "GYM-System-desktop",
+      urlMobile: facilMarketMobile,
+      altMobile: "GYM-System-mobile",
+    },
+    github: "https://github.com/glutix/GYM-System.git",
+    deploy: "",
+  },
+
+  {
+    title: "SAM - Sistema Académico Mantovani",
+    description:
+      "Plataforma web de gestión académica institucional desarrollada para el Instituto Superior Juan Mantovani. Permite administrar preinscripciones, inscripciones a materias con validación de correlatividades, exámenes finales, carga de notas y seguimiento académico completo. Cuenta con roles diferenciados para administradores, bedeles, docentes, coordinadores y alumnos.",
+    tags: [JavaScript, Express, Prisma, PostgreSQL, Next, Tailwind],
+    images: {
+      urlDesktop: integrateDesktop,
+      altDesktop: "sam-desktop",
+      urlMobile: integrateDesktop,
+      altMobile: "sam-mobile",
+    },
+    github: "https://github.com/glutix/SAM2.git",
+    deploy: "",
+  },
+  {
     title: "Facil Market - Marketplace para compradores y vendedores",
     description:
       "Aplicación web de Marketplace que conecta a compradores y vendedores en una plataforma accesible e intuitiva. Permite gestionar publicaciones, realizar transacciones y facilitar la interacción entre ambas partes de forma sencilla.",
-    tags: [TypeScript, Express, Redux, React],
+    tags: [TypeScript, Express, Redux, React, PostgreSQL, Sequelize],
     images: {
       urlDesktop: facilMarketDesktop,
       altDesktop: "facil-market-desktop",
@@ -73,7 +112,7 @@ const PROJECTS: ProjectsProps[] = [
     title: "Integrate - Blog Musical",
     description:
       "Proyecto académico que consiste en un blog dedicado a la música, donde los usuarios pueden compartir artículos, escribir reseñas y dejar comentarios. También incluye funciones sociales como dar 'me gusta' e interactuar con otros miembros de la comunidad.",
-    tags: [Python, Django],
+    tags: [Python, Django, MySQL],
     images: {
       urlDesktop: integrateDesktop,
       altDesktop: "integrate-desktop",
@@ -85,9 +124,9 @@ const PROJECTS: ProjectsProps[] = [
   },
 ];
 
-const VISIBLE_BY_DEFAULT = 2;
+const VISIBLE_BY_DEFAULT = 3;
 ---
-
+  
 <div>
   <SectionTitle id="projects" title="Proyectos" icon={Code} />
   <div class="projects">

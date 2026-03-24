@@ -8,151 +8,158 @@ import imagenAbout from "../assets/imagen-about.jpg";
 <div id="about">
   <SectionTitle id="about" title="Sobre mi" icon={UserCheckbox} />
   <section>
-    <article>
-      <p>
-        Soy <strong>Ricardo</strong>, también conocido como <strong
-          >Glutix</strong
-        >. Mi camino en la programación comenzó en la universidad, y desde
-        entonces descubrí en el <strong>desarrollo web y de software</strong> una
-        forma de expresar mi creatividad y resolver problemas.
-      </p>
-      <p>
-        A lo largo de este recorrido participé en proyectos colaborativos y
-        personales que me ayudaron a crecer, no solo en lo técnico, sino también
-        en lo <strong>humano</strong>: aprendí el valor del trabajo en equipo,
-        la constancia y la búsqueda de soluciones simples para desafíos
-        complejos.
-      </p>
-      <p>
-        Hoy sigo explorando nuevas ideas y tecnologías, con el objetivo de
-        <strong>crear aplicaciones útiles e innovadoras</strong> que generen un impacto
-        positivo, mientras continúo creciendo tanto en lo <strong
-          >profesional</strong
-        >
-        como en lo <strong>personal</strong>.
-      </p>
-    </article>
+<article>
+  <p>
+    Soy <strong>Ricardo</strong>, también conocido como <strong>Glutix</strong>. 
+    Comencé en la programación en la universidad, donde descubrí en el 
+    <strong>desarrollo web y de software</strong> una forma de crear y resolver problemas.
+  </p>
+  <p>
+    Participé en proyectos que fortalecieron mis habilidades técnicas y el 
+    <strong>trabajo en equipo</strong>, aprendiendo a encontrar soluciones simples a desafíos complejos.
+  </p>
+  <p>
+    Hoy sigo explorando tecnologías para <strong>crear aplicaciones útiles e innovadoras</strong>, 
+    creciendo tanto en lo <strong>profesional</strong> como en lo personal.
+  </p>
+</article>
 
-    <!--
-      Two-layer structure:
-      .image-outer  → rotation + glow (box-shadow) + corners (NOT overflow:hidden)
-      .image-inner  → overflow:hidden to clip image + scanlines + tint to border-radius
-    -->
-    <!--
-      .scene: position:relative, NO rotation here.
-      Rotation is applied only to .image-outer so it doesn't
-      create a stacking context that blocks the lamp z-index.
-    -->
     <div class="scene">
-      <!-- Lamp SVG: static lamp, only bulb glow and beam flicker -->
+      <!-- Z=1: Cono de luz -->
       <svg
-        class="lamp-svg"
-        viewBox="0 0 320 160"
+        class="svg-back"
+        viewBox="0 0 460 540"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
         <defs>
-          <filter id="spotBlur" x="-80%" y="-80%" width="260%" height="260%">
-            <feGaussianBlur stdDeviation="6"></feGaussianBlur>
+          <filter id="spotBlur">
+            <feGaussianBlur stdDeviation="12"></feGaussianBlur>
           </filter>
-          <filter id="bulbGlow" x="-100%" y="-100%" width="300%" height="300%">
-            <feGaussianBlur stdDeviation="4" result="blur"></feGaussianBlur>
-            <feMerge
-              ><feMergeNode in="blur"></feMergeNode><feMergeNode
-                in="SourceGraphic"></feMergeNode></feMerge
-            >
-          </filter>
+          <linearGradient id="beamGrad" x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0%" stop-color="rgba(255,252,190,0.45)"></stop>
+            <stop offset="45%" stop-color="rgba(255,252,190,0.18)"></stop>
+            <stop offset="100%" stop-color="rgba(255,252,190,0.02)"></stop>
+          </linearGradient>
         </defs>
+        <!--
+          Lámpara reducida: pantalla termina en y=32 (antes y=44)
+          Boca del cono: x=284..336 (52px), y=32 — pegada a la pantalla
+          Centro: x=310
+          Base: x=60..560 (500px) centrada en x=310 → 310±250
+          overflow:visible renderiza lo que sale del viewBox ✓
 
-        <!-- ── Static lamp structure (no animation) ── -->
-        <!-- Cable from ceiling -->
-        <line
-          x1="268"
-          y1="0"
-          x2="268"
-          y2="32"
-          stroke="#888"
-          stroke-width="2.5"
-          stroke-linecap="round"></line>
-        <!-- Top pivot -->
-        <circle cx="268" cy="32" r="4.5" fill="#555"></circle>
-        <!-- Upper arm -->
-        <line
-          x1="268"
-          y1="32"
-          x2="246"
-          y2="66"
-          stroke="#666"
-          stroke-width="5"
-          stroke-linecap="round"></line>
-        <!-- Elbow joint -->
-        <circle cx="246" cy="66" r="6" fill="#4a4a4a"></circle>
-        <circle cx="246" cy="66" r="3.5" fill="#333"></circle>
-        <!-- Lower arm -->
-        <line
-          x1="246"
-          y1="66"
-          x2="218"
-          y2="96"
-          stroke="#666"
-          stroke-width="5"
-          stroke-linecap="round"></line>
-        <!-- Head pivot -->
-        <circle cx="218" cy="96" r="5.5" fill="#4a4a4a"></circle>
-        <!-- Lamp shade — wider trapezoid, pointing down-left -->
-        <polygon points="204,88 232,88 244,110 192,110" fill="#333"></polygon>
-        <polygon points="207,91 229,91 240,107 196,107" fill="#222"></polygon>
-        <!-- Shade rim highlight -->
-        <line
-          x1="192"
-          y1="110"
-          x2="244"
-          y2="110"
-          stroke="#555"
-          stroke-width="1.5"></line>
+          Verificación imagen (220px, x=200..420, top=y=160):
+            cono(160) = 52 + 448*(160-32)/508 = 52+113 = 165px → semi=82 → x=228..392
+            imagen x=200..420 → esquinas fuera ✗
+          
+          top imagen sube a y=200:
+            cono(200) = 52 + 448*168/508 = 52+148 = 200px → semi=100 → x=210..410
+            imagen x=200..420 → 10px fuera derecha ✗
 
-        <!-- ── Flickering parts ── -->
-        <!-- Bulb glow (flickers) -->
-        <circle
-          class="bulb-glow"
-          cx="218"
-          cy="100"
-          r="10"
-          fill="rgba(255,255,220,0.15)"
-          filter="url(#bulbGlow)"></circle>
-        <circle class="bulb" cx="218" cy="100" r="5" fill="#fffff0"></circle>
+          top=210: cono(210) = 52+448*178/508 = 52+157 = 209px → semi=104 → x=206..414
+          imagen x=200..420 → 6px fuera ✗
 
-        <!-- Beam cone from shade opening downward (flickers) -->
+          imagen 210px: top=210, left=205 (310-105)
+            cono(210)=209 < 210 ✗ por 1px...
+
+          imagen 200px centrada: x=210..410, top=200
+            cono(200)=200px → semi=100 → x=210..410 → exacto ✓✓
+            cono(520)=500px → semi=250 → x=60..560 — imagen bien dentro ✓
+        -->
         <polygon
           class="beam-poly"
-          points="192,110 244,110 310,160 80,160"
-          fill="rgba(255,255,245,0.055)"></polygon>
-
-        <!-- Spotlight pool at bottom of SVG = top of image (flickers) -->
+          points="284,32 336,32 560,528 60,528"
+          fill="url(#beamGrad)"></polygon>
         <ellipse
           class="spot-ellipse"
-          cx="200"
-          cy="156"
-          rx="120"
-          ry="14"
-          fill="rgba(255,255,255,0.22)"
+          cx="310"
+          cy="522"
+          rx="245"
+          ry="16"
+          fill="rgba(255,252,190,0.20)"
           filter="url(#spotBlur)"></ellipse>
       </svg>
 
-      <!-- Image stack -->
-      <div class="image-outer">
-        <div class="image-inner">
-          <Image class="image" src={imagenAbout} alt="imagen acerca de mi" />
-          <div class="scanlines" aria-hidden="true"></div>
-          <div class="tint" aria-hidden="true"></div>
-          <div class="flicker-light" aria-hidden="true"></div>
-          <div class="flicker-overlay" aria-hidden="true"></div>
-        </div>
-        <span class="corner tl" aria-hidden="true"></span>
-        <span class="corner br" aria-hidden="true"></span>
+      <!-- Z=2: Imagen -->
+      <div class="image-wrapper">
+        <Image class="image" src={imagenAbout} alt="imagen acerca de mi" />
+        <div class="flicker-light" aria-hidden="true"></div>
+        <div class="flicker-overlay" aria-hidden="true"></div>
       </div>
+
+      <!-- Z=3: Lámpara más pequeña, foco en x=310 y=32 -->
+      <svg
+        class="svg-front"
+        viewBox="0 0 460 540"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <defs>
+          <filter id="bulbGlow">
+            <feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur>
+            <feMerge>
+              <feMergeNode in="blur"></feMergeNode>
+              <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!--
+          Todo escalado ~0.7x respecto a antes:
+          Cable: entra desde x=460, y=-20 → x=420
+          Codo 1: 420,-20 → 385,-2
+          Codo 2: 385,-2  → 310,14
+          Pantalla: centrada en x=310, borde inferior y=32
+        -->
+        <line
+          x1="460"
+          y1="-20"
+          x2="420"
+          y2="-20"
+          stroke="#888"
+          stroke-width="2"
+          stroke-linecap="round"></line>
+        <circle cx="420" cy="-20" r="3.5" fill="#555"></circle>
+
+        <line
+          x1="420"
+          y1="-20"
+          x2="385"
+          y2="-2"
+          stroke="#666"
+          stroke-width="4"
+          stroke-linecap="round"></line>
+        <circle cx="385" cy="-2" r="5" fill="#4a4a4a"></circle>
+        <circle cx="385" cy="-2" r="3" fill="#333"></circle>
+
+        <line
+          x1="385"
+          y1="-2"
+          x2="310"
+          y2="14"
+          stroke="#666"
+          stroke-width="4"
+          stroke-linecap="round"></line>
+        <circle cx="310" cy="14" r="4.5" fill="#4a4a4a"></circle>
+
+        <!-- Pantalla reducida centrada en x=310, borde inferior y=32 -->
+        <polygon points="293,8 327,8 340,30 280,30" fill="#333"></polygon>
+        <polygon points="295,10 325,10 337,28 283,28" fill="#222"></polygon>
+        <line x1="280" y1="30" x2="340" y2="30" stroke="#555" stroke-width="1.2"
+        ></line>
+
+        <!-- Bulbo -->
+        <circle
+          class="bulb-glow"
+          cx="310"
+          cy="20"
+          r="8"
+          fill="rgba(255,255,220,0.15)"
+          filter="url(#bulbGlow)"></circle>
+        <circle class="bulb" cx="310" cy="20" r="4" fill="#fffff0"></circle>
+      </svg>
     </div>
-    <!-- end .scene -->
   </section>
 </div>
 
@@ -167,193 +174,106 @@ import imagenAbout from "../assets/imagen-about.jpg";
     justify-content: center;
   }
 
-  /* Reset the generic div styles for image containers */
-  .image-outer,
-  .image-inner {
-    min-height: unset;
-    height: 430px;
-    gap: 0;
-    width: 320px;
-  }
-
   section {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     gap: 1rem;
 
     article {
       display: flex;
       flex-direction: column;
-
       p {
         color: var(--text-normal);
         text-wrap: pretty;
         padding-right: 1rem;
       }
-
       strong {
         color: var(--text-enfasis);
       }
     }
   }
 
-  /* ── Outer: rotation + glow + corners ───────────────────── */
-  .image-outer {
+  .scene {
     position: relative;
     flex-shrink: 0;
-    width: 320px;
-    height: 430px;
-    transform: rotate(4deg);
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.4s ease;
-    box-shadow:
-      0 22px 55px rgba(240, 228, 128, 0.28),
-      0 8px 20px rgba(240, 228, 128, 0.12),
-      0 -4px 16px rgba(240, 228, 128, 0.05);
-    border-radius: 16px;
-    /* No overflow:hidden here — corners must stay visible */
+    align-self: flex-start;
+    width: 460px;
+    height: 540px;
+    min-height: unset !important;
+    gap: 0;
   }
 
-  .image-outer:hover {
-    transform: rotate(2deg) translateY(-4px);
-    box-shadow:
-      0 32px 80px rgba(240, 228, 128, 0.42),
-      0 12px 30px rgba(240, 228, 128, 0.22),
-      0 -6px 20px rgba(240, 228, 128, 0.08);
+  .svg-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 460px;
+    height: 540px;
+    pointer-events: none;
+    z-index: 1;
+    overflow: visible;
   }
 
-  /* ── Inner: clips image + overlays to border-radius ─────── */
-  .image-inner {
-    position: relative;
-    width: 320px;
-    height: 430px;
-    border-radius: 16px;
-    overflow: hidden; /* clips image, scanlines, tint */
+  .svg-front {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 460px;
+    height: 540px;
+    pointer-events: none;
+    z-index: 3;
+    overflow: visible;
   }
 
-  /* ── Image ───────────────────────────────────────────────── */
+  .bulb {
+    animation: flickerBulb 5s steps(1, end) infinite;
+  }
+  .bulb-glow {
+    animation: flickerBulb 5s steps(1, end) infinite;
+  }
+  .beam-poly,
+  .spot-ellipse {
+    animation: flickerBeam 5s steps(1, end) infinite;
+  }
+
+  /*
+    imagen 200px centrada en x=310 → left = 310 - 100 = 210px
+    top=200px: el cono mide exactamente 200px de ancho aquí → imagen justo dentro
+  */
+  .image-wrapper {
+    position: absolute;
+    top: 200px;
+    left: 210px;
+    width: 200px;
+    height: 320px;
+    border-radius: 14px;
+    overflow: hidden;
+    transform: none;
+    z-index: 2;
+    min-height: unset !important;
+    gap: 0;
+  }
+
   .image {
     display: block;
-    width: 320px;
-    height: 430px;
+    width: 200px;
+    height: 320px;
     object-fit: cover;
     object-position: top center;
-    transition: filter 0.3s ease;
   }
 
-  .image-outer:hover .image {
-    filter: brightness(1.04);
-  }
-
-  /* ── Scanlines ───────────────────────────────────────────── */
-  .scanlines {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0, 0, 0, 0.1) 2px,
-      rgba(0, 0, 0, 0.1) 4px
-    );
-    transition: opacity 0.4s ease;
-  }
-
-  .image-outer:hover .scanlines {
-    opacity: 0.35;
-  }
-
-  /* ── Tint ────────────────────────────────────────────────── */
-  .tint {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background: linear-gradient(
-      135deg,
-      rgba(240, 228, 128, 0.07) 0%,
-      transparent 55%
-    );
-    mix-blend-mode: screen;
-  }
-
-  /* ── Corners — on outer so overflow:hidden doesn't clip them */
-  .corner {
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    border-color: var(--text-enfasis);
-    border-style: solid;
-    opacity: 0.6;
-    z-index: 3;
-    transition:
-      opacity 0.4s ease,
-      width 0.3s ease,
-      height 0.3s ease;
-  }
-
-  .corner.tl {
-    top: 8px;
-    left: 8px;
-    border-width: 2px 0 0 2px;
-  }
-  .corner.br {
-    bottom: 8px;
-    right: 8px;
-    border-width: 0 2px 2px 0;
-  }
-
-  .image-outer:hover .corner {
-    opacity: 1;
-    width: 18px;
-    height: 18px;
-  }
-
-  /* ── Responsive ──────────────────────────────────────────── */
-  @media (max-width: 950px) {
-    section {
-      flex-direction: column-reverse;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .image-outer {
-      margin: 0 auto;
-      transform: rotate(0deg);
-      width: 300px;
-      height: 350px;
-    }
-
-    .image-outer:hover {
-      transform: translateY(-4px);
-    }
-
-    .image-inner {
-      width: 300px;
-      height: 350px;
-    }
-
-    .image {
-      width: 300px;
-      height: 350px;
-    }
-  }
-
-  /* ── Flicker: foco de callejón parpadeando ───────────────── */
   .flicker-light {
     position: absolute;
     inset: 0;
-    z-index: 3;
+    z-index: 2;
     pointer-events: none;
     background: radial-gradient(
-      ellipse 70% 55% at 50% -10%,
-      box-shadow: 0 22px 55px rgba(240, 228, 128, 0.28),
-      0 8px 20px rgba(240, 228, 128, 0.12),
-      0 -4px 16px rgba(240, 228, 128, 0.05) ; transparent 75%
+      ellipse 140% 70% at 50% 0%,
+      rgba(255, 252, 190, 0.5) 0%,
+      rgba(255, 252, 190, 0.22) 40%,
+      rgba(255, 252, 190, 0.05) 65%,
+      transparent 85%
     );
     animation: flickerLight 5s steps(1, end) infinite;
   }
@@ -361,12 +281,62 @@ import imagenAbout from "../assets/imagen-about.jpg";
   .flicker-overlay {
     position: absolute;
     inset: 0;
-    z-index: 4;
+    z-index: 3;
     pointer-events: none;
     animation: flickerDark 5s steps(1, end) infinite;
   }
 
-  @keyframes flickerLight {
+  @keyframes flickerBulb {
+    0% {
+      opacity: 1;
+    }
+    8% {
+      opacity: 0.05;
+    }
+    9% {
+      opacity: 1;
+    }
+    21% {
+      opacity: 0.05;
+    }
+    22% {
+      opacity: 0.05;
+    }
+    23% {
+      opacity: 1;
+    }
+    51% {
+      opacity: 0.05;
+    }
+    52% {
+      opacity: 1;
+    }
+    53% {
+      opacity: 0.05;
+    }
+    54% {
+      opacity: 1;
+    }
+    73% {
+      opacity: 0.05;
+    }
+    74% {
+      opacity: 0.05;
+    }
+    75% {
+      opacity: 1;
+    }
+    96% {
+      opacity: 0.05;
+    }
+    97% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes flickerBeam {
     0% {
       opacity: 1;
     }
@@ -376,9 +346,6 @@ import imagenAbout from "../assets/imagen-about.jpg";
     9% {
       opacity: 1;
     }
-    20% {
-      opacity: 1;
-    }
     21% {
       opacity: 0;
     }
@@ -386,9 +353,6 @@ import imagenAbout from "../assets/imagen-about.jpg";
       opacity: 0;
     }
     23% {
-      opacity: 1;
-    }
-    50% {
       opacity: 1;
     }
     51% {
@@ -403,9 +367,6 @@ import imagenAbout from "../assets/imagen-about.jpg";
     54% {
       opacity: 1;
     }
-    72% {
-      opacity: 1;
-    }
     73% {
       opacity: 0;
     }
@@ -413,9 +374,6 @@ import imagenAbout from "../assets/imagen-about.jpg";
       opacity: 0;
     }
     75% {
-      opacity: 1;
-    }
-    95% {
       opacity: 1;
     }
     96% {
@@ -428,7 +386,56 @@ import imagenAbout from "../assets/imagen-about.jpg";
       opacity: 1;
     }
   }
-
+  @keyframes flickerLight {
+    0% {
+      opacity: 1;
+    }
+    8% {
+      opacity: 0;
+    }
+    9% {
+      opacity: 1;
+    }
+    21% {
+      opacity: 0;
+    }
+    22% {
+      opacity: 0;
+    }
+    23% {
+      opacity: 1;
+    }
+    51% {
+      opacity: 0;
+    }
+    52% {
+      opacity: 1;
+    }
+    53% {
+      opacity: 0;
+    }
+    54% {
+      opacity: 1;
+    }
+    73% {
+      opacity: 0;
+    }
+    74% {
+      opacity: 0;
+    }
+    75% {
+      opacity: 1;
+    }
+    96% {
+      opacity: 0;
+    }
+    97% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   @keyframes flickerDark {
     0% {
       background: rgba(0, 0, 0, 0);
@@ -439,9 +446,6 @@ import imagenAbout from "../assets/imagen-about.jpg";
     9% {
       background: rgba(0, 0, 0, 0);
     }
-    20% {
-      background: rgba(0, 0, 0, 0);
-    }
     21% {
       background: rgba(0, 0, 0, 0.65);
     }
@@ -449,9 +453,6 @@ import imagenAbout from "../assets/imagen-about.jpg";
       background: rgba(0, 0, 0, 0.7);
     }
     23% {
-      background: rgba(0, 0, 0, 0);
-    }
-    50% {
       background: rgba(0, 0, 0, 0);
     }
     51% {
@@ -466,9 +467,6 @@ import imagenAbout from "../assets/imagen-about.jpg";
     54% {
       background: rgba(0, 0, 0, 0);
     }
-    72% {
-      background: rgba(0, 0, 0, 0);
-    }
     73% {
       background: rgba(0, 0, 0, 0.75);
     }
@@ -476,9 +474,6 @@ import imagenAbout from "../assets/imagen-about.jpg";
       background: rgba(0, 0, 0, 0.8);
     }
     75% {
-      background: rgba(0, 0, 0, 0);
-    }
-    95% {
       background: rgba(0, 0, 0, 0);
     }
     96% {
@@ -492,180 +487,46 @@ import imagenAbout from "../assets/imagen-about.jpg";
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .flicker-light,
-    .flicker-overlay {
-      animation: none;
+  /* ── Responsive — factor 460→300 = 0.652 ─────────────────── */
+  @media (max-width: 1000px) {
+    section {
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
     }
-  }
 
-  /* ── Scene ───────────────────────────────────────────────── */
-  .scene {
-    position: relative;
-    flex-shrink: 0;
-    min-height: unset !important;
-    width: 320px !important;
-    height: fit-content !important;
-    gap: 0;
-    display: block;
-  }
-
-  .lamp-svg {
-    position: absolute;
-    /* Higher above the image — lamp floats clearly separate */
-    top: -155px;
-    left: 0;
-    width: 320px;
-    height: 160px;
-    display: block;
-    overflow: visible;
-    pointer-events: none;
-    z-index: 10;
-  }
-
-  /* Only the light parts flicker — lamp structure is static */
-  .bulb {
-    animation: flickerBulbSvg 5s steps(1, end) infinite;
-  }
-  .bulb-glow {
-    animation: flickerBulbSvg 5s steps(1, end) infinite;
-  }
-  .beam-poly,
-  .spot-ellipse {
-    animation: flickerBeamSvg 5s steps(1, end) infinite;
-  }
-
-  /* White light — wide cone covering full image width */
-  .flicker-light {
-    background: radial-gradient(
-      ellipse 120% 60% at 60% 0%,
-      rgba(255, 255, 255, 0.38) 0%,
-      rgba(255, 255, 255, 0.18) 35%,
-      rgba(255, 255, 255, 0.06) 60%,
-      transparent 80%
-    ) !important;
-  }
-
-  /* ── Keyframes ───────────────────────────────────────────── */
-  @keyframes flickerBulbSvg {
-    0% {
-      opacity: 1;
-    }
-    8% {
-      opacity: 0.05;
-    }
-    9% {
-      opacity: 1;
-    }
-    21% {
-      opacity: 0.05;
-    }
-    22% {
-      opacity: 0.05;
-    }
-    23% {
-      opacity: 1;
-    }
-    51% {
-      opacity: 0.05;
-    }
-    52% {
-      opacity: 1;
-    }
-    53% {
-      opacity: 0.05;
-    }
-    54% {
-      opacity: 1;
-    }
-    73% {
-      opacity: 0.05;
-    }
-    74% {
-      opacity: 0.05;
-    }
-    75% {
-      opacity: 1;
-    }
-    96% {
-      opacity: 0.05;
-    }
-    97% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  @keyframes flickerBeamSvg {
-    0% {
-      opacity: 1;
-    }
-    8% {
-      opacity: 0;
-    }
-    9% {
-      opacity: 1;
-    }
-    21% {
-      opacity: 0;
-    }
-    22% {
-      opacity: 0;
-    }
-    23% {
-      opacity: 1;
-    }
-    51% {
-      opacity: 0;
-    }
-    52% {
-      opacity: 1;
-    }
-    53% {
-      opacity: 0;
-    }
-    54% {
-      opacity: 1;
-    }
-    73% {
-      opacity: 0;
-    }
-    74% {
-      opacity: 0;
-    }
-    75% {
-      opacity: 1;
-    }
-    96% {
-      opacity: 0;
-    }
-    97% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  @media (max-width: 950px) {
     .scene {
-      width: 300px !important;
-    }
-    .lamp-svg {
       width: 300px;
-      top: -145px;
+      height: 352px; /* 540 * 0.652 */
+      align-self: center;
+    }
+
+    .svg-back,
+    .svg-front {
+      width: 300px;
+      height: 352px;
+    }
+
+    .image-wrapper {
+      top: 130px; /* 200 * 0.652 */
+      left: 137px; /* 210 * 0.652 */
+      width: 130px; /* 200 * 0.652 */
+      height: 209px; /* 320 * 0.652 */
+    }
+
+    .image {
+      width: 130px;
+      height: 209px;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .flicker-light,
-    .flicker-overlay,
     .bulb,
     .bulb-glow,
     .beam-poly,
-    .spot-ellipse {
+    .spot-ellipse,
+    .flicker-light,
+    .flicker-overlay {
       animation: none;
     }
   }
