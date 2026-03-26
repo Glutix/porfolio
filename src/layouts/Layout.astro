@@ -73,16 +73,16 @@ interface Props {
   }
 
   [data-color-scheme="light"] {
-    --primary-color: #e2e2e2;
+    --primary-color: #ffffff;
     --secundary-color: #333;
     --secundary-color-variant: #5f5f5f;
     --btn-hover: #eab308;
     --text-title: #000000;
     --text-normal: #242422;
     --text-normal-variant: #fff;
-    --text-enfasis: #9a6f00 ;
-    --text-enfasis-1: #c0001a ;
-    --text-enfasis-2: #003580 ;
+    --text-enfasis: #24215f;
+    --text-enfasis-1: #c0001a;
+    --text-enfasis-2: #003580;
     --image-shadow: #eab308;
 
     --form-btn-text: #fff;
@@ -92,6 +92,15 @@ interface Props {
 
     --form-input-bg: #fff;
     --form-input-bg-focus: #fff;
+
+    /* ── Escena About ── */
+    --scene-beam-start: rgba(20, 50, 120, 0.55);
+    --scene-beam-mid: rgba(20, 50, 120, 0.22);
+    --scene-beam-end: rgba(20, 50, 120, 0.03);
+    --scene-spot: rgba(20, 50, 120, 0.28);
+    --scene-rain: rgba(20, 50, 120, 0.5);
+    --scene-bulb: #24215f;
+    --scene-bulb-glow: rgba(20, 50, 120, 0.25);
   }
 
   [data-color-scheme="dark"] {
@@ -115,6 +124,15 @@ interface Props {
     --form-input-text: #fff;
     --form-input-bg: #272727;
     --form-input-bg-focus: #3f3f3f;
+
+    /* ── Escena About ── */
+    --scene-beam-start: rgba(240, 240, 255, 0.45);
+    --scene-beam-mid: rgba(240, 240, 255, 0.18);
+    --scene-beam-end: rgba(240, 240, 255, 0.02);
+    --scene-spot: rgba(240, 240, 255, 0.2);
+    --scene-rain: rgba(200, 220, 255, 1);
+    --scene-bulb: #f0f0ff;
+    --scene-bulb-glow: rgba(240, 240, 255, 0.2);
   }
 
   html {
@@ -135,26 +153,26 @@ interface Props {
 
     h1 {
       font-size: 34px;
-      line-height: 34px;
+      line-height: 1.8;
       margin: 0;
     }
 
     h2 {
       font-size: 30px;
-      line-height: 30px;
+      line-height: 1.7;
       margin: 0;
     }
 
     h3 {
       font-size: 26px;
-      line-height: 26px;
+      line-height: 1.6;
       margin: 0;
     }
 
     p {
       text-wrap: pretty;
       font-size: 18px;
-      line-height: 28px;
+      line-height: 1.6;
     }
   }
 

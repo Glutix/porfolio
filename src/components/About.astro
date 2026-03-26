@@ -2,100 +2,39 @@
 import SectionTitle from "./SectionTitle.astro";
 import UserCheckbox from "../icons/UserCeck.astro";
 import { Image } from "astro:assets";
-import imagenAbout from "../assets/imagen-about.jpg";
+import imagenAbout from "../assets/imagen-about.png";
 ---
 
 <div id="about">
   <SectionTitle id="about" title="Sobre mi" icon={UserCheckbox} />
   <section>
-<article>
-  <p>
-    Soy <strong>Ricardo</strong>, también conocido como <strong>Glutix</strong>. 
-    Comencé en la programación en la universidad, donde descubrí en el 
-    <strong>desarrollo web y de software</strong> una forma de crear y resolver problemas.
-  </p>
-  <p>
-    Participé en proyectos que fortalecieron mis habilidades técnicas y el 
-    <strong>trabajo en equipo</strong>, aprendiendo a encontrar soluciones simples a desafíos complejos.
-  </p>
-  <p>
-    Hoy sigo explorando tecnologías para <strong>crear aplicaciones útiles e innovadoras</strong>, 
-    creciendo tanto en lo <strong>profesional</strong> como en lo personal.
-  </p>
-</article>
+    <article>
+      <p>
+        Soy <strong>Ricardo</strong>, también conocido como <strong
+          >Glutix</strong
+        >. Comencé en la programación en la universidad, donde descubrí en el
+        <strong>desarrollo web y de software</strong> una forma de crear y resolver
+        problemas.
+      </p>
+      <p>
+        Participé en proyectos que fortalecieron mis habilidades técnicas y el
+        <strong>trabajo en equipo</strong>, aprendiendo a encontrar soluciones
+        simples a desafíos complejos.
+      </p>
+      <p>
+        Hoy sigo explorando tecnologías para <strong
+          >crear aplicaciones útiles e innovadoras</strong
+        >, creciendo tanto en lo <strong>profesional</strong> como en lo personal.
+      </p>
+    </article>
 
     <div class="scene">
-      <!-- Z=1: Cono de luz -->
-      <svg
-        class="svg-back"
-        viewBox="0 0 460 540"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
+      <!-- SVG filters -->
+      <svg width="0" height="0" style="position:absolute">
         <defs>
           <filter id="spotBlur">
             <feGaussianBlur stdDeviation="12"></feGaussianBlur>
           </filter>
-          <linearGradient id="beamGrad" x1="0.5" y1="0" x2="0.5" y2="1">
-            <stop offset="0%" stop-color="rgba(255,252,190,0.45)"></stop>
-            <stop offset="45%" stop-color="rgba(255,252,190,0.18)"></stop>
-            <stop offset="100%" stop-color="rgba(255,252,190,0.02)"></stop>
-          </linearGradient>
-        </defs>
-        <!--
-          Lámpara reducida: pantalla termina en y=32 (antes y=44)
-          Boca del cono: x=284..336 (52px), y=32 — pegada a la pantalla
-          Centro: x=310
-          Base: x=60..560 (500px) centrada en x=310 → 310±250
-          overflow:visible renderiza lo que sale del viewBox ✓
-
-          Verificación imagen (220px, x=200..420, top=y=160):
-            cono(160) = 52 + 448*(160-32)/508 = 52+113 = 165px → semi=82 → x=228..392
-            imagen x=200..420 → esquinas fuera ✗
-          
-          top imagen sube a y=200:
-            cono(200) = 52 + 448*168/508 = 52+148 = 200px → semi=100 → x=210..410
-            imagen x=200..420 → 10px fuera derecha ✗
-
-          top=210: cono(210) = 52+448*178/508 = 52+157 = 209px → semi=104 → x=206..414
-          imagen x=200..420 → 6px fuera ✗
-
-          imagen 210px: top=210, left=205 (310-105)
-            cono(210)=209 < 210 ✗ por 1px...
-
-          imagen 200px centrada: x=210..410, top=200
-            cono(200)=200px → semi=100 → x=210..410 → exacto ✓✓
-            cono(520)=500px → semi=250 → x=60..560 — imagen bien dentro ✓
-        -->
-        <polygon
-          class="beam-poly"
-          points="284,32 336,32 560,528 60,528"
-          fill="url(#beamGrad)"></polygon>
-        <ellipse
-          class="spot-ellipse"
-          cx="310"
-          cy="522"
-          rx="245"
-          ry="16"
-          fill="rgba(255,252,190,0.20)"
-          filter="url(#spotBlur)"></ellipse>
-      </svg>
-
-      <!-- Z=2: Imagen -->
-      <div class="image-wrapper">
-        <Image class="image" src={imagenAbout} alt="imagen acerca de mi" />
-        <div class="flicker-light" aria-hidden="true"></div>
-        <div class="flicker-overlay" aria-hidden="true"></div>
-      </div>
-
-      <!-- Z=3: Lámpara más pequeña, foco en x=310 y=32 -->
-      <svg
-        class="svg-front"
-        viewBox="0 0 460 540"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <defs>
           <filter id="bulbGlow">
             <feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur>
             <feMerge>
@@ -103,15 +42,54 @@ import imagenAbout from "../assets/imagen-about.jpg";
               <feMergeNode in="SourceGraphic"></feMergeNode>
             </feMerge>
           </filter>
+          <linearGradient id="beamGrad" x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0%" class="beam-stop-start"></stop>
+            <stop offset="45%" class="beam-stop-mid"></stop>
+            <stop offset="100%" class="beam-stop-end"></stop>
+          </linearGradient>
         </defs>
+      </svg>
 
-        <!--
-          Todo escalado ~0.7x respecto a antes:
-          Cable: entra desde x=460, y=-20 → x=420
-          Codo 1: 420,-20 → 385,-2
-          Codo 2: 385,-2  → 310,14
-          Pantalla: centrada en x=310, borde inferior y=32
-        -->
+      <!-- Z=1: Cono de luz -->
+      <svg
+        class="svg-back"
+        viewBox="0 0 460 540"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <polygon
+          class="beam-poly"
+          points="214,32 246,32 475,528 -15,528"
+          fill="url(#beamGrad)"></polygon>
+        <ellipse
+          class="spot-ellipse"
+          cx="230"
+          cy="522"
+          rx="245"
+          ry="16"
+          filter="url(#spotBlur)"></ellipse>
+      </svg>
+
+      <!-- Z=2: Imagen base -->
+      <div class="image-wrapper">
+        <Image class="image" src={imagenAbout} alt="imagen acerca de mi" />
+      </div>
+
+      <!-- Z=3: Reflejo -->
+      <div class="image-wrapper image-wrapper--reflection">
+        <Image class="image" src={imagenAbout} alt="" aria-hidden="true" />
+      </div>
+
+      <!-- Z=4: Canvas de lluvia -->
+      <canvas class="rain-canvas" aria-hidden="true"></canvas>
+
+      <!-- Z=5: Lámpara -->
+      <svg
+        class="svg-front"
+        viewBox="0 0 460 540"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
         <line
           x1="460"
           y1="-20"
@@ -121,53 +99,104 @@ import imagenAbout from "../assets/imagen-about.jpg";
           stroke-width="2"
           stroke-linecap="round"></line>
         <circle cx="420" cy="-20" r="3.5" fill="#555"></circle>
-
         <line
           x1="420"
           y1="-20"
-          x2="385"
+          x2="310"
           y2="-2"
           stroke="#666"
           stroke-width="4"
           stroke-linecap="round"></line>
-        <circle cx="385" cy="-2" r="5" fill="#4a4a4a"></circle>
-        <circle cx="385" cy="-2" r="3" fill="#333"></circle>
-
+        <circle cx="310" cy="-2" r="5" fill="#4a4a4a"></circle>
+        <circle cx="310" cy="-2" r="3" fill="#333"></circle>
         <line
-          x1="385"
+          x1="310"
           y1="-2"
-          x2="310"
+          x2="230"
           y2="14"
           stroke="#666"
           stroke-width="4"
           stroke-linecap="round"></line>
-        <circle cx="310" cy="14" r="4.5" fill="#4a4a4a"></circle>
-
-        <!-- Pantalla reducida centrada en x=310, borde inferior y=32 -->
-        <polygon points="293,8 327,8 340,30 280,30" fill="#333"></polygon>
-        <polygon points="295,10 325,10 337,28 283,28" fill="#222"></polygon>
-        <line x1="280" y1="30" x2="340" y2="30" stroke="#555" stroke-width="1.2"
+        <circle cx="230" cy="14" r="4.5" fill="#4a4a4a"></circle>
+        <polygon points="213,8 247,8 260,30 200,30" fill="#333"></polygon>
+        <polygon points="215,10 245,10 257,28 203,28" fill="#222"></polygon>
+        <line x1="200" y1="30" x2="260" y2="30" stroke="#555" stroke-width="1.2"
         ></line>
-
-        <!-- Bulbo -->
-        <circle
-          class="bulb-glow"
-          cx="310"
-          cy="20"
-          r="8"
-          fill="rgba(255,255,220,0.15)"
-          filter="url(#bulbGlow)"></circle>
-        <circle class="bulb" cx="310" cy="20" r="4" fill="#fffff0"></circle>
+        <circle class="bulb-glow" cx="230" cy="20" r="8" filter="url(#bulbGlow)"
+        ></circle>
+        <circle class="bulb" cx="230" cy="20" r="4"></circle>
       </svg>
     </div>
   </section>
 </div>
 
+<script>
+  const canvas = document.querySelector(".rain-canvas") as HTMLCanvasElement;
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    const W = 460;
+    const H = 540;
+    canvas.width = W;
+    canvas.height = H;
+
+    const DROP_COUNT = 120;
+
+    const drops = Array.from({ length: DROP_COUNT }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      length: 10 + Math.random() * 20,
+      speed: 4 + Math.random() * 6,
+      opacity: 0.08 + Math.random() * 0.18,
+    }));
+
+    const angle = Math.PI / 12;
+    const dx = Math.sin(angle);
+    const dy = Math.cos(angle);
+
+    function getRainColor() {
+      return getComputedStyle(document.body)
+        .getPropertyValue("--scene-rain")
+        .trim();
+    }
+
+    function draw() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, W, H);
+      const rainBase = getRainColor();
+      drops.forEach((d) => {
+        ctx.beginPath();
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x + dx * d.length, d.y + dy * d.length);
+        ctx.strokeStyle = rainBase.startsWith("rgba")
+          ? rainBase.replace(/[\d.]+\)$/, `${d.opacity})`)
+          : `rgba(180, 210, 255, ${d.opacity})`;
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+
+        d.x += dx * d.speed;
+        d.y += dy * d.speed;
+
+        if (d.y > H + d.length) {
+          d.x = Math.random() * W;
+          d.y = -d.length;
+        }
+        if (d.x > W + d.length) {
+          d.x = -d.length;
+          d.y = Math.random() * H;
+        }
+      });
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  }
+</script>
+
 <style>
   div {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     width: 100%;
     min-height: 100dvh;
     height: fit-content;
@@ -179,29 +208,35 @@ import imagenAbout from "../assets/imagen-about.jpg";
     justify-content: space-between;
     align-items: flex-start;
     gap: 1rem;
+  }
 
-    article {
-      display: flex;
-      flex-direction: column;
-      p {
-        color: var(--text-normal);
-        text-wrap: pretty;
-        padding-right: 1rem;
-      }
-      strong {
-        color: var(--text-enfasis);
-      }
-    }
+  article {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: 460px;
+    padding-top: 50px;
+    text-wrap: pretty;
+  }
+
+  p {
+    color: var(--text-normal);
+    line-height: 1.6;
+  }
+
+  strong {
+    color: var(--text-enfasis);
   }
 
   .scene {
     position: relative;
     flex-shrink: 0;
-    align-self: flex-start;
+    flex-grow: 0;
     width: 460px;
     height: 540px;
     min-height: unset !important;
     gap: 0;
+    margin-top: -40px;
   }
 
   .svg-back {
@@ -222,14 +257,28 @@ import imagenAbout from "../assets/imagen-about.jpg";
     width: 460px;
     height: 540px;
     pointer-events: none;
-    z-index: 3;
+    z-index: 5;
     overflow: visible;
   }
 
+  .rain-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 460px;
+    height: 540px;
+    pointer-events: none;
+    z-index: 4;
+    border-radius: 14px;
+  }
+
+  /* Bombilla — colores desde variables */
   .bulb {
+    fill: var(--scene-bulb);
     animation: flickerBulb 5s steps(1, end) infinite;
   }
   .bulb-glow {
+    fill: var(--scene-bulb-glow);
     animation: flickerBulb 5s steps(1, end) infinite;
   }
   .beam-poly,
@@ -237,19 +286,27 @@ import imagenAbout from "../assets/imagen-about.jpg";
     animation: flickerBeam 5s steps(1, end) infinite;
   }
 
-  /*
-    imagen 200px centrada en x=310 → left = 310 - 100 = 210px
-    top=200px: el cono mide exactamente 200px de ancho aquí → imagen justo dentro
-  */
+  /* Gradiente del cono via CSS variables */
+  .beam-stop-start {
+    stop-color: var(--scene-beam-start);
+  }
+  .beam-stop-mid {
+    stop-color: var(--scene-beam-mid);
+  }
+  .beam-stop-end {
+    stop-color: var(--scene-beam-end);
+  }
+  .spot-ellipse {
+    fill: var(--scene-spot);
+  }
+
+  /* Imagen base */
   .image-wrapper {
     position: absolute;
-    top: 200px;
-    left: 210px;
-    width: 200px;
-    height: 320px;
-    border-radius: 14px;
-    overflow: hidden;
-    transform: none;
+    top: 140px;
+    left: 70px;
+    width: 340px;
+    height: 460px;
     z-index: 2;
     min-height: unset !important;
     gap: 0;
@@ -257,33 +314,24 @@ import imagenAbout from "../assets/imagen-about.jpg";
 
   .image {
     display: block;
-    width: 200px;
-    height: 320px;
+    width: 320px;
+    height: 460px;
     object-fit: cover;
     object-position: top center;
+    border-radius: 14px;
   }
 
-  .flicker-light {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background: radial-gradient(
-      ellipse 140% 70% at 50% 0%,
-      rgba(255, 252, 190, 0.5) 0%,
-      rgba(255, 252, 190, 0.22) 40%,
-      rgba(255, 252, 190, 0.05) 65%,
-      transparent 85%
-    );
-    animation: flickerLight 5s steps(1, end) infinite;
-  }
-
-  .flicker-overlay {
-    position: absolute;
-    inset: 0;
+  /* Reflejo */
+  .image-wrapper--reflection {
+    clip-path: inset(0 0 0 55%);
+    border-radius: 0 14px 14px 0;
+    overflow: hidden;
     z-index: 3;
-    pointer-events: none;
-    animation: flickerDark 5s steps(1, end) infinite;
+  }
+
+  /* Ambas imágenes sincronizan con la lámpara */
+  .image-wrapper .image {
+    animation: flickerImagen 5s steps(1, end) infinite;
   }
 
   @keyframes flickerBulb {
@@ -336,6 +384,7 @@ import imagenAbout from "../assets/imagen-about.jpg";
       opacity: 1;
     }
   }
+
   @keyframes flickerBeam {
     0% {
       opacity: 1;
@@ -386,7 +435,8 @@ import imagenAbout from "../assets/imagen-about.jpg";
       opacity: 1;
     }
   }
-  @keyframes flickerLight {
+
+  @keyframes flickerImagen {
     0% {
       opacity: 1;
     }
@@ -434,60 +484,10 @@ import imagenAbout from "../assets/imagen-about.jpg";
     }
     100% {
       opacity: 1;
-    }
-  }
-  @keyframes flickerDark {
-    0% {
-      background: rgba(0, 0, 0, 0);
-    }
-    8% {
-      background: rgba(0, 0, 0, 0.55);
-    }
-    9% {
-      background: rgba(0, 0, 0, 0);
-    }
-    21% {
-      background: rgba(0, 0, 0, 0.65);
-    }
-    22% {
-      background: rgba(0, 0, 0, 0.7);
-    }
-    23% {
-      background: rgba(0, 0, 0, 0);
-    }
-    51% {
-      background: rgba(0, 0, 0, 0.5);
-    }
-    52% {
-      background: rgba(0, 0, 0, 0);
-    }
-    53% {
-      background: rgba(0, 0, 0, 0.6);
-    }
-    54% {
-      background: rgba(0, 0, 0, 0);
-    }
-    73% {
-      background: rgba(0, 0, 0, 0.75);
-    }
-    74% {
-      background: rgba(0, 0, 0, 0.8);
-    }
-    75% {
-      background: rgba(0, 0, 0, 0);
-    }
-    96% {
-      background: rgba(0, 0, 0, 0.55);
-    }
-    97% {
-      background: rgba(0, 0, 0, 0);
-    }
-    100% {
-      background: rgba(0, 0, 0, 0);
     }
   }
 
-  /* ── Responsive — factor 460→300 = 0.652 ─────────────────── */
+  /* ── Responsive ─────────────────────────────────────────── */
   @media (max-width: 1000px) {
     section {
       flex-direction: column-reverse;
@@ -495,10 +495,15 @@ import imagenAbout from "../assets/imagen-about.jpg";
       align-items: center;
     }
 
+    article {
+      padding-top: 0;
+    }
+
     .scene {
       width: 300px;
-      height: 352px; /* 540 * 0.652 */
+      height: 352px;
       align-self: center;
+      margin-top: 0;
     }
 
     .svg-back,
@@ -506,17 +511,21 @@ import imagenAbout from "../assets/imagen-about.jpg";
       width: 300px;
       height: 352px;
     }
+    .rain-canvas {
+      width: 300px;
+      height: 352px;
+    }
 
     .image-wrapper {
-      top: 130px; /* 200 * 0.652 */
-      left: 137px; /* 210 * 0.652 */
-      width: 130px; /* 200 * 0.652 */
-      height: 209px; /* 320 * 0.652 */
+      top: 80px;
+      left: 40px;
+      width: 220px;
+      height: 300px;
     }
 
     .image {
-      width: 130px;
-      height: 209px;
+      width: 220px;
+      height: 300px;
     }
   }
 
@@ -525,8 +534,7 @@ import imagenAbout from "../assets/imagen-about.jpg";
     .bulb-glow,
     .beam-poly,
     .spot-ellipse,
-    .flicker-light,
-    .flicker-overlay {
+    .image-wrapper .image {
       animation: none;
     }
   }

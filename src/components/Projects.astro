@@ -10,6 +10,10 @@ import quinchoDesktop from "../assets/quincho-desktop.png";
 import quinMobile from "../assets/quincho-mobile.png";
 import integrateDesktop from "../assets/integrate-desktop.jpg";
 import integrateMobile from "../assets/integrate-mobile.jpg";
+import samDesktop from "../assets/sam-desktop.png";
+import samMobile from "../assets/sam-mobile.png";
+import gymSystemDesktop from "../assets/gym-system-desktop.png";
+import gymSystemMobile from "../assets/gym-system-mobile.png";
 
 //icons
 import TypeScript from "../icons/TypeScript.astro";
@@ -31,6 +35,7 @@ import Sequelize from "../icons/Sequelize.astro";
 import AstroIcon from "../icons/AstroIcon.astro";
 import SQLite from "../icons/SQLite.astro";
 import Tauri from "../icons/Tauri.astro";
+import VideoDemo from "../icons/VideoDemo.astro";
 
 type PropsImage = {
   urlDesktop: ImageMetadata;
@@ -46,37 +51,24 @@ interface ProjectsProps {
   images: PropsImage;
   github: string;
   deploy: string;
+  video: string;
 }
 
 const PROJECTS: ProjectsProps[] = [
   {
-    title: "GYM-System - Sistema de gestión para gimnasios",
+    title: "GYM-System — Software de gestión en producción para Iron-Gym",
     description:
-      "Aplicación web de gestión integral para gimnasios. Permite administrar socios, controlar el estado de membresías con un sistema de 5 niveles de urgencia, enviar notificaciones por WhatsApp, renovar membresías y visualizar métricas clave desde un panel de control centralizado.",
+      "Mi primer software real monetizado, actualmente en uso activo en Iron-Gym. Gestiona socios, membresías con alertas de vencimiento en 5 niveles de urgencia, notificaciones por WhatsApp y métricas clave desde un panel centralizado.",
     tags: [AstroIcon, React, JavaScript, SQLite, Express, Tauri],
     images: {
-      urlDesktop: facilMarketDesktop,
+      urlDesktop: gymSystemDesktop,
       altDesktop: "GYM-System-desktop",
-      urlMobile: facilMarketMobile,
+      urlMobile: gymSystemMobile,
       altMobile: "GYM-System-mobile",
     },
-    github: "https://github.com/glutix/GYM-System.git",
+    github: "",
     deploy: "",
-  },
-
-  {
-    title: "SAM - Sistema Académico Mantovani",
-    description:
-      "Plataforma web de gestión académica institucional desarrollada para el Instituto Superior Juan Mantovani. Permite administrar preinscripciones, inscripciones a materias con validación de correlatividades, exámenes finales, carga de notas y seguimiento académico completo. Cuenta con roles diferenciados para administradores, bedeles, docentes, coordinadores y alumnos.",
-    tags: [JavaScript, Express, Prisma, PostgreSQL, Next, Tailwind],
-    images: {
-      urlDesktop: integrateDesktop,
-      altDesktop: "sam-desktop",
-      urlMobile: integrateDesktop,
-      altMobile: "sam-mobile",
-    },
-    github: "https://github.com/glutix/SAM2.git",
-    deploy: "",
+    video: "https://youtu.be/Sz5R2reiH0o",
   },
   {
     title: "Facil Market - Marketplace para compradores y vendedores",
@@ -91,23 +83,23 @@ const PROJECTS: ProjectsProps[] = [
     },
     github: "https://github.com/adharainfinita/facil-market-proyect.git",
     deploy: "",
+    video: "https://www.youtube.com/watch?v=XQNHgjvIK84",
   },
-
   {
-    title: "Quincho Alto Norte - Sitio web promocional",
+    title: "SAM - Sistema Académico Mantovani",
     description:
-      "Sitio web diseñado para destacar un espacio ideal para reuniones familiares y eventos sociales. Presenta de manera clara las instalaciones, servicios y atractivos, ofreciendo a los visitantes una experiencia visual amigable y fácil de navegar.",
-    tags: [TypeScript, React],
+      "Plataforma web de gestión académica institucional desarrollada para el Instituto Superior Juan Mantovani. Permite administrar preinscripciones, inscripciones a materias con validación de correlatividades, exámenes finales, carga de notas y seguimiento académico completo. Cuenta con roles diferenciados para administradores, bedeles, docentes, coordinadores y alumnos.",
+    tags: [JavaScript, Express, Prisma, PostgreSQL, Next, Tailwind],
     images: {
-      urlDesktop: quinchoDesktop,
-      altDesktop: "quincho-desktop",
-      urlMobile: quinMobile,
-      altMobile: "quincho-mobile",
+      urlDesktop: samDesktop,
+      altDesktop: "sam-desktop",
+      urlMobile: samMobile,
+      altMobile: "sam-mobile",
     },
-    github: "https://github.com/Glutix/Quincho.git",
-    deploy: "https://glutix.github.io/Quincho/",
+    github: "https://github.com/glutix/SAM2.git",
+    deploy: "",
+    video: "https://youtu.be/_WJ9RozvOI0",
   },
-
   {
     title: "Integrate - Blog Musical",
     description:
@@ -121,18 +113,37 @@ const PROJECTS: ProjectsProps[] = [
     },
     github: "https://github.com/Glutix/blog-musical",
     deploy: "https://integrate.pythonanywhere.com/",
+    video: "",
+  },
+  {
+    title: "Quincho Alto Norte - Sitio web promocional",
+    description:
+      "Sitio web diseñado para destacar un espacio ideal para reuniones familiares y eventos sociales. Presenta de manera clara las instalaciones, servicios y atractivos, ofreciendo a los visitantes una experiencia visual amigable y fácil de navegar.",
+    tags: [TypeScript, React],
+    images: {
+      urlDesktop: quinchoDesktop,
+      altDesktop: "quincho-desktop",
+      urlMobile: quinMobile,
+      altMobile: "quincho-mobile",
+    },
+    github: "https://github.com/Glutix/Quincho.git",
+    deploy: "https://glutix.github.io/Quincho/",
+    video: "",
   },
 ];
 
 const VISIBLE_BY_DEFAULT = 3;
 ---
-  
+
 <div>
   <SectionTitle id="projects" title="Proyectos" icon={Code} />
   <div class="projects">
     {
       PROJECTS.map(
-        ({ title, description, tags, images, github, deploy }, index) => {
+        (
+          { title, description, tags, images, github, deploy, video },
+          index,
+        ) => {
           return (
             <article
               class={index >= VISIBLE_BY_DEFAULT ? "project-hidden" : ""}
@@ -166,13 +177,17 @@ const VISIBLE_BY_DEFAULT = 3;
                 />
               </div>
               <section>
-                <a
-                  rel="noopener noreferrer"
-                  href={`${github}`}
-                  target="_target"
-                >
-                  <GitHub class="github" /> Código fuente
-                </a>
+                {github !== "" ? (
+                  <a
+                    rel="noopener noreferrer"
+                    href={`${github}`}
+                    target="_target"
+                  >
+                    <GitHub class="github" /> Código fuente
+                  </a>
+                ) : (
+                  ""
+                )}
                 {deploy !== "" ? (
                   <a
                     rel="noopener noreferrer"
@@ -180,6 +195,17 @@ const VISIBLE_BY_DEFAULT = 3;
                     target="_target"
                   >
                     <WebSite class="github" /> Sitio web
+                  </a>
+                ) : (
+                  ""
+                )}
+                {video !== "" ? (
+                  <a
+                    rel="noopener noreferrer"
+                    href={`${video}`}
+                    target="_target"
+                  >
+                    <VideoDemo class="github" /> Video demo
                   </a>
                 ) : (
                   ""
@@ -275,12 +301,13 @@ const VISIBLE_BY_DEFAULT = 3;
     font-size: 24px;
     color: var(--text-enfasis);
     margin: 0;
+    max-width: 70ch;
   }
 
   p {
     padding-right: 1rem;
-    max-width: 64ch;
-    line-height: 24px;
+    max-width: 70ch;
+    line-height: 1.6;
   }
 
   article {
@@ -365,8 +392,6 @@ const VISIBLE_BY_DEFAULT = 3;
   }
 
   .project-revealing {
-    display: flex;
-    flex-direction: column;
     opacity: 0;
     transform: translateY(12px);
     transition:
