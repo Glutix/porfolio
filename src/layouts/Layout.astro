@@ -73,59 +73,229 @@ interface Props {
   }
 
   [data-color-scheme="light"] {
-    --primary-color: #ffffff;
-    --secundary-color: #333;
-    --secundary-color-variant: #5f5f5f;
-    --btn-hover: #eab308;
+    /* Colores Principales - Light Mode */
+    --primary-color: #f2f7f4;
+    --text-enfasis: #16a34a;
+
     --text-title: #000000;
     --text-normal: #242422;
     --text-normal-variant: #fff;
-    --text-enfasis: #24215f;
-    --text-enfasis-1: #c0001a;
-    --text-enfasis-2: #003580;
-    --image-shadow: #eab308;
 
-    --form-btn-text: #fff;
-    --form-btn-backgroud: #333;
-    --form-btn-hover: #eab308;
-    --form-btn-disable: #5f5f5f;
+    /* Header – Light Mode */
+    --header-glow-primary: rgba(74, 222, 128, 0.18);
+    --header-glow-primary-md: rgba(74, 222, 128, 0.15);
+    --header-glow-primary-sm: rgba(74, 222, 128, 0.07);
 
-    --form-input-bg: #fff;
-    --form-input-bg-focus: #fff;
+    --header-glow-hover-primary: rgba(74, 222, 128, 0.28);
+    --header-glow-hover-md: rgba(74, 222, 128, 0.2);
+    --header-glow-hover-sm: rgba(74, 222, 128, 0.09);
 
-    /* ── Escena About ── */
-    --scene-beam-start: rgba(20, 50, 120, 0.55);
-    --scene-beam-mid: rgba(20, 50, 120, 0.22);
-    --scene-beam-end: rgba(20, 50, 120, 0.03);
-    --scene-spot: rgba(20, 50, 120, 0.28);
-    --scene-rain: rgba(20, 50, 120, 0.5);
-    --scene-bulb: #24215f;
-    --scene-bulb-glow: rgba(20, 50, 120, 0.25);
+    --header-tint: rgba(74, 222, 128, 0.06);
+    --header-scanlines: rgba(0, 0, 0, 0.06);
+    --header-corner-opacity: 0.6;
+    --header-image-radius: 8px;
+
+    /* Navegación – Light Mode */
+    --nav-bg: rgba(10, 10, 15, 0.96);
+    --nav-border: rgba(74, 222, 128, 0.2);
+    --nav-shadow: rgba(74, 222, 128, 0.12);
+
+    --nav-text: #f5f5f5;
+    --nav-text-muted: #a1a1aa;
+
+    --nav-hover-bg: rgba(74, 222, 128, 0.08);
+    --nav-active-bg: rgba(74, 222, 128, 0.15);
+
+    --nav-accent: #4ade80;
+    --nav-accent-soft: rgba(74, 222, 128, 0.18);
+
+    --nav-blur: blur(12px);
+    --nav-inset: rgba(255, 255, 255, 0.06);
+
+    /* Social – Light Mode */
+    --social-bg: rgba(22, 163, 74, 0.08);
+    --social-bg-hover: rgba(22, 163, 74, 0.15);
+    --social-border: rgba(22, 163, 74, 0.25);
+    --social-border-hover: rgba(22, 163, 74, 0.5);
+    --social-shadow: rgba(22, 163, 74, 0.2);
+    --social-icon: var(--text-enfasis);
+    --social-text: #374151;
+    --social-text-hover: var(--text-enfasis);
+
+    /* Proyectos - Light Mode */
+    --link-btn-github-bg: rgba(22, 163, 74, 0.1);
+    --link-btn-github-bg-hover: rgba(22, 163, 74, 0.2);
+    --link-btn-github-border: rgba(22, 163, 74, 0.35);
+    --link-btn-github-text: var(--text-enfasis);
+
+    --link-btn-deploy-bg: rgba(59, 130, 246, 0.1);
+    --link-btn-deploy-bg-hover: rgba(59, 130, 246, 0.2);
+    --link-btn-deploy-border: rgba(59, 130, 246, 0.35);
+    --link-btn-deploy-text: #3b82f6;
+
+    --link-btn-video-bg: rgba(220, 38, 38, 0.1);
+    --link-btn-video-bg-hover: rgba(220, 38, 38, 0.2);
+    --link-btn-video-border: rgba(220, 38, 38, 0.35);
+    --link-btn-video-text: #dc2626;
+
+    --show-more-bg: transparent;
+    --show-more-bg-hover: rgba(22, 163, 74, 0.08);
+    --show-more-border: rgba(22, 163, 74, 0.3);
+    --show-more-border-hover: rgba(22, 163, 74, 0.6);
+    --show-more-text: var(--text-normal);
+    --show-more-text-hover: var(--text-enfasis);
+
+    /* Tags - Light Mode */
+    --tag-bg: rgba(22, 163, 74, 0.08);
+    --tag-border: rgba(22, 163, 74, 0.25);
+    --tag-text: var(--text-enfasis);
+
+    /* Escena About - Light Mode */
+    --scene-beam-start: rgba(22, 163, 74, 0.35);
+    --scene-beam-mid: rgba(22, 163, 74, 0.12);
+    --scene-beam-end: rgba(22, 163, 74, 0.02);
+    --scene-spot: rgba(22, 163, 74, 0.18);
+    --scene-rain: rgba(15, 118, 58, 1);
+    --scene-bulb: #bbf7d0;
+    --scene-bulb-glow: rgba(74, 222, 128, 0.35);
+
+    /* Formulario - Light Mode */
+    /* Frame */
+    --form-frame-bg: rgba(255, 255, 255, 0.75);
+    --form-frame-border: rgba(22, 163, 74, 0.18);
+
+    /* Labels y contador */
+    --form-label-color: rgba(36, 36, 34, 0.5);
+    --form-counter-color: rgba(36, 36, 34, 0.35);
+    --form-counter-warn: #16a34a;
+    --form-counter-limit: #dc2626;
+
+    /* Input — estado normal */
+    --input-bg: rgba(255, 255, 255, 0.9);
+    --input-bg-focus: #ffffff;
+    --input-border: rgba(36, 36, 34, 0.15);
+    --input-border-focus: #16a34a;
+    --input-shadow-focus: rgba(22, 163, 74, 0.15);
+    --input-text: #242422;
+    --input-placeholder: rgba(36, 36, 34, 0.3);
+
+    /* Input — estado válido */
+    --input-valid-bg: rgba(22, 163, 74, 0.05);
+    --input-valid-border: rgba(22, 163, 74, 0.55);
+    --input-valid-shadow: rgba(22, 163, 74, 0.15);
+
+    /* Input — estado inválido */
+    --input-invalid-bg: rgba(220, 38, 38, 0.05);
+    --input-invalid-border: rgba(220, 38, 38, 0.5);
+    --input-invalid-shadow: rgba(220, 38, 38, 0.15);
+
+    /* Autofill — box-shadow inset trick */
+    --input-autofill-bg: #f8fdf9; /* blanco con tinte verde muy sutil */
+    --input-autofill-valid-bg: #f0fdf4; /* verde 50 — válido */
+    --input-autofill-invalid-bg: #fef2f2; /* rojo 50 — inválido */
+
+    /* Error message */
+    --form-error-color: #dc2626;
+
+    /* Botón — estado normal */
+    --btn-bg: #16a34a;
+    --btn-text: #ffffff;
+    --btn-bg-hover: #15803d; /* verde un tono más oscuro */
+    --btn-text-hover: #ffffff;
+    --btn-shadow-hover: rgba(22, 163, 74, 0.25);
+
+    /* Botón — deshabilitado */
+    --btn-bg-disabled: rgba(22, 163, 74, 0.25);
+    --btn-text-disabled: rgba(255, 255, 255, 0.6);
+
+    /* Botón — success */
+    --btn-bg-success: #15803d;
+    --btn-text-success: #ffffff;
+
+    /* Botón — error */
+    --btn-bg-error: #dc2626;
+    --btn-text-error: #ffffff;
   }
 
   [data-color-scheme="dark"] {
+    /* Colores Principales - Dark Mode */
     --primary-color: #121212;
-    --secundary-color: #3f3f3f;
-    --secundary-color-variant: #12121293;
-    --btn-hover: #5c5b5b;
+    --text-enfasis: #f0e480;
+
     --text-title: #fff;
     --text-normal: #d7d7d7;
     --text-normal-variant: #d7d7d7;
-    --text-enfasis: #f0e480;
-    --text-enfasis-1: #ec829d;
-    --text-enfasis-2: #b8d2ef;
-    --image-shadow: #ffffff80;
 
-    --form-btn-text: #000;
-    --form-btn-backgroud: #f0e480;
-    --form-btn-hover: #fded5b;
-    --form-btn-disable: #f0e480;
+    /* Header - Dark Mode */
+    --header-glow-primary: rgba(240, 228, 128, 0.18);
+    --header-glow-primary-md: rgba(240, 228, 128, 0.08);
+    --header-glow-primary-sm: rgba(240, 228, 128, 0.03);
 
-    --form-input-text: #fff;
-    --form-input-bg: #272727;
-    --form-input-bg-focus: #3f3f3f;
+    --header-glow-hover-primary: rgba(240, 228, 128, 0.28);
+    --header-glow-hover-md: rgba(240, 228, 128, 0.14);
+    --header-glow-hover-sm: rgba(240, 228, 128, 0.06);
 
-    /* ── Escena About ── */
+    --header-tint: rgba(240, 228, 128, 0.07);
+    --header-scanlines: rgba(0, 0, 0, 0.1);
+    --header-corner-opacity: 0.7;
+    --header-image-radius: 8px;
+
+    /* Navegación - Dark Mode*/
+    --nav-bg: rgba(18, 18, 18, 95);
+    --nav-border: rgba(240, 228, 128, 0.25);
+    --nav-shadow: rgba(0, 0, 0, 0.5);
+
+    --nav-text: #f5f5f5;
+    --nav-text-muted: #a1a1aa;
+
+    --nav-hover-bg: rgba(240, 228, 128, 0.12);
+    --nav-active-bg: rgba(240, 228, 128, 0.2);
+
+    --nav-accent: #f0e480;
+    --nav-accent-soft: rgba(240, 228, 128, 0.18);
+
+    --nav-blur: blur(12px);
+    --nav-inset: rgba(255, 255, 255, 0.06);
+
+    /* Social – Dark Mode */
+    --social-bg: rgba(63, 63, 63, 0.5);
+    --social-bg-hover: rgba(92, 91, 91, 0.6);
+    --social-border: rgba(255, 255, 255, 0.08);
+    --social-border-hover: rgba(255, 255, 255, 0.15);
+    --social-shadow: rgba(255, 255, 255, 0.08);
+    --social-icon: #ffffff;
+    --social-text: #d7d7d7;
+    --social-text-hover: #ffffff;
+
+    /* Proyectos - Dark Mode */
+    --link-btn-github-bg: rgba(240, 228, 128, 0.08);
+    --link-btn-github-bg-hover: rgba(240, 228, 128, 0.18);
+    --link-btn-github-border: rgba(240, 228, 128, 0.25);
+    --link-btn-github-text: var(--text-enfasis);
+
+    --link-btn-deploy-bg: rgba(96, 165, 250, 0.08);
+    --link-btn-deploy-bg-hover: rgba(96, 165, 250, 0.18);
+    --link-btn-deploy-border: rgba(96, 165, 250, 0.25);
+    --link-btn-deploy-text: #60a5fa;
+
+    --link-btn-video-bg: rgba(248, 113, 113, 0.08);
+    --link-btn-video-bg-hover: rgba(248, 113, 113, 0.18);
+    --link-btn-video-border: rgba(248, 113, 113, 0.25);
+    --link-btn-video-text: #f87171;
+
+    --show-more-bg: transparent;
+    --show-more-bg-hover: rgba(240, 228, 128, 0.08);
+    --show-more-border: rgba(240, 228, 128, 0.25);
+    --show-more-border-hover: rgba(240, 228, 128, 0.55);
+    --show-more-text: var(--text-normal);
+    --show-more-text-hover: var(--text-enfasis);
+
+    /* Tags - Dark Mode */
+    --tag-bg: rgba(240, 228, 128, 0.08);
+    --tag-border: rgba(240, 228, 128, 0.2);
+    --tag-text: var(--text-enfasis);
+
+    /* Escena About - Dark Mode */
     --scene-beam-start: rgba(240, 240, 255, 0.45);
     --scene-beam-mid: rgba(240, 240, 255, 0.18);
     --scene-beam-end: rgba(240, 240, 255, 0.02);
@@ -133,6 +303,68 @@ interface Props {
     --scene-rain: rgba(200, 220, 255, 1);
     --scene-bulb: #f0f0ff;
     --scene-bulb-glow: rgba(240, 240, 255, 0.2);
+
+    /* Formulario - Dark Mode */
+    /* Frame */
+    --form-frame-bg: rgba(30, 30, 30, 0.85);
+    --form-frame-border: rgba(240, 228, 128, 0.12);
+
+    /* Labels y contador */
+    --form-label-color: rgba(215, 215, 215, 0.55);
+    --form-counter-color: rgba(215, 215, 215, 0.35);
+    --form-counter-warn: #f0e480;
+    --form-counter-limit: #f87171;
+
+    /* Autofill — backgrounds solidos para el box-shadow inset trick */
+    --input-autofill-bg: #1e1e1e; /* neutro, igual al frame */
+    --input-autofill-valid-bg: #1f2118; /* tinte amarillo muy sutil sobre oscuro */
+    --input-autofill-invalid-bg: #221818; /* tinte rojo muy sutil sobre oscuro */
+
+    /* Input — estado normal */
+    --input-bg: rgba(255, 255, 255, 0.04);
+    --input-bg-focus: rgba(255, 255, 255, 0.07);
+    --input-border: rgba(215, 215, 215, 0.15);
+    --input-border-focus: #f0e480;
+    --input-shadow-focus: rgba(240, 228, 128, 0.14);
+    --input-text: #d7d7d7;
+    --input-placeholder: rgba(215, 215, 215, 0.28);
+
+    /* Input — estado valido */
+    --input-valid-bg: rgba(240, 228, 128, 0.06);
+    --input-valid-border: rgba(240, 228, 128, 0.55);
+    --input-valid-shadow: rgba(240, 228, 128, 0.18); /* sombra focus valido  */
+
+    /* Input — estado invalido */
+    --input-invalid-bg: rgba(248, 113, 113, 0.06);
+    --input-invalid-border: rgba(248, 113, 113, 0.55);
+    --input-invalid-shadow: rgba(
+      248,
+      113,
+      113,
+      0.22
+    ); /* sombra focus invalido */
+
+    /* Error message */
+    --form-error-color: #f87171;
+
+    /* Botón — estado normal */
+    --btn-bg: rgba(240, 228, 128, 0.88);
+    --btn-text: #111111; /* negro sobre amarillo = contraste AAA */
+    --btn-bg-hover: #f0e480;
+    --btn-text-hover: #000000;
+    --btn-shadow-hover: rgba(240, 228, 128, 0.22);
+
+    /* Botón — deshabilitado */
+    --btn-bg-disabled: rgba(240, 228, 128, 0.28);
+    --btn-text-disabled: rgba(0, 0, 0, 0.45);
+
+    /* Botón — success */
+    --btn-bg-success: #f0e480;
+    --btn-text-success: #000000;
+
+    /* Botón — error */
+    --btn-bg-error: #f87171;
+    --btn-text-error: #000000;
   }
 
   html {

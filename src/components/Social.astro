@@ -5,28 +5,38 @@ import Cv from "../icons/cv.astro";
 ---
 
 <div>
-  <a
-    href="https://www.linkedin.com/in/ricardo-ferreyra/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <Linkedin class="linkedin" />
-    <span>Linkedin</span>
-  </a>
+  <div>
+    <a
+      href="https://www.linkedin.com/in/ricardo-ferreyra/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Linkedin class="linkedin" />
+      <span>Linkedin</span>
+    </a>
+  </div>
 
-  <a href="https://github.com/Glutix" target="_blank" rel="noopener noreferrer">
-    <GitHub class="github" />
-    <span>GitHub</span>
-  </a>
+  <div>
+    <a
+      href="https://github.com/Glutix"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <GitHub class="github" />
+      <span>GitHub</span>
+    </a>
+  </div>
 
-  <a
-    href="https://drive.google.com/file/d/1FAP0aYg2aacPKGMU8Lhf62ABskGv0sfm/view?usp=sharing"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <Cv class="cv" />
-    <span>Resumen</span>
-  </a>
+  <div>
+    <a
+      href="https://drive.google.com/file/d/1FAP0aYg2aacPKGMU8Lhf62ABskGv0sfm/view?usp=sharing"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Cv class="cv" />
+      <span>Resumen</span>
+    </a>
+  </div>
 </div>
 
 <style>
@@ -46,33 +56,33 @@ import Cv from "../icons/cv.astro";
     text-decoration: none;
     gap: 0.5rem;
     border-radius: 12px;
-    background-color: var(--secundary-color);
+    background-color: var(--social-bg);
+    border: 1px solid var(--social-border);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
     min-width: fit-content;
   }
 
   div a:visited {
-    color: var(--text-title);
+    color: var(--social-text);
   }
 
   div a:hover {
-    background-color: var(--btn-hover);
-
+    background-color: var(--social-bg-hover);
+    border-color: var(--social-border-hover);
     transform: translateY(-2px) scale(1.02);
-
-    filter: drop-shadow(0 2px 16px var(--image-shadow));
+    filter: drop-shadow(0 4px 8px var(--social-shadow));
     transition:
       transform 0.3s ease,
       filter 0.3s ease;
   }
 
   div a:hover span {
-    color: var(--text-title);
+    color: var(--social-text-hover);
   }
 
   div a span {
-    color: var(--text-normal-variant);
+    color: var(--social-text);
     font-weight: 500;
   }
 
@@ -81,7 +91,7 @@ import Cv from "../icons/cv.astro";
   .cv {
     width: 25px;
     height: 25px;
-    color: white;
+    color: var(--social-icon);
     flex-shrink: 0;
   }
 
@@ -98,7 +108,8 @@ import Cv from "../icons/cv.astro";
     }
 
     .linkedin,
-    .github {
+    .github,
+    .cv {
       width: 22px;
       height: 22px;
     }
@@ -120,7 +131,8 @@ import Cv from "../icons/cv.astro";
     }
 
     .linkedin,
-    .github {
+    .github,
+    .cv {
       width: 20px;
       height: 20px;
     }
@@ -144,7 +156,8 @@ import Cv from "../icons/cv.astro";
     }
 
     .linkedin,
-    .github {
+    .github,
+    .cv {
       width: 18px;
       height: 18px;
     }
@@ -163,7 +176,8 @@ import Cv from "../icons/cv.astro";
     }
 
     .linkedin,
-    .github {
+    .github,
+    .cv {
       width: 16px;
       height: 16px;
     }
@@ -185,7 +199,8 @@ import Cv from "../icons/cv.astro";
     }
 
     .linkedin,
-    .github {
+    .github,
+    .cv {
       width: 14px;
       height: 14px;
     }

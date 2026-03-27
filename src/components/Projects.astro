@@ -135,7 +135,7 @@ const PROJECTS: ProjectsProps[] = [
 const VISIBLE_BY_DEFAULT = 3;
 ---
 
-<div>
+<div id="projects">
   <SectionTitle id="projects" title="Proyectos" icon={Code} />
   <div class="projects">
     {
@@ -179,33 +179,36 @@ const VISIBLE_BY_DEFAULT = 3;
               <section>
                 {github !== "" ? (
                   <a
+                    class="link-btn link-btn--github"
                     rel="noopener noreferrer"
                     href={`${github}`}
-                    target="_target"
+                    target="_blank"
                   >
-                    <GitHub class="github" /> Código fuente
+                    <GitHub class="link-icon" /> Código fuente
                   </a>
                 ) : (
                   ""
                 )}
                 {deploy !== "" ? (
                   <a
+                    class="link-btn link-btn--deploy"
                     rel="noopener noreferrer"
                     href={`${deploy}`}
-                    target="_target"
+                    target="_blank"
                   >
-                    <WebSite class="github" /> Sitio web
+                    <WebSite class="link-icon" /> Sitio web
                   </a>
                 ) : (
                   ""
                 )}
                 {video !== "" ? (
                   <a
+                    class="link-btn link-btn--video"
                     rel="noopener noreferrer"
                     href={`${video}`}
-                    target="_target"
+                    target="_blank"
                   >
-                    <VideoDemo class="github" /> Video demo
+                    <VideoDemo class="link-icon" /> Video demo
                   </a>
                 ) : (
                   ""
@@ -222,7 +225,7 @@ const VISIBLE_BY_DEFAULT = 3;
     PROJECTS.length > VISIBLE_BY_DEFAULT && (
       <div class="show-more-wrapper">
         <button id="show-more-btn" class="show-more-btn">
-          Ver más proyectos
+          <span class="btn-label">Ver más proyectos</span>
           <svg
             class="btn-arrow"
             width="14"
@@ -269,15 +272,21 @@ const VISIBLE_BY_DEFAULT = 3;
             () => {
               card.classList.remove("project-revealing");
               card.classList.add("project-hidden");
+
+              // ✅ Scroll de vuelta al inicio de la sección
+              document
+                .getElementById("projects")
+                ?.scrollIntoView({ behavior: "smooth", block: "start" });
             },
             { once: true },
           );
         }
       });
 
-      btn.querySelector(".btn-label")!.textContent = expanded
-        ? "Ver menos"
-        : "Ver más proyectos";
+      const label = btn.querySelector(".btn-label");
+      if (label) {
+        label.textContent = expanded ? "Ver menos" : "Ver más proyectos";
+      }
       btn.classList.toggle("is-expanded", expanded);
     });
   }
@@ -319,42 +328,86 @@ const VISIBLE_BY_DEFAULT = 3;
       flex-wrap: wrap;
 
       & li {
-        color: white;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        background-color: var(--tag-bg);
+        border: 1px solid var(--tag-border);
+        color: var(--tag-text);
+        padding: 0.25rem 0.65rem;
+        border-radius: 99px;
+        font-size: 0.8rem;
       }
     }
   }
 
+  /* ── Link buttons ────────────────────────────────────────── */
   section {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
     align-items: center;
-
-    & a {
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      background-color: var(--secundary-color);
-      width: fit-content;
-      padding: 0.5rem;
-      border-radius: 24px;
-      color: var(--text-normal-variant);
-      transition: 0.3s ease-in;
-
-      &:hover {
-        color: var(--text-normal-variant);
-        transform: scale(1.1);
-      }
-    }
+    flex-wrap: wrap;
   }
 
-  .github {
-    width: 20px;
-    height: 20px;
-    color: white;
+  .link-btn {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    width: fit-content;
+    padding: 0.45rem 0.9rem;
+    border-radius: 24px;
+    border: 1px solid transparent;
+    font-size: 0.85rem;
+    font-family: inherit;
+    font-weight: 500;
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      transform 0.25s ease;
   }
 
-  /* ---------- Desktop ---------- */
+  .link-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  /* GitHub */
+  .link-btn--github {
+    background-color: var(--link-btn-github-bg);
+    border-color: var(--link-btn-github-border);
+    color: var(--link-btn-github-text);
+  }
+  .link-btn--github:hover {
+    background-color: var(--link-btn-github-bg-hover);
+  }
+
+  /* Deploy / Sitio web */
+  .link-btn--deploy {
+    background-color: var(--link-btn-deploy-bg);
+    border-color: var(--link-btn-deploy-border);
+    color: var(--link-btn-deploy-text);
+  }
+  .link-btn--deploy:hover {
+    background-color: var(--link-btn-deploy-bg-hover);
+  }
+
+  /* Video demo */
+  .link-btn--video {
+    background-color: var(--link-btn-video-bg);
+    border-color: var(--link-btn-video-border);
+    color: var(--link-btn-video-text);
+  }
+  .link-btn--video:hover {
+    background-color: var(--link-btn-video-bg-hover);
+  }
+
+  .link-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ---------- Desktop image ---------- */
   .image-wrapper-desktop {
     position: relative;
     width: 100%;
@@ -377,13 +430,9 @@ const VISIBLE_BY_DEFAULT = 3;
     transform: scale(1);
   }
 
-  /* ---------- Mobile ---------- */
+  /* ---------- Mobile image ---------- */
   .image-mobile {
     display: none;
-  }
-
-  .image-mobile:active {
-    transform: scale(1);
   }
 
   /* ── Hidden / reveal ─────────────────────────────────────── */
@@ -411,26 +460,29 @@ const VISIBLE_BY_DEFAULT = 3;
   }
 
   .show-more-btn {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: transparent;
-    border: 1px solid var(--secundary-color);
+    background-color: var(--show-more-bg);
+    border: 1px solid var(--show-more-border);
     border-radius: 24px;
     padding: 0.55rem 1.25rem;
-    color: var(--text-normal);
+    color: var(--show-more-text);
     font-family: inherit;
     font-size: 0.85rem;
+    font-weight: 500;
     cursor: pointer;
     transition:
+      background-color 0.25s ease,
       border-color 0.25s ease,
       color 0.25s ease,
       transform 0.25s ease;
   }
 
   .show-more-btn:hover {
-    border-color: var(--btn-hover);
-    color: var(--text-enfasis);
+    background-color: var(--show-more-bg-hover);
+    border-color: var(--show-more-border-hover);
+    color: var(--show-more-text-hover);
     transform: translateY(-2px);
   }
 
@@ -444,6 +496,7 @@ const VISIBLE_BY_DEFAULT = 3;
     transform: rotate(180deg);
   }
 
+  /* ── Mobile breakpoint ───────────────────────────────────── */
   @media (max-width: 600px) {
     .image-wrapper-desktop {
       display: none;

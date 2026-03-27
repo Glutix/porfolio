@@ -1,145 +1,325 @@
-<nav>
-  <a href="#home">Inicio</a>
-  <a href="#about">Sobre mi</a>
+<nav class="nav">
+  <a href="#home" class="active">Inicio</a>
   <a href="#projects">Proyectos</a>
+  <a href="#about">Sobre mi</a>
   <a href="#contact">Contacto</a>
+
+  <span class="nav-indicator"></span>
 </nav>
 
 <style>
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    height: 3rem;
-    width: fit-content;
-    padding: 6px 20px;
-    border-radius: 100px;
-    box-shadow: 
-      0px 0px 0px 1px var(--image-shadow),
-      0px 4px 20px rgba(0, 0, 0, 0.3);
+  .nav {
     position: fixed;
-    z-index: 100;
     top: 1rem;
     left: 50%;
     transform: translateX(-50%);
-    background-color: var(--secundary-color-variant);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.25rem;
+    padding: 5px;
+
+    height: 3rem;
+    border-radius: 999px;
+
+    background: var(--nav-bg);
+    backdrop-filter: var(--nav-blur);
+    -webkit-backdrop-filter: var(--nav-blur);
+
+    border: 1px solid var(--nav-border);
+
+    box-shadow:
+      0 8px 32px var(--nav-shadow),
+      0 2px 8px var(--nav-shadow),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    z-index: 100;
+
+    transition:
+      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.3s ease,
+      opacity 0.3s ease;
   }
 
-  nav:hover {
-    box-shadow: 
-      0px 0px 0px 1px var(--image-shadow),
-      0px 6px 25px rgba(0, 0, 0, 0.4);
-    transform: translateX(-50%) translateY(-1px);
-  }
-
-  a {
-    text-decoration: none;
-    padding: 8px 16px;
-    color: var(--text-normal-variant);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 20px;
-    font-weight: 500;
-    position: relative;
-    white-space: nowrap;
-  }
-
-  a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--text-enfasis);
+  .nav.hidden {
+    transform: translateX(-50%) translateY(-120%);
     opacity: 0;
-    border-radius: 20px;
-    transition: opacity 0.3s ease;
-    z-index: -1;
+    pointer-events: none;
   }
 
-  a:hover {
-    color: var(--text-enfasis);
-    transform: translateY(-1px);
+  .nav:hover {
+    box-shadow:
+      0 12px 40px var(--nav-shadow),
+      0 0 0 1px var(--nav-border),
+      inset 0 1px 0 var(--nav-inset);
   }
 
-  a:hover::before {
-    opacity: 0.1;
+  .nav a {
+    position: relative;
+    z-index: 2;
+
+    text-decoration: none;
+    color: var(--nav-text-muted);
+
+    padding: 7px 14px;
+    border-radius: 999px;
+
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.01em;
+
+    transition:
+      color 0.25s ease,
+      transform 0.2s ease;
+
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
-  a:active {
-    transform: translateY(0);
+  .nav a:hover {
+    color: var(--nav-text);
   }
 
-  /* ── Tablet ──────────────────────────────────────────────── */
+  .nav a.active {
+    color: var(--nav-accent);
+  }
+
+  .nav a.active::after {
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--nav-accent);
+    opacity: 0.5;
+  }
+
+  .nav-indicator {
+    position: absolute;
+
+    height: 68%;
+    border-radius: 999px;
+
+    background: var(--nav-active-bg);
+    border: 1px solid var(--nav-border);
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    z-index: 1;
+
+    box-shadow: 0 0 12px var(--nav-accent-soft);
+
+    /*
+      Invisible hasta que JS lo posicione correctamente.
+      Así evitamos el flash de posición incorrecta al recargar.
+    */
+    opacity: 0;
+    transition:
+      left 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.2s ease;
+  }
+
+  .nav-indicator.ready {
+    opacity: 1;
+  }
+
+  /* ───────── Responsive ───────── */
+
   @media (max-width: 768px) {
-    nav {
-      gap: 1rem;
-      padding: 4px 16px;
-      height: 2.75rem;
-      /* Align top with toggle (top: 1rem) */
-      top: 1rem;
+    .nav {
+      gap: 0.125rem;
+      padding: 4px;
     }
-
-    a {
+    .nav a {
       padding: 6px 12px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
   }
 
-  /* ── Mobile ──────────────────────────────────────────────── */
   @media (max-width: 480px) {
-    nav {
-      gap: 0rem;
-      padding: 4px 8px;
-      height: 44px; /* match toggle touch target height */
-      top: 0.75rem; /* aligned with toggle top: 0.75rem */
-      /*
-        Reserve space on the right for the toggle (44px) + its
-        right offset (0.75rem) + a small gap (0.5rem) = ~3.5rem
-      */
-      max-width: calc(100vw - 3.5rem - 1rem);
+    .nav {
+      max-width: calc(100vw - 1.5rem);
+      overflow-x: auto;
+      justify-content: flex-start;
+      scrollbar-width: none;
     }
-
-    a {
-      padding: 6px 8px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      min-width: fit-content;
+    .nav::-webkit-scrollbar {
+      display: none;
     }
-  }
-
-  /* ── Small mobile ────────────────────────────────────────── */
-  @media (max-width: 390px) {
-    nav {
-      gap: 0rem;
-      padding: 4px 6px;
-      height: 44px;
-      top: 0.6rem; /* aligned with toggle top: 0.6rem */
-      max-width: calc(100vw - 3.5rem - 0.75rem);
-    }
-
-    a {
-      padding: 5px 6px;
-      font-size: 0.72rem;
-    }
-  }
-
-  /* ── Extra small ─────────────────────────────────────────── */
-  @media (max-width: 320px) {
-    nav {
-      gap: 0rem;
-      padding: 4px 4px;
-      height: 44px;
-      top: 0.5rem;
-      max-width: calc(100vw - 3.5rem - 0.5rem);
-    }
-
-    a {
-      padding: 4px 5px;
-      font-size: 0.68rem;
+    .nav a {
+      font-size: 0.8rem;
+      padding: 6px 10px;
     }
   }
 </style>
+
+<script>
+  function initNav() {
+    const nav = document.querySelector(".nav") as HTMLElement | null;
+    if (!nav) return;
+
+    const links = Array.from(nav.querySelectorAll("a")) as HTMLElement[];
+    const indicator = nav.querySelector(".nav-indicator") as HTMLElement | null;
+
+    const SECTION_IDS = ["home", "projects", "about", "contact"];
+
+    // ── Indicador ────────────────────────────────────────────────────
+    function updateIndicator(el: HTMLElement) {
+      if (!indicator) return;
+      const rect = el.getBoundingClientRect();
+      const navRect = nav!.getBoundingClientRect();
+      indicator.style.width = rect.width + "px";
+      indicator.style.left = rect.left - navRect.left + "px";
+    }
+
+    function setActive(id: string) {
+      const target = nav!.querySelector(
+        `a[href="#${id}"]`,
+      ) as HTMLElement | null;
+      if (!target || target.classList.contains("active")) return;
+      links.forEach((l) => l.classList.remove("active"));
+      target.classList.add("active");
+      updateIndicator(target);
+    }
+
+    // ── Posicionamiento inicial confiable ────────────────────────────
+    //
+    // Causa del bug al recargar:
+    //   getBoundingClientRect() devuelve valores incorrectos si se
+    //   llama antes de que el browser haya terminado el layout.
+    //   Las fuentes custom (Geist Pixel Square, Montserrat) cambian
+    //   el ancho del texto y desplazan todo el layout al cargarse.
+    //
+    // Solución en tres capas:
+    //   1. document.fonts.ready — espera a que TODAS las fuentes estén
+    //      cargadas y el layout sea definitivo.
+    //   2. Doble requestAnimationFrame — garantiza que el browser
+    //      ya ejecutó el paint y los valores de rect son correctos.
+    //   3. .ready class — el indicador arranca invisible (opacity:0)
+    //      y solo se muestra después de posicionarse, evitando el
+    //      flash en posición incorrecta.
+    //
+    function positionInitialIndicator() {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const active = nav!.querySelector(".active") as HTMLElement | null;
+          if (active) {
+            updateIndicator(active);
+            indicator?.classList.add("ready");
+          }
+        });
+      });
+    }
+
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(positionInitialIndicator);
+    } else {
+      positionInitialIndicator();
+    }
+
+    // ── Clicks ───────────────────────────────────────────────────────
+    links.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const href = link.getAttribute("href");
+        if (!href) return;
+
+        const target = document.querySelector(href) as HTMLElement | null;
+        if (target)
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        setActive(href.replace("#", ""));
+      });
+    });
+
+    // ── Resize ───────────────────────────────────────────────────────
+    window.addEventListener("resize", () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const active = nav!.querySelector(".active") as HTMLElement | null;
+          if (active) updateIndicator(active);
+        });
+      });
+    });
+
+    // ── Auto-hide al scroll hacia abajo ──────────────────────────────
+    let lastScrollY = window.scrollY;
+    window.addEventListener(
+      "scroll",
+      () => {
+        const y = window.scrollY;
+        nav.classList.toggle("hidden", y > lastScrollY && y > 80);
+        lastScrollY = y;
+      },
+      { passive: true },
+    );
+
+    // ── Detección de sección activa ──────────────────────────────────
+    function getSections(): HTMLElement[] {
+      return SECTION_IDS.map((id) => document.getElementById(id)).filter(
+        (el): el is HTMLElement => el !== null,
+      );
+    }
+
+    function getActiveSectionId(): string | null {
+      const sections = getSections();
+      if (sections.length === 0) return null;
+
+      const windowH = window.innerHeight;
+      const docH = document.documentElement.scrollHeight;
+      const NAV_OFFSET = 64;
+
+      if (window.scrollY + windowH >= docH - 20) {
+        return sections[sections.length - 1].id;
+      }
+
+      let bestId: string | null = null;
+      let bestArea = 0;
+
+      for (const el of sections) {
+        const rect = el.getBoundingClientRect();
+        const top = Math.max(rect.top, NAV_OFFSET);
+        const bottom = Math.min(rect.bottom, windowH);
+        const visible = Math.max(0, bottom - top);
+
+        if (visible > bestArea) {
+          bestArea = visible;
+          bestId = el.id;
+        }
+      }
+
+      return bestId;
+    }
+
+    let rafPending = false;
+    function onScroll() {
+      if (rafPending) return;
+      rafPending = true;
+      requestAnimationFrame(() => {
+        const id = getActiveSectionId();
+        if (id) setActive(id);
+        rafPending = false;
+      });
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    onScroll();
+    setTimeout(onScroll, 300);
+  }
+
+  document.addEventListener("astro:page-load", initNav);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initNav);
+  } else {
+    initNav();
+  }
+</script>

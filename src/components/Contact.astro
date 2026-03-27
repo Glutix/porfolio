@@ -3,20 +3,22 @@ import SectionTitle from "./SectionTitle.astro";
 import UserContact from "../icons/UserContact.astro";
 ---
 
-<div class="contact-section">
+<div class="contact-section" id="contact">
   <SectionTitle id="contact" title="Contacto" icon={UserContact} />
 
   <div class="contact-wrapper">
-
     <!-- Left: intro text -->
     <div class="contact-intro">
       <p class="intro-label">¿Tenés una oportunidad?</p>
       <h3 class="intro-heading">Hablemos.</h3>
       <p class="intro-body">
-        Estoy buscando activamente mi primer puesto como desarrollador. Si tenés un equipo donde pueda crecer, aportar y aprender, me encantaría ser parte.
+        Estoy buscando activamente mi primer puesto como desarrollador. Si tenés
+        un equipo donde pueda crecer, aportar y aprender, me encantaría ser
+        parte.
       </p>
       <p class="intro-body">
-        También estoy abierto a proyectos freelance y colaboraciones. Cualquier oportunidad es bienvenida — escribime y te respondo a la brevedad.
+        También estoy abierto a proyectos freelance y colaboraciones. Cualquier
+        oportunidad es bienvenida — escribime y te respondo a la brevedad.
       </p>
     </div>
 
@@ -28,7 +30,6 @@ import UserContact from "../icons/UserContact.astro";
       <span class="corner br" aria-hidden="true"></span>
 
       <form id="contact-form" class="contact-form" novalidate>
-
         <div class="form-group">
           <label for="user_name">Nombre</label>
           <input
@@ -74,11 +75,20 @@ import UserContact from "../icons/UserContact.astro";
 
         <button type="submit" class="submit-btn" id="submit-btn" disabled>
           <span class="btn-text">Completar campos</span>
-          <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
+          <svg
+            class="btn-arrow"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
           </svg>
         </button>
-
       </form>
     </div>
   </div>
@@ -95,7 +105,8 @@ import UserContact from "../icons/UserContact.astro";
   /* ── Two-column layout ───────────────────────────────────── */
   .contact-wrapper {
     display: grid;
-    grid-template-columns: 1fr 1.4fr;
+    /* Más espacio para el texto — antes 1fr / 1.4fr */
+    grid-template-columns: 1fr 1.6fr;
     gap: 4rem;
     margin-top: 3rem;
     align-items: start;
@@ -124,13 +135,12 @@ import UserContact from "../icons/UserContact.astro";
     color: var(--text-title);
     margin: 0;
     line-height: 1;
-    /* Thin accent underline */
     position: relative;
     width: fit-content;
   }
 
   .intro-heading::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -6px;
     left: 0;
@@ -141,26 +151,25 @@ import UserContact from "../icons/UserContact.astro";
   }
 
   .intro-body {
-    font-size: 0.95rem;
-    line-height: 1.7;
+    font-size: 1rem; /* subido de 0.95rem */
+    line-height: 1.75;
     color: var(--text-normal);
     margin: 0;
-    max-width: 30ch;
+    max-width: 36ch; /* más ancho que antes (30ch) */
     opacity: 0.85;
   }
 
-
-
-  /* ── Form frame with corners ─────────────────────────────── */
+  /* ── Form frame ──────────────────────────────────────────── */
   .form-frame {
     position: relative;
     padding: 2rem;
-    background: color-mix(in srgb, var(--secundary-color) 40%, transparent);
-    border: 1px solid color-mix(in srgb, var(--text-enfasis) 12%, transparent);
+    background: var(--form-frame-bg);
+    border: 1px solid var(--form-frame-border);
     border-radius: 12px;
     backdrop-filter: blur(8px);
   }
 
+  /* ── Corner brackets ─────────────────────────────────────── */
   .corner {
     position: absolute;
     width: 12px;
@@ -170,7 +179,10 @@ import UserContact from "../icons/UserContact.astro";
     opacity: 0.35;
     z-index: 1;
     pointer-events: none;
-    transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      width 0.3s ease,
+      height 0.3s ease;
   }
 
   .form-frame:focus-within .corner {
@@ -179,10 +191,30 @@ import UserContact from "../icons/UserContact.astro";
     height: 16px;
   }
 
-  .corner.tl { top: -1px;    left: -1px;  border-width: 2px 0 0 2px; border-radius: 2px 0 0 0; }
-  .corner.tr { top: -1px;    right: -1px; border-width: 2px 2px 0 0; border-radius: 0 2px 0 0; }
-  .corner.bl { bottom: -1px; left: -1px;  border-width: 0 0 2px 2px; border-radius: 0 0 0 2px; }
-  .corner.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; border-radius: 0 0 2px 0; }
+  .corner.tl {
+    top: -1px;
+    left: -1px;
+    border-width: 2px 0 0 2px;
+    border-radius: 2px 0 0 0;
+  }
+  .corner.tr {
+    top: -1px;
+    right: -1px;
+    border-width: 2px 2px 0 0;
+    border-radius: 0 2px 0 0;
+  }
+  .corner.bl {
+    bottom: -1px;
+    left: -1px;
+    border-width: 0 0 2px 2px;
+    border-radius: 0 0 0 2px;
+  }
+  .corner.br {
+    bottom: -1px;
+    right: -1px;
+    border-width: 0 2px 2px 0;
+    border-radius: 0 0 2px 0;
+  }
 
   /* ── Form internals ──────────────────────────────────────── */
   .contact-form {
@@ -203,59 +235,118 @@ import UserContact from "../icons/UserContact.astro";
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--text-normal);
-    opacity: 0.6;
+    color: var(--form-label-color);
   }
 
-  /* Label row with char counter */
   .label-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  .label-row label { opacity: 0.6; }
-
   .char-counter {
     font-size: 0.72rem;
-    color: var(--text-normal);
-    opacity: 0.4;
+    color: var(--form-counter-color);
     font-variant-numeric: tabular-nums;
-    transition: color 0.2s ease, opacity 0.2s ease;
+    transition:
+      color 0.2s ease,
+      opacity 0.2s ease;
   }
 
-  .char-counter.warn  { color: var(--text-enfasis); opacity: 0.9; }
-  .char-counter.limit { color: var(--text-enfasis-1); opacity: 1; }
+  .char-counter.warn {
+    color: var(--form-counter-warn);
+  }
+  .char-counter.limit {
+    color: var(--form-counter-limit);
+  }
 
+  /* ── Inputs & Textarea ───────────────────────────────────── */
   .contact-form input,
   .contact-form textarea {
     width: 100%;
     padding: 0.85rem 1rem;
-    border: 1px solid color-mix(in srgb, var(--text-normal) 18%, transparent);
+    border: 1px solid var(--input-border);
     border-radius: 8px;
-    background: color-mix(in srgb, var(--primary-color) 70%, transparent);
-    color: var(--text-normal);
+    background: var(--input-bg);
+    color: var(--input-text);
     font-size: 0.95rem;
     font-family: "Montserrat Variable", system-ui, sans-serif;
-    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.25s ease,
+      background 0.25s ease;
     box-sizing: border-box;
     outline: none;
   }
 
   .contact-form input::placeholder,
   .contact-form textarea::placeholder {
-    color: var(--text-normal);
-    opacity: 0.3;
+    color: var(--input-placeholder);
   }
 
+  /* Focus — estado neutro (amarillo) */
   .contact-form input:focus,
   .contact-form textarea:focus {
-    border-color: var(--text-enfasis);
-    background: color-mix(in srgb, var(--form-input-bg-focus) 90%, transparent);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--text-enfasis) 12%, transparent);
+    border-color: var(--input-border-focus);
+    background: var(--input-bg-focus);
+    box-shadow: 0 0 0 3px var(--input-shadow-focus);
   }
 
-  /* Textarea — resizable vertically, min/max height */
+  /* Focus — input invalido: sombra roja */
+  .contact-form input.invalid:focus,
+  .contact-form textarea.invalid:focus {
+    border-color: var(--input-invalid-border);
+    box-shadow: 0 0 0 3px var(--input-invalid-shadow);
+  }
+
+  /* Focus — input valido: sombra amarilla */
+  .contact-form input.valid:focus,
+  .contact-form textarea.valid:focus {
+    border-color: var(--input-valid-border);
+    box-shadow: 0 0 0 3px var(--input-valid-shadow);
+  }
+
+  /* ── Autocomplete override ───────────────────────────────── 
+     Tres capas de proteccion:
+     1. box-shadow inset reemplaza visualmente el background
+        (unica propiedad que el browser no bloquea en autofill)
+     2. -webkit-text-fill-color fuerza el color de texto
+     3. transition 9999s como fallback para browsers mas viejos
+  */
+
+  /* Estado neutro — fondo neutro del input */
+  .contact-form input:-webkit-autofill,
+  .contact-form input:-webkit-autofill:hover,
+  .contact-form input:-webkit-autofill:focus,
+  .contact-form input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px var(--input-autofill-bg) inset !important;
+    box-shadow: 0 0 0px 1000px var(--input-autofill-bg) inset !important;
+    -webkit-text-fill-color: var(--input-text) !important;
+    caret-color: var(--input-text);
+    border-color: var(--input-border) !important;
+  }
+
+  /* Estado valido — fondo amarillo sutil */
+  .contact-form input.valid:-webkit-autofill,
+  .contact-form input.valid:-webkit-autofill:hover,
+  .contact-form input.valid:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px var(--input-autofill-valid-bg) inset !important;
+    box-shadow: 0 0 0px 1000px var(--input-autofill-valid-bg) inset !important;
+    -webkit-text-fill-color: var(--input-text) !important;
+    border-color: var(--input-valid-border) !important;
+  }
+
+  /* Estado invalido — fondo rojo sutil */
+  .contact-form input.invalid:-webkit-autofill,
+  .contact-form input.invalid:-webkit-autofill:hover,
+  .contact-form input.invalid:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px var(--input-autofill-invalid-bg) inset !important;
+    box-shadow: 0 0 0px 1000px var(--input-autofill-invalid-bg) inset !important;
+    -webkit-text-fill-color: var(--input-text) !important;
+    border-color: var(--input-invalid-border) !important;
+  }
+
+  /* Textarea — resizable vertical con límites */
   .contact-form textarea {
     resize: vertical;
     min-height: 120px;
@@ -263,24 +354,25 @@ import UserContact from "../icons/UserContact.astro";
     line-height: 1.6;
   }
 
-  /* Validation states */
-  .contact-form input.invalid,
-  .contact-form textarea.invalid {
-    border-color: var(--text-enfasis-1);
-    background: color-mix(in srgb, var(--text-enfasis-1) 6%, var(--form-input-bg));
-  }
-
+  /* ── Validation states ───────────────────────────────────── */
   .contact-form input.valid,
   .contact-form textarea.valid {
-    border-color: var(--text-enfasis-2);
-    background: color-mix(in srgb, var(--text-enfasis-2) 5%, var(--form-input-bg));
+    border-color: var(--input-valid-border);
+    background: var(--input-valid-bg);
   }
 
+  .contact-form input.invalid,
+  .contact-form textarea.invalid {
+    border-color: var(--input-invalid-border);
+    background: var(--input-invalid-bg);
+  }
+
+  /* Error message */
   .error-message {
     display: none;
     align-items: center;
     gap: 0.35rem;
-    color: var(--text-enfasis-1);
+    color: var(--form-error-color);
     font-size: 0.78rem;
     font-weight: 500;
     padding-left: 0.1rem;
@@ -289,9 +381,8 @@ import UserContact from "../icons/UserContact.astro";
   .error-message.visible {
     display: flex;
   }
-
   .error-message::before {
-    content: '⚠';
+    content: "⚠";
     font-size: 0.7rem;
   }
 
@@ -309,9 +400,14 @@ import UserContact from "../icons/UserContact.astro";
     font-family: "Montserrat Variable", system-ui, sans-serif;
     letter-spacing: 0.04em;
     cursor: pointer;
-    background: var(--form-btn-backgroud);
-    color: var(--form-btn-text);
-    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease, opacity 0.2s ease;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    transition:
+      background 0.25s ease,
+      color 0.25s ease,
+      transform 0.2s ease,
+      box-shadow 0.25s ease,
+      opacity 0.2s ease;
     position: relative;
     overflow: hidden;
     margin-top: 0.4rem;
@@ -322,13 +418,14 @@ import UserContact from "../icons/UserContact.astro";
     flex-shrink: 0;
   }
 
-  .submit-btn:hover:not(:disabled) {
-    background: var(--form-btn-hover);
+  .submit-btn:hover:not(:disabled):not(.error):not(.loading) {
+    background: var(--btn-bg-hover);
+    color: var(--btn-text-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px color-mix(in srgb, var(--text-enfasis) 20%, transparent);
+    box-shadow: 0 6px 20px var(--btn-shadow-hover);
   }
 
-  .submit-btn:hover:not(:disabled) .btn-arrow {
+  .submit-btn:hover:not(:disabled):not(.error):not(.loading) .btn-arrow {
     transform: translateX(4px);
   }
 
@@ -337,12 +434,26 @@ import UserContact from "../icons/UserContact.astro";
     opacity: 0.5;
     transform: none;
     box-shadow: none;
-    background: var(--form-btn-disable);
+    background: var(--btn-bg-disabled);
+    color: var(--btn-text-disabled);
   }
 
-  .submit-btn.loading { opacity: 0.75; cursor: wait; }
-  .submit-btn.success { background: var(--text-enfasis-2); opacity: 1; }
-  .submit-btn.error   { background: var(--text-enfasis-1); opacity: 1; }
+  .submit-btn.loading {
+    opacity: 0.75;
+    cursor: wait;
+  }
+
+  .submit-btn.success {
+    background: var(--btn-bg-success);
+    color: var(--btn-text-success);
+    opacity: 1;
+  }
+
+  .submit-btn.error {
+    background: var(--btn-bg-error);
+    color: var(--btn-text-error);
+    opacity: 1;
+  }
 
   /* ── Responsive ──────────────────────────────────────────── */
   @media (max-width: 768px) {
@@ -352,19 +463,26 @@ import UserContact from "../icons/UserContact.astro";
       margin-top: 2rem;
     }
 
-    .intro-body { max-width: 100%; }
-
-    .form-frame { padding: 1.5rem; }
+    .intro-body {
+      max-width: 100%;
+    }
+    .form-frame {
+      padding: 1.5rem;
+    }
   }
 
   @media (max-width: 480px) {
-    .contact-section { padding: 1rem 0.75rem; }
-    .form-frame { padding: 1.25rem; }
+    .contact-section {
+      padding: 1rem 0.75rem;
+    }
+    .form-frame {
+      padding: 1.25rem;
+    }
 
     .contact-form input,
     .contact-form textarea {
       padding: 0.75rem 0.875rem;
-      font-size: 16px; /* prevent iOS zoom */
+      font-size: 16px; /* evita zoom en iOS */
     }
 
     .submit-btn {
@@ -378,62 +496,72 @@ import UserContact from "../icons/UserContact.astro";
     .contact-form textarea,
     .submit-btn,
     .btn-arrow,
-    .corner { transition: none; }
+    .corner {
+      transition: none;
+    }
 
-    .submit-btn:hover:not(:disabled) { transform: none; }
+    .submit-btn:hover:not(:disabled):not(.error):not(.loading) {
+      transform: none;
+    }
   }
 
   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .contact-form input,
-    .contact-form textarea { border-width: 0.5px; }
+    .contact-form textarea {
+      border-width: 0.5px;
+    }
   }
 </style>
 
 <script>
   import emailjs from "@emailjs/browser";
 
-  const form        = document.getElementById("contact-form") as HTMLFormElement;
-  const submitBtn   = document.getElementById("submit-btn")   as HTMLButtonElement;
-  const btnText     = submitBtn?.querySelector(".btn-text")    as HTMLSpanElement;
-  const nameInput   = document.getElementById("user_name")    as HTMLInputElement;
-  const emailInput  = document.getElementById("user_email")   as HTMLInputElement;
-  const messageInput = document.getElementById("message")     as HTMLTextAreaElement;
-  const nameError   = document.getElementById("name-error")   as HTMLSpanElement;
-  const emailError  = document.getElementById("email-error")  as HTMLSpanElement;
-  const msgError    = document.getElementById("message-error") as HTMLSpanElement;
-  const charCounter = document.getElementById("char-counter") as HTMLSpanElement;
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
+  const btnText = submitBtn?.querySelector(".btn-text") as HTMLSpanElement;
+  const nameInput = document.getElementById("user_name") as HTMLInputElement;
+  const emailInput = document.getElementById("user_email") as HTMLInputElement;
+  const messageInput = document.getElementById(
+    "message",
+  ) as HTMLTextAreaElement;
+  const nameError = document.getElementById("name-error") as HTMLSpanElement;
+  const emailError = document.getElementById("email-error") as HTMLSpanElement;
+  const msgError = document.getElementById("message-error") as HTMLSpanElement;
+  const charCounter = document.getElementById(
+    "char-counter",
+  ) as HTMLSpanElement;
 
-  const MAX_NAME    = 50;
+  const MAX_NAME = 50;
   const MAX_MESSAGE = 1000;
-  const MIN_NAME    = 2;
+  const MIN_NAME = 2;
   const MIN_MESSAGE = 10;
 
-  let isNameValid    = false;
-  let isEmailValid   = false;
+  let isNameValid = false;
+  let isEmailValid = false;
   let isMessageValid = false;
 
   /* ── Validators ─────────────────────────────────────────── */
   function validateName(v: string) {
-    const trimmed = v.trim();
-    if (!trimmed)              return "El nombre es obligatorio";
-    // Only letters (including accented) and spaces
-    if (!/^[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙñÑüÜ\s'-]+$/.test(trimmed))
-                               return "Solo se permiten letras y espacios";
-    if (trimmed.length < MIN_NAME) return `Mínimo ${MIN_NAME} caracteres`;
-    if (v.length > MAX_NAME)   return `Máximo ${MAX_NAME} caracteres`;
+    const t = v.trim();
+    if (!t) return "El nombre es obligatorio";
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙñÑüÜ\s'-]+$/.test(t))
+      return "Solo se permiten letras y espacios";
+    if (t.length < MIN_NAME) return `Mínimo ${MIN_NAME} caracteres`;
+    if (v.length > MAX_NAME) return `Máximo ${MAX_NAME} caracteres`;
     return "";
   }
 
   function validateEmail(v: string) {
-    if (!v.trim())             return "El email es obligatorio";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "Formato de email inválido";
+    if (!v.trim()) return "El email es obligatorio";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))
+      return "Formato de email inválido";
     return "";
   }
 
   function validateMessage(v: string) {
-    const trimmed = v.trim();
-    if (!trimmed)              return "El mensaje es obligatorio";
-    if (trimmed.length < MIN_MESSAGE) return `Mínimo ${MIN_MESSAGE} caracteres`;
+    const t = v.trim();
+    if (!t) return "El mensaje es obligatorio";
+    if (t.length < MIN_MESSAGE) return `Mínimo ${MIN_MESSAGE} caracteres`;
     if (v.length > MAX_MESSAGE) return `Máximo ${MAX_MESSAGE} caracteres`;
     return "";
   }
@@ -458,88 +586,73 @@ import UserContact from "../icons/UserContact.astro";
   }
 
   function updateButton() {
-    const allValid = isNameValid && isEmailValid && isMessageValid;
-    submitBtn.disabled = !allValid;
-    btnText.textContent = allValid ? "Enviar mensaje" : "Completar campos";
-    submitBtn.classList.toggle("disabled", !allValid);
+    const ok = isNameValid && isEmailValid && isMessageValid;
+    submitBtn.disabled = !ok;
+    btnText.textContent = ok ? "Enviar mensaje" : "Completar campos";
+    submitBtn.classList.toggle("disabled", !ok);
   }
 
-  /* ── Block symbols/numbers on name field in real time ───── */
+  /* ── Block non-letters on name field ────────────────────── */
   nameInput?.addEventListener("keypress", (e) => {
-    const char = e.key;
-    // Allow: letters, accented, spaces, hyphen, apostrophe, backspace/delete/arrows
-    if (char.length === 1 && !/[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙñÑüÜ\s'-]/.test(char)) {
+    if (
+      e.key.length === 1 &&
+      !/[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙñÑüÜ\s'-]/.test(e.key)
+    )
       e.preventDefault();
-    }
   });
 
-  /* Also strip on paste */
   nameInput?.addEventListener("paste", (e) => {
     e.preventDefault();
-    const pasted = e.clipboardData?.getData("text") ?? "";
-    const clean  = pasted.replace(/[^a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙñÑüÜ\s'-]/g, "");
+    const clean = (e.clipboardData?.getData("text") ?? "").replace(
+      /[^a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙñÑüÜ\s'-]/g,
+      "",
+    );
     document.execCommand("insertText", false, clean);
   });
 
-  /* ── Name events ─────────────────────────────────────────── */
-  nameInput?.addEventListener("input", () => {
-    const msg = validateName(nameInput.value);
-    isNameValid = !msg;
-    if (nameInput.value.length > 0) setError(nameError, nameInput, msg);
-    setValid(nameInput, isNameValid);
-    updateButton();
+  /* ── Field event helpers ─────────────────────────────────── */
+  function wireField(
+    input: HTMLInputElement | HTMLTextAreaElement,
+    errorEl: HTMLSpanElement,
+    validate: (v: string) => string,
+    setValid_: (v: boolean) => void,
+  ) {
+    input?.addEventListener("input", () => {
+      const msg = validate(input.value);
+      setValid_(!msg);
+      if (input.value.length > 0) setError(errorEl, input, msg);
+      setValid(input, !msg);
+      updateButton();
+    });
+    input?.addEventListener("blur", () => {
+      const msg = validate(input.value);
+      setValid_(!msg);
+      setError(errorEl, input, msg);
+      setValid(input, !msg);
+      updateButton();
+    });
+  }
+
+  wireField(nameInput, nameError, validateName, (v) => {
+    isNameValid = v;
+  });
+  wireField(emailInput, emailError, validateEmail, (v) => {
+    isEmailValid = v;
+  });
+  wireField(messageInput, msgError, validateMessage, (v) => {
+    isMessageValid = v;
   });
 
-  nameInput?.addEventListener("blur", () => {
-    const msg = validateName(nameInput.value);
-    isNameValid = !msg;
-    setError(nameError, nameInput, msg);
-    setValid(nameInput, isNameValid);
-    updateButton();
-  });
-
-  /* ── Email events ────────────────────────────────────────── */
-  emailInput?.addEventListener("input", () => {
-    const msg = validateEmail(emailInput.value);
-    isEmailValid = !msg;
-    if (emailInput.value.length > 0) setError(emailError, emailInput, msg);
-    setValid(emailInput, isEmailValid);
-    updateButton();
-  });
-
-  emailInput?.addEventListener("blur", () => {
-    const msg = validateEmail(emailInput.value);
-    isEmailValid = !msg;
-    setError(emailError, emailInput, msg);
-    setValid(emailInput, isEmailValid);
-    updateButton();
-  });
-
-  /* ── Message events + char counter ──────────────────────── */
+  /* ── Char counter ────────────────────────────────────────── */
   function updateCounter() {
     const len = messageInput.value.length;
     charCounter.textContent = `${len} / ${MAX_MESSAGE}`;
     charCounter.classList.remove("warn", "limit");
-    if (len >= MAX_MESSAGE)         charCounter.classList.add("limit");
+    if (len >= MAX_MESSAGE) charCounter.classList.add("limit");
     else if (len >= MAX_MESSAGE * 0.85) charCounter.classList.add("warn");
   }
 
-  messageInput?.addEventListener("input", () => {
-    updateCounter();
-    const msg = validateMessage(messageInput.value);
-    isMessageValid = !msg;
-    if (messageInput.value.length > 0) setError(msgError, messageInput, msg);
-    setValid(messageInput, isMessageValid);
-    updateButton();
-  });
-
-  messageInput?.addEventListener("blur", () => {
-    const msg = validateMessage(messageInput.value);
-    isMessageValid = !msg;
-    setError(msgError, messageInput, msg);
-    setValid(messageInput, isMessageValid);
-    updateButton();
-  });
+  messageInput?.addEventListener("input", updateCounter);
 
   /* ── Submit ──────────────────────────────────────────────── */
   form?.addEventListener("submit", async (e) => {
@@ -557,10 +670,10 @@ import UserContact from "../icons/UserContact.astro";
         import.meta.env.PUBLIC_EMAILJS_SERVICE_ID,
         import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID,
         {
-          user_name:  fd.get("user_name"),
+          user_name: fd.get("user_name"),
           user_email: fd.get("user_email"),
-          message:    fd.get("message"),
-        }
+          message: fd.get("message"),
+        },
       );
 
       btnText.textContent = "✓ Mensaje enviado";
@@ -569,8 +682,12 @@ import UserContact from "../icons/UserContact.astro";
       form.reset();
       updateCounter();
       isNameValid = isEmailValid = isMessageValid = false;
-      [nameError, emailError, msgError].forEach(el => el.classList.remove("visible"));
-      [nameInput, emailInput, messageInput].forEach(el => el.classList.remove("valid", "invalid"));
+      [nameError, emailError, msgError].forEach((el) =>
+        el.classList.remove("visible"),
+      );
+      [nameInput, emailInput, messageInput].forEach((el) =>
+        el.classList.remove("valid", "invalid"),
+      );
 
       setTimeout(() => {
         submitBtn.classList.remove("success");
@@ -578,16 +695,17 @@ import UserContact from "../icons/UserContact.astro";
         btnText.textContent = "Completar campos";
         updateButton();
       }, 3500);
-
     } catch (err) {
       console.error(err);
       btnText.textContent = "Error al enviar";
       submitBtn.classList.remove("loading");
       submitBtn.classList.add("error");
-      submitBtn.disabled = false;
-
+      submitBtn.disabled = true; /* bloqueado — no permite reintento */
       setTimeout(() => {
         submitBtn.classList.remove("error");
+        btnText.textContent = "Completar campos";
+        /* el boton queda deshabilitado hasta que el usuario
+           modifique algun campo y pase la validacion */
         updateButton();
       }, 3000);
     }

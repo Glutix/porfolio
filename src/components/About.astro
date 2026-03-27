@@ -146,7 +146,7 @@ import imagenAbout from "../assets/imagen-about.png";
       y: Math.random() * H,
       length: 10 + Math.random() * 20,
       speed: 4 + Math.random() * 6,
-      opacity: 0.08 + Math.random() * 0.18,
+      opacityFactor: Math.random(), // 0–1, se escala según el modo
     }));
 
     const angle = Math.PI / 12;
@@ -159,17 +159,28 @@ import imagenAbout from "../assets/imagen-about.png";
         .trim();
     }
 
+    function getOpacityRange(): { min: number; max: number } {
+      const scheme = document.documentElement.getAttribute("data-color-scheme");
+      return scheme === "light"
+        ? { min: 0.55, max: 0.7 }
+        : { min: 0.08, max: 0.26 };
+    }
+
     function draw() {
       if (!ctx) return;
       ctx.clearRect(0, 0, W, H);
       const rainBase = getRainColor();
+      const { min, max } = getOpacityRange();
+
       drops.forEach((d) => {
+        const opacity = min + d.opacityFactor * (max - min);
+
         ctx.beginPath();
         ctx.moveTo(d.x, d.y);
         ctx.lineTo(d.x + dx * d.length, d.y + dy * d.length);
         ctx.strokeStyle = rainBase.startsWith("rgba")
-          ? rainBase.replace(/[\d.]+\)$/, `${d.opacity})`)
-          : `rgba(180, 210, 255, ${d.opacity})`;
+          ? rainBase.replace(/[\d.]+\)$/, `${opacity})`)
+          : `rgba(22, 163, 74, ${opacity})`;
         ctx.lineWidth = 0.8;
         ctx.stroke();
 

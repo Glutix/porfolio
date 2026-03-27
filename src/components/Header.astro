@@ -210,35 +210,27 @@ import TypingEffect from "./TypingEffect.astro";
     inset: -2px;
     border-radius: 10px;
     z-index: 0;
-    /*
-      Two-layer shadow:
-      - Bottom: warm yellow glow (matches --text-enfasis)
-      - Top edge: very subtle lift
-      Uses the yellow from your palette directly so it
-      adapts naturally between dark/light mode glow intensity.
-    */
     box-shadow:
-      0 22px 55px rgba(240, 228, 128, 0.32),
-      0 8px 20px rgba(240, 228, 128, 0.15),
-      0 -4px 16px rgba(240, 228, 128, 0.06);
+      0 22px 55px var(--header-glow-primary),
+      0 8px 20px var(--header-glow-primary-md),
+      0 -4px 16px var(--header-glow-primary-sm);
     transition: box-shadow 0.4s ease;
   }
 
   .image-wrapper:hover .glow {
     box-shadow:
-      0 32px 80px rgba(240, 228, 128, 0.48),
-      0 12px 30px rgba(240, 228, 128, 0.25),
-      0 -6px 20px rgba(240, 228, 128, 0.1);
+      0 32px 80px var(--header-glow-hover-primary),
+      0 12px 30px var(--header-glow-hover-md),
+      0 -6px 20px var(--header-glow-hover-sm);
   }
 
-  /* ── Image itself ────────────────────────────────────────── */
   .image-container {
     display: block;
     width: 100%;
     height: 100%;
     position: relative;
     z-index: 1;
-    border-radius: 8px;
+    border-radius: var(--header-image-radius);
     overflow: hidden;
   }
 
@@ -248,60 +240,48 @@ import TypingEffect from "./TypingEffect.astro";
     height: 100%;
     object-fit: cover;
     object-position: top center;
-    border-radius: 8px;
+    border-radius: var(--header-image-radius);
   }
 
-  /* ── Scanlines (above image, z-index 2) ──────────────────── */
   .scanlines {
     position: absolute;
     inset: 0;
     z-index: 2;
-    border-radius: 8px;
+    border-radius: var(--header-image-radius);
     pointer-events: none;
     background: repeating-linear-gradient(
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 0, 0, 0.1) 2px,
-      rgba(0, 0, 0, 0.1) 4px
+      var(--header-scanlines) 2px,
+      var(--header-scanlines) 4px
     );
-    /* Fade scanlines a bit on hover for a "power-up" feel */
     opacity: 1;
     transition: opacity 0.4s ease;
   }
 
-  .image-wrapper:hover .scanlines {
-    opacity: 0.4;
-  }
-
-  /* ── Accent tint top-left (z-index 2) ────────────────────── */
   .tint {
     position: absolute;
     inset: 0;
     z-index: 2;
-    border-radius: 8px;
+    border-radius: var(--header-image-radius);
     pointer-events: none;
-    background: linear-gradient(
-      135deg,
-      rgba(240, 228, 128, 0.07) 0%,
-      transparent 55%
-    );
+    background: linear-gradient(135deg, var(--header-tint) 0%, transparent 55%);
     mix-blend-mode: screen;
   }
 
-  /* ── Corner brackets (z-index 3) ─────────────────────────── */
   .corner {
     position: absolute;
     width: 14px;
     height: 14px;
     border-color: var(--text-enfasis);
     border-style: solid;
-    opacity: 0.7;
+    opacity: var(--header-corner-opacity);
     z-index: 3;
     transition:
-      opacity 0.4s ease,
-      width 0.4s ease,
-      height 0.4s ease;
+      opacity 0.2s ease,
+      width 0.2s ease,
+      height 0.2s ease;
   }
 
   .corner.tl {
