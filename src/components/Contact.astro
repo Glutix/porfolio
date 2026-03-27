@@ -7,53 +7,78 @@ import UserContact from "../icons/UserContact.astro";
   <SectionTitle id="contact" title="Contacto" icon={UserContact} />
 
   <div class="contact-wrapper">
-    <!-- Decorative corner brackets — same as header/about -->
+
+    <!-- Left: intro text -->
+    <div class="contact-intro">
+      <p class="intro-label">¿Tenés una oportunidad?</p>
+      <h3 class="intro-heading">Hablemos.</h3>
+      <p class="intro-body">
+        Estoy buscando activamente mi primer puesto como desarrollador. Si tenés un equipo donde pueda crecer, aportar y aprender, me encantaría ser parte.
+      </p>
+      <p class="intro-body">
+        También estoy abierto a proyectos freelance y colaboraciones. Cualquier oportunidad es bienvenida — escribime y te respondo a la brevedad.
+      </p>
+    </div>
+
+    <!-- Right: form -->
     <div class="form-frame">
       <span class="corner tl" aria-hidden="true"></span>
       <span class="corner tr" aria-hidden="true"></span>
       <span class="corner bl" aria-hidden="true"></span>
       <span class="corner br" aria-hidden="true"></span>
 
-      <form id="contact-form" class="contact-form">
+      <form id="contact-form" class="contact-form" novalidate>
+
         <div class="form-group">
+          <label for="user_name">Nombre</label>
           <input
             type="text"
             name="user_name"
             id="user_name"
-            placeholder="Tu nombre"
+            placeholder="Ricardo García"
             minlength="2"
             maxlength="50"
+            autocomplete="name"
             required
           />
-          <span class="error-message" id="name-error"></span>
+          <span class="error-message" id="name-error" role="alert"></span>
         </div>
 
         <div class="form-group">
+          <label for="user_email">Email</label>
           <input
             type="email"
             name="user_email"
             id="user_email"
             placeholder="tu@email.com"
+            autocomplete="email"
             required
           />
-          <span class="error-message" id="email-error"></span>
+          <span class="error-message" id="email-error" role="alert"></span>
         </div>
 
         <div class="form-group">
+          <div class="label-row">
+            <label for="message">Mensaje</label>
+            <span class="char-counter" id="char-counter">0 / 1000</span>
+          </div>
           <textarea
             name="message"
             id="message"
-            placeholder="Escribe tu mensaje aquí (mínimo 10 caracteres)..."
-            rows="5"
+            placeholder="Contame sobre tu proyecto..."
             minlength="10"
             maxlength="1000"
             required></textarea>
-          <span class="error-message" id="message-error"></span>
+          <span class="error-message" id="message-error" role="alert"></span>
         </div>
 
         <button type="submit" class="submit-btn" id="submit-btn" disabled>
           <span class="btn-text">Completar campos</span>
+          <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
         </button>
+
       </form>
     </div>
   </div>
@@ -67,269 +92,284 @@ import UserContact from "../icons/UserContact.astro";
     padding: 2rem 1rem;
   }
 
+  /* ── Two-column layout ───────────────────────────────────── */
   .contact-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    align-items: start;
   }
 
-  /* ── Frame with corners — same pattern as header image ───── */
+  /* ── Left intro column ───────────────────────────────────── */
+  .contact-intro {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding-top: 1rem;
+  }
+
+  .intro-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-enfasis);
+    margin: 0;
+  }
+
+  .intro-heading {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--text-title);
+    margin: 0;
+    line-height: 1;
+    /* Thin accent underline */
+    position: relative;
+    width: fit-content;
+  }
+
+  .intro-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--text-enfasis);
+    border-radius: 2px;
+  }
+
+  .intro-body {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-normal);
+    margin: 0;
+    max-width: 30ch;
+    opacity: 0.85;
+  }
+
+
+
+  /* ── Form frame with corners ─────────────────────────────── */
   .form-frame {
     position: relative;
-    width: 100%;
-    max-width: 500px;
-    /* Subtle glow behind the form */
-    filter: drop-shadow(0 8px 32px rgba(240, 228, 128, 0.06));
+    padding: 2rem;
+    background: color-mix(in srgb, var(--secundary-color) 40%, transparent);
+    border: 1px solid color-mix(in srgb, var(--text-enfasis) 12%, transparent);
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
   }
 
   .corner {
     position: absolute;
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     border-color: var(--text-enfasis);
     border-style: solid;
-    opacity: 0.45;
+    opacity: 0.35;
     z-index: 1;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
   }
 
   .form-frame:focus-within .corner {
-    opacity: 0.85;
+    opacity: 0.9;
+    width: 16px;
+    height: 16px;
   }
 
-  .corner.tl {
-    top: -8px;
-    left: -8px;
-    border-width: 2px 0 0 2px;
-  }
-  .corner.tr {
-    top: -8px;
-    right: -8px;
-    border-width: 2px 2px 0 0;
-  }
-  .corner.bl {
-    bottom: -8px;
-    left: -8px;
-    border-width: 0 0 2px 2px;
-  }
-  .corner.br {
-    bottom: -8px;
-    right: -8px;
-    border-width: 0 2px 2px 0;
-  }
+  .corner.tl { top: -1px;    left: -1px;  border-width: 2px 0 0 2px; border-radius: 2px 0 0 0; }
+  .corner.tr { top: -1px;    right: -1px; border-width: 2px 2px 0 0; border-radius: 0 2px 0 0; }
+  .corner.bl { bottom: -1px; left: -1px;  border-width: 0 0 2px 2px; border-radius: 0 0 0 2px; }
+  .corner.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; border-radius: 0 0 2px 0; }
 
-  /* ── Everything below is your original CSS unchanged ──────── */
+  /* ── Form internals ──────────────────────────────────────── */
   .contact-form {
-    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.4rem;
   }
 
   .form-group {
     display: flex;
     flex-direction: column;
+    gap: 0.45rem;
     position: relative;
   }
+
+  label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-normal);
+    opacity: 0.6;
+  }
+
+  /* Label row with char counter */
+  .label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .label-row label { opacity: 0.6; }
+
+  .char-counter {
+    font-size: 0.72rem;
+    color: var(--text-normal);
+    opacity: 0.4;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.2s ease, opacity 0.2s ease;
+  }
+
+  .char-counter.warn  { color: var(--text-enfasis); opacity: 0.9; }
+  .char-counter.limit { color: var(--text-enfasis-1); opacity: 1; }
 
   .contact-form input,
   .contact-form textarea {
     width: 100%;
-    padding: 1rem 1.2rem;
-    border: 1px solid var(--secundary-color-variant);
+    padding: 0.85rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--text-normal) 18%, transparent);
     border-radius: 8px;
-    background: var(--form-input-bg);
+    background: color-mix(in srgb, var(--primary-color) 70%, transparent);
     color: var(--text-normal);
-    font-size: 16px;
+    font-size: 0.95rem;
     font-family: "Montserrat Variable", system-ui, sans-serif;
-    transition: all 0.3s ease;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
     box-sizing: border-box;
+    outline: none;
   }
 
   .contact-form input::placeholder,
   .contact-form textarea::placeholder {
     color: var(--text-normal);
-    opacity: 0.8;
+    opacity: 0.3;
   }
 
   .contact-form input:focus,
   .contact-form textarea:focus {
-    outline: none;
     border-color: var(--text-enfasis);
-    background: var(--form-input-bg-focus);
-    box-shadow: 0 0 0 2px
-      color-mix(in srgb, var(--text-enfasis) 20%, transparent);
+    background: color-mix(in srgb, var(--form-input-bg-focus) 90%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--text-enfasis) 12%, transparent);
   }
 
+  /* Textarea — resizable vertically, min/max height */
   .contact-form textarea {
     resize: vertical;
     min-height: 120px;
+    max-height: 320px;
+    line-height: 1.6;
+  }
+
+  /* Validation states */
+  .contact-form input.invalid,
+  .contact-form textarea.invalid {
+    border-color: var(--text-enfasis-1);
+    background: color-mix(in srgb, var(--text-enfasis-1) 6%, var(--form-input-bg));
+  }
+
+  .contact-form input.valid,
+  .contact-form textarea.valid {
+    border-color: var(--text-enfasis-2);
+    background: color-mix(in srgb, var(--text-enfasis-2) 5%, var(--form-input-bg));
   }
 
   .error-message {
     display: none;
+    align-items: center;
+    gap: 0.35rem;
     color: var(--text-enfasis-1);
-    font-size: 14px;
-    margin-top: 0.5rem;
-    padding-left: 0.25rem;
+    font-size: 0.78rem;
     font-weight: 500;
+    padding-left: 0.1rem;
   }
 
+  .error-message.visible {
+    display: flex;
+  }
+
+  .error-message::before {
+    content: '⚠';
+    font-size: 0.7rem;
+  }
+
+  /* ── Submit button ───────────────────────────────────────── */
   .submit-btn {
-    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.8rem;
     border: none;
     border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 700;
     font-family: "Montserrat Variable", system-ui, sans-serif;
+    letter-spacing: 0.04em;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
     background: var(--form-btn-backgroud);
     color: var(--form-btn-text);
-    transition: all 0.3s ease;
+    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease, opacity 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    margin-top: 0.4rem;
+  }
+
+  .btn-arrow {
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
   }
 
   .submit-btn:hover:not(:disabled) {
-    transform: translateY(-2px) scale(1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    color: var(--form-btn-text);
-    background-color: var(--form-btn-hover);
+    background: var(--form-btn-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--text-enfasis) 20%, transparent);
   }
 
-  .submit-btn:disabled,
-  .submit-btn.disabled {
+  .submit-btn:hover:not(:disabled) .btn-arrow {
+    transform: translateX(4px);
+  }
+
+  .submit-btn:disabled {
     cursor: not-allowed;
+    opacity: 0.5;
     transform: none;
+    box-shadow: none;
     background: var(--form-btn-disable);
-    color: var(--form-btn-text);
-    opacity: 0.6;
   }
 
-  .submit-btn.loading {
-    opacity: 0.8;
-    cursor: wait;
-  }
+  .submit-btn.loading { opacity: 0.75; cursor: wait; }
+  .submit-btn.success { background: var(--text-enfasis-2); opacity: 1; }
+  .submit-btn.error   { background: var(--text-enfasis-1); opacity: 1; }
 
-  .submit-btn.success {
-    background: var(--text-enfasis-2);
-  }
-
-  .submit-btn.error {
-    background: var(--text-enfasis-1);
-  }
-
-  .btn-text {
-    display: inline-block;
-    transition: all 0.3s ease;
-  }
-
-  .contact-form input:invalid:not(:focus):not(:placeholder-shown),
-  .contact-form textarea:invalid:not(:focus):not(:placeholder-shown) {
-    border-color: var(--text-enfasis-1);
-    background: color-mix(
-      in srgb,
-      var(--text-enfasis-1) 5%,
-      var(--form-input-bg)
-    );
-  }
-
-  .contact-form input:valid:not(:focus):not(:placeholder-shown),
-  .contact-form textarea:valid:not(:focus):not(:placeholder-shown) {
-    border-color: var(--text-enfasis-2);
-    background: color-mix(
-      in srgb,
-      var(--text-enfasis-2) 5%,
-      var(--form-input-bg)
-    );
-  }
-
-  @media (max-width: 1024px) {
-    .contact-section {
-      padding: 2rem 1.5rem;
-    }
-
-    .contact-wrapper {
-      margin-top: 2.5rem;
-    }
-  }
-
+  /* ── Responsive ──────────────────────────────────────────── */
   @media (max-width: 768px) {
-    .contact-section {
-      padding: 1.5rem 1rem;
-    }
-
     .contact-wrapper {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
       margin-top: 2rem;
     }
 
-    .contact-form {
-      max-width: none;
-      gap: 1.25rem;
-    }
+    .intro-body { max-width: 100%; }
 
-    .contact-form input,
-    .contact-form textarea {
-      padding: 0.875rem 1rem;
-      font-size: 16px;
-    }
-
-    .submit-btn {
-      padding: 0.875rem 1.5rem;
-      font-size: 16px;
-    }
-
-    .contact-form textarea {
-      min-height: 100px;
-    }
-
-    .error-message {
-      font-size: 13px;
-    }
+    .form-frame { padding: 1.5rem; }
   }
 
   @media (max-width: 480px) {
-    .contact-section {
-      padding: 1rem 0.75rem;
-    }
-
-    .contact-wrapper {
-      margin-top: 1.5rem;
-    }
-
-    .contact-form {
-      gap: 1rem;
-    }
+    .contact-section { padding: 1rem 0.75rem; }
+    .form-frame { padding: 1.25rem; }
 
     .contact-form input,
     .contact-form textarea {
       padding: 0.75rem 0.875rem;
-      border-radius: 6px;
+      font-size: 16px; /* prevent iOS zoom */
     }
 
     .submit-btn {
-      padding: 0.75rem 1.25rem;
-      border-radius: 6px;
-    }
-
-    .contact-form textarea {
-      min-height: 80px;
-    }
-
-    .error-message {
-      font-size: 12px;
-    }
-
-    .submit-btn:disabled::before,
-    .submit-btn.disabled::before {
-      left: 0.75rem;
-      font-size: 12px;
-    }
-
-    .submit-btn:disabled .btn-text,
-    .submit-btn.disabled .btn-text {
-      margin-left: 1.25rem;
+      padding: 0.8rem 1.25rem;
+      font-size: 0.875rem;
     }
   }
 
@@ -337,227 +377,222 @@ import UserContact from "../icons/UserContact.astro";
     .contact-form input,
     .contact-form textarea,
     .submit-btn,
-    .btn-text {
-      transition: none;
-    }
+    .btn-arrow,
+    .corner { transition: none; }
 
-    .submit-btn:hover:not(:disabled) {
-      transform: none;
-    }
+    .submit-btn:hover:not(:disabled) { transform: none; }
   }
 
   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .contact-form input,
-    .contact-form textarea {
-      border-width: 0.5px;
-    }
+    .contact-form textarea { border-width: 0.5px; }
   }
 </style>
 
 <script>
   import emailjs from "@emailjs/browser";
 
-  const form = document.getElementById("contact-form") as HTMLFormElement;
-  const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
-  const btnText = submitBtn?.querySelector(".btn-text") as HTMLSpanElement;
+  const form        = document.getElementById("contact-form") as HTMLFormElement;
+  const submitBtn   = document.getElementById("submit-btn")   as HTMLButtonElement;
+  const btnText     = submitBtn?.querySelector(".btn-text")    as HTMLSpanElement;
+  const nameInput   = document.getElementById("user_name")    as HTMLInputElement;
+  const emailInput  = document.getElementById("user_email")   as HTMLInputElement;
+  const messageInput = document.getElementById("message")     as HTMLTextAreaElement;
+  const nameError   = document.getElementById("name-error")   as HTMLSpanElement;
+  const emailError  = document.getElementById("email-error")  as HTMLSpanElement;
+  const msgError    = document.getElementById("message-error") as HTMLSpanElement;
+  const charCounter = document.getElementById("char-counter") as HTMLSpanElement;
 
-  const nameInput = document.getElementById("user_name") as HTMLInputElement;
-  const emailInput = document.getElementById("user_email") as HTMLInputElement;
-  const messageInput = document.getElementById(
-    "message",
-  ) as HTMLTextAreaElement;
+  const MAX_NAME    = 50;
+  const MAX_MESSAGE = 1000;
+  const MIN_NAME    = 2;
+  const MIN_MESSAGE = 10;
 
-  const nameError = document.getElementById("name-error") as HTMLSpanElement;
-  const emailError = document.getElementById("email-error") as HTMLSpanElement;
-  const messageError = document.getElementById(
-    "message-error",
-  ) as HTMLSpanElement;
-
-  const MIN_NAME_LENGTH = 2;
-  const MIN_MESSAGE_LENGTH = 10;
-  const MAX_NAME_LENGTH = 50;
-  const MAX_MESSAGE_LENGTH = 1000;
-
-  let isNameValid = false;
-  let isEmailValid = false;
+  let isNameValid    = false;
+  let isEmailValid   = false;
   let isMessageValid = false;
 
-  function validateName(value: string): { isValid: boolean; message: string } {
-    if (!value.trim())
-      return { isValid: false, message: "El nombre es obligatorio" };
-    if (value.trim().length < MIN_NAME_LENGTH)
-      return {
-        isValid: false,
-        message: `Mínimo ${MIN_NAME_LENGTH} caracteres`,
-      };
-    if (value.length > MAX_NAME_LENGTH)
-      return {
-        isValid: false,
-        message: `Máximo ${MAX_NAME_LENGTH} caracteres`,
-      };
-    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(value.trim()))
-      return { isValid: false, message: "Solo se permiten letras y espacios" };
-    return { isValid: true, message: "" };
+  /* ── Validators ─────────────────────────────────────────── */
+  function validateName(v: string) {
+    const trimmed = v.trim();
+    if (!trimmed)              return "El nombre es obligatorio";
+    // Only letters (including accented) and spaces
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙñÑüÜ\s'-]+$/.test(trimmed))
+                               return "Solo se permiten letras y espacios";
+    if (trimmed.length < MIN_NAME) return `Mínimo ${MIN_NAME} caracteres`;
+    if (v.length > MAX_NAME)   return `Máximo ${MAX_NAME} caracteres`;
+    return "";
   }
 
-  function validateEmail(value: string): { isValid: boolean; message: string } {
-    if (!value.trim())
-      return { isValid: false, message: "El email es obligatorio" };
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value))
-      return { isValid: false, message: "Formato de email inválido" };
-    return { isValid: true, message: "" };
+  function validateEmail(v: string) {
+    if (!v.trim())             return "El email es obligatorio";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "Formato de email inválido";
+    return "";
   }
 
-  function validateMessage(value: string): {
-    isValid: boolean;
-    message: string;
-  } {
-    if (!value.trim())
-      return { isValid: false, message: "El mensaje es obligatorio" };
-    if (value.trim().length < MIN_MESSAGE_LENGTH)
-      return {
-        isValid: false,
-        message: `Mínimo ${MIN_MESSAGE_LENGTH} caracteres`,
-      };
-    if (value.length > MAX_MESSAGE_LENGTH)
-      return {
-        isValid: false,
-        message: `Máximo ${MAX_MESSAGE_LENGTH} caracteres`,
-      };
-    return { isValid: true, message: "" };
+  function validateMessage(v: string) {
+    const trimmed = v.trim();
+    if (!trimmed)              return "El mensaje es obligatorio";
+    if (trimmed.length < MIN_MESSAGE) return `Mínimo ${MIN_MESSAGE} caracteres`;
+    if (v.length > MAX_MESSAGE) return `Máximo ${MAX_MESSAGE} caracteres`;
+    return "";
   }
 
-  function updateButtonState() {
-    const allValid = isNameValid && isEmailValid && isMessageValid;
-    if (submitBtn && btnText) {
-      submitBtn.disabled = !allValid;
-      if (allValid) {
-        btnText.textContent = "Enviar mensaje";
-        submitBtn.classList.remove("disabled");
-      } else {
-        btnText.textContent = "Completar campos";
-        submitBtn.classList.add("disabled");
-      }
+  /* ── UI helpers ─────────────────────────────────────────── */
+  function setError(el: HTMLSpanElement, input: HTMLElement, msg: string) {
+    el.textContent = msg;
+    if (msg) {
+      el.classList.add("visible");
+      input.classList.add("invalid");
+      input.classList.remove("valid");
+    } else {
+      el.classList.remove("visible");
     }
   }
 
-  function showError(errorElement: HTMLSpanElement, message: string) {
-    errorElement.textContent = message;
-    errorElement.style.display = message ? "block" : "none";
+  function setValid(input: HTMLElement, isValid: boolean) {
+    if (isValid) {
+      input.classList.add("valid");
+      input.classList.remove("invalid");
+    }
   }
 
-  nameInput?.addEventListener("input", (e) => {
-    const target = e.target as HTMLInputElement;
-    const validation = validateName(target.value);
-    isNameValid = validation.isValid;
-    showError(nameError, validation.message);
-    updateButtonState();
+  function updateButton() {
+    const allValid = isNameValid && isEmailValid && isMessageValid;
+    submitBtn.disabled = !allValid;
+    btnText.textContent = allValid ? "Enviar mensaje" : "Completar campos";
+    submitBtn.classList.toggle("disabled", !allValid);
+  }
+
+  /* ── Block symbols/numbers on name field in real time ───── */
+  nameInput?.addEventListener("keypress", (e) => {
+    const char = e.key;
+    // Allow: letters, accented, spaces, hyphen, apostrophe, backspace/delete/arrows
+    if (char.length === 1 && !/[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙñÑüÜ\s'-]/.test(char)) {
+      e.preventDefault();
+    }
   });
 
-  nameInput?.addEventListener("blur", (e) => {
-    const target = e.target as HTMLInputElement;
-    const validation = validateName(target.value);
-    isNameValid = validation.isValid;
-    showError(nameError, validation.message);
-    updateButtonState();
+  /* Also strip on paste */
+  nameInput?.addEventListener("paste", (e) => {
+    e.preventDefault();
+    const pasted = e.clipboardData?.getData("text") ?? "";
+    const clean  = pasted.replace(/[^a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙñÑüÜ\s'-]/g, "");
+    document.execCommand("insertText", false, clean);
   });
 
-  emailInput?.addEventListener("input", (e) => {
-    const target = e.target as HTMLInputElement;
-    const validation = validateEmail(target.value);
-    isEmailValid = validation.isValid;
-    showError(emailError, validation.message);
-    updateButtonState();
+  /* ── Name events ─────────────────────────────────────────── */
+  nameInput?.addEventListener("input", () => {
+    const msg = validateName(nameInput.value);
+    isNameValid = !msg;
+    if (nameInput.value.length > 0) setError(nameError, nameInput, msg);
+    setValid(nameInput, isNameValid);
+    updateButton();
   });
 
-  emailInput?.addEventListener("blur", (e) => {
-    const target = e.target as HTMLInputElement;
-    const validation = validateEmail(target.value);
-    isEmailValid = validation.isValid;
-    showError(emailError, validation.message);
-    updateButtonState();
+  nameInput?.addEventListener("blur", () => {
+    const msg = validateName(nameInput.value);
+    isNameValid = !msg;
+    setError(nameError, nameInput, msg);
+    setValid(nameInput, isNameValid);
+    updateButton();
   });
 
-  messageInput?.addEventListener("input", (e) => {
-    const target = e.target as HTMLTextAreaElement;
-    const validation = validateMessage(target.value);
-    isMessageValid = validation.isValid;
-    showError(messageError, validation.message);
-    updateButtonState();
+  /* ── Email events ────────────────────────────────────────── */
+  emailInput?.addEventListener("input", () => {
+    const msg = validateEmail(emailInput.value);
+    isEmailValid = !msg;
+    if (emailInput.value.length > 0) setError(emailError, emailInput, msg);
+    setValid(emailInput, isEmailValid);
+    updateButton();
   });
 
-  messageInput?.addEventListener("blur", (e) => {
-    const target = e.target as HTMLTextAreaElement;
-    const validation = validateMessage(target.value);
-    isMessageValid = validation.isValid;
-    showError(messageError, validation.message);
-    updateButtonState();
+  emailInput?.addEventListener("blur", () => {
+    const msg = validateEmail(emailInput.value);
+    isEmailValid = !msg;
+    setError(emailError, emailInput, msg);
+    setValid(emailInput, isEmailValid);
+    updateButton();
   });
 
+  /* ── Message events + char counter ──────────────────────── */
+  function updateCounter() {
+    const len = messageInput.value.length;
+    charCounter.textContent = `${len} / ${MAX_MESSAGE}`;
+    charCounter.classList.remove("warn", "limit");
+    if (len >= MAX_MESSAGE)         charCounter.classList.add("limit");
+    else if (len >= MAX_MESSAGE * 0.85) charCounter.classList.add("warn");
+  }
+
+  messageInput?.addEventListener("input", () => {
+    updateCounter();
+    const msg = validateMessage(messageInput.value);
+    isMessageValid = !msg;
+    if (messageInput.value.length > 0) setError(msgError, messageInput, msg);
+    setValid(messageInput, isMessageValid);
+    updateButton();
+  });
+
+  messageInput?.addEventListener("blur", () => {
+    const msg = validateMessage(messageInput.value);
+    isMessageValid = !msg;
+    setError(msgError, messageInput, msg);
+    setValid(messageInput, isMessageValid);
+    updateButton();
+  });
+
+  /* ── Submit ──────────────────────────────────────────────── */
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!isNameValid || !isEmailValid || !isMessageValid) return;
 
-    if (submitBtn && btnText) {
-      submitBtn.disabled = true;
-      btnText.textContent = "Enviando...";
-      submitBtn.classList.add("loading");
-    }
+    submitBtn.disabled = true;
+    btnText.textContent = "Enviando...";
+    submitBtn.classList.add("loading");
 
     try {
       emailjs.init(import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY);
-      const formData = new FormData(form);
-      const templateParams = {
-        user_name: formData.get("user_name"),
-        user_email: formData.get("user_email"),
-        message: formData.get("message"),
-      };
-
-      const response = await emailjs.send(
+      const fd = new FormData(form);
+      await emailjs.send(
         import.meta.env.PUBLIC_EMAILJS_SERVICE_ID,
         import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID,
-        templateParams,
+        {
+          user_name:  fd.get("user_name"),
+          user_email: fd.get("user_email"),
+          message:    fd.get("message"),
+        }
       );
 
-      console.log("Email enviado exitosamente:", response);
-
-      if (btnText) {
-        btnText.textContent = "✓ Enviado";
-        submitBtn?.classList.add("success");
-      }
+      btnText.textContent = "✓ Mensaje enviado";
+      submitBtn.classList.remove("loading");
+      submitBtn.classList.add("success");
       form.reset();
-
-      isNameValid = false;
-      isEmailValid = false;
-      isMessageValid = false;
-
-      showError(nameError, "");
-      showError(emailError, "");
-      showError(messageError, "");
+      updateCounter();
+      isNameValid = isEmailValid = isMessageValid = false;
+      [nameError, emailError, msgError].forEach(el => el.classList.remove("visible"));
+      [nameInput, emailInput, messageInput].forEach(el => el.classList.remove("valid", "invalid"));
 
       setTimeout(() => {
-        if (submitBtn && btnText) {
-          submitBtn.disabled = true;
-          submitBtn.classList.remove("success", "loading");
-          btnText.textContent = "Completar campos";
-          updateButtonState();
-        }
-      }, 3000);
+        submitBtn.classList.remove("success");
+        submitBtn.disabled = true;
+        btnText.textContent = "Completar campos";
+        updateButton();
+      }, 3500);
+
     } catch (err) {
-      console.error("Error al enviar email:", err);
-      if (btnText) {
-        btnText.textContent = "Error al enviar";
-        submitBtn?.classList.add("error");
-      }
+      console.error(err);
+      btnText.textContent = "Error al enviar";
+      submitBtn.classList.remove("loading");
+      submitBtn.classList.add("error");
+      submitBtn.disabled = false;
+
       setTimeout(() => {
-        if (submitBtn && btnText) {
-          submitBtn.classList.remove("error", "loading");
-          updateButtonState();
-        }
+        submitBtn.classList.remove("error");
+        updateButton();
       }, 3000);
     }
   });
 
-  updateButtonState();
+  updateButton();
+  updateCounter();
 </script>
