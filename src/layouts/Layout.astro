@@ -12,49 +12,62 @@ interface Props {
 <html lang="es">
   <head>
     <title>Porfolio de Gluitx - Desarrollador y Programador Web</title>
-    <meta
-      name="title"
-      content="Porfolio de Gluitx - Desarrollador y Programador Web"
-    />
-    <meta
-      name="description"
-      content="¡He lanzado mi nuevo portafolio! 🚀 Creado con Astro, no solo es un sitio web, es una experiencia ultrarrápida. Echa un vistazo a los proyectos y a la magia detrás del framework."
-    />
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
+    <!-- SEO básico -->
+    <meta
+      name="description"
+      content="¡He lanzado mi nuevo portafolio! 🚀 Creado con Astro, una experiencia ultrarrápida. Descubrí mis proyectos."
+    />
+
+    <!-- Open Graph (WhatsApp, Facebook, etc) -->
     <meta property="og:url" content="https://glutix.github.io/porfolio/" />
     <meta property="og:type" content="website" />
     <meta
       property="og:title"
-      content="Porfolio de Gluitx - Desarrollador y Programador Web"
+      content="Porfolio de Gluitx - Desarrollador Web"
     />
     <meta
       property="og:description"
-      content="¡He lanzado mi nuevo portafolio! 🚀 Creado con Astro, no solo es un sitio web, es una experiencia ultrarrápida. Echa un vistazo a los proyectos y a la magia detrás del framework.
-  
-  #DesarrolloWeb #AstroJS #UXUI #Portfolio"
+      content="🚀 Portfolio ultrarrápido creado con Astro. Descubrí mis proyectos y mi trabajo."
     />
-    <meta property="og:image" content="preview.png" />
 
+    <!-- 🔥 IMPORTANTE: URL ABSOLUTA -->
+    <meta
+      property="og:image"
+      content="https://glutix.github.io/porfolio/preview.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://glutix.github.io/porfolio/preview.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta property="twitter:domain" content="glutix.github.io" />
-    <meta property="twitter:url" content="https://glutix.github.io/porfolio/" />
     <meta
       name="twitter:title"
-      content="Porfolio de Gluitx - Desarrollador y Programador Web"
+      content="Porfolio de Gluitx - Desarrollador Web"
     />
     <meta
       name="twitter:description"
-      content="¡He lanzado mi nuevo portafolio! 🚀 Creado con Astro, no solo es un sitio web, es una experiencia ultrarrápida. Echa un vistazo a los proyectos y a la magia detrás del framework.
-  
-  #DesarrolloWeb #AstroJS #UXUI #Portfolio"
+      content="🚀 Portfolio ultrarrápido creado con Astro. Descubrí mis proyectos."
     />
-    <meta name="twitter:image" content="preview.png" />
-    <link rel="preconnect" />
+    <meta
+      name="twitter:image"
+      content="https://glutix.github.io/porfolio/preview.png"
+    />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://glutix.github.io/porfolio/" />
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   </head>
+
   <body data-color-scheme="dark">
     <slot />
   </body>
