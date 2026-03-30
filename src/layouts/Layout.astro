@@ -21,8 +21,32 @@ interface Props {
       name="description"
       content="¡He lanzado mi nuevo portafolio! 🚀 Creado con Astro, una experiencia ultrarrápida. Descubrí mis proyectos."
     />
+    <meta name="robots" content="index, follow" />
 
-    <!-- Open Graph (WhatsApp, Facebook, etc) -->
+    <!-- Canonical -->
+    <link rel="canonical" href="https://glutix.github.io/porfolio/" />
+
+    <!-- ============================================
+         OPEN GRAPH — WhatsApp, Facebook, LinkedIn
+         IMPORTANTE: og:image debe ir ANTES de og:title
+         para que los scrapers móviles la detecten.
+    ============================================ -->
+    <meta
+      property="og:image"
+      content="https://glutix.github.io/porfolio/preview.jpg"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://glutix.github.io/porfolio/preview.jpg"
+    />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Vista previa del portfolio de Ricardo - Desarrollador Web Full Stack desde Chaco, Argentina"
+    />
+
     <meta property="og:url" content="https://glutix.github.io/porfolio/" />
     <meta property="og:type" content="website" />
     <meta
@@ -33,21 +57,12 @@ interface Props {
       property="og:description"
       content="🚀 Portfolio ultrarrápido creado con Astro. Descubrí mis proyectos y mi trabajo."
     />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content="Portfolio de Gluitx" />
 
-    <!-- 🔥 IMPORTANTE: URL ABSOLUTA -->
-    <meta
-      property="og:image"
-      content="https://glutix.github.io/porfolio/preview.jpg"
-    />
-    <meta
-      property="og:image:secure_url"
-      content="https://glutix.github.io/porfolio/preview.jpg"
-    />
-    <meta property="og:image:type" content="image/jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-
-    <!-- Twitter -->
+    <!-- ============================================
+         TWITTER CARDS
+    ============================================ -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
@@ -61,9 +76,10 @@ interface Props {
       name="twitter:image"
       content="https://glutix.github.io/porfolio/preview.jpg"
     />
-
-    <!-- Canonical -->
-    <link rel="canonical" href="https://glutix.github.io/porfolio/" />
+    <meta
+      name="twitter:image:alt"
+      content="Vista previa del portfolio de Ricardo - Desarrollador Web Full Stack"
+    />
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   </head>
@@ -173,17 +189,14 @@ interface Props {
     --scene-bulb-glow: rgba(74, 222, 128, 0.35);
 
     /* Formulario - Light Mode */
-    /* Frame */
     --form-frame-bg: rgba(255, 255, 255, 0.75);
     --form-frame-border: rgba(22, 163, 74, 0.18);
 
-    /* Labels y contador */
     --form-label-color: rgba(36, 36, 34, 0.5);
     --form-counter-color: rgba(36, 36, 34, 0.35);
     --form-counter-warn: #16a34a;
     --form-counter-limit: #dc2626;
 
-    /* Input — estado normal */
     --input-bg: rgba(255, 255, 255, 0.9);
     --input-bg-focus: #ffffff;
     --input-border: rgba(36, 36, 34, 0.15);
@@ -192,40 +205,32 @@ interface Props {
     --input-text: #242422;
     --input-placeholder: rgba(36, 36, 34, 0.3);
 
-    /* Input — estado válido */
     --input-valid-bg: rgba(22, 163, 74, 0.05);
     --input-valid-border: rgba(22, 163, 74, 0.55);
     --input-valid-shadow: rgba(22, 163, 74, 0.15);
 
-    /* Input — estado inválido */
     --input-invalid-bg: rgba(220, 38, 38, 0.05);
     --input-invalid-border: rgba(220, 38, 38, 0.5);
     --input-invalid-shadow: rgba(220, 38, 38, 0.15);
 
-    /* Autofill — box-shadow inset trick */
-    --input-autofill-bg: #f8fdf9; /* blanco con tinte verde muy sutil */
-    --input-autofill-valid-bg: #f0fdf4; /* verde 50 — válido */
-    --input-autofill-invalid-bg: #fef2f2; /* rojo 50 — inválido */
+    --input-autofill-bg: #f8fdf9;
+    --input-autofill-valid-bg: #f0fdf4;
+    --input-autofill-invalid-bg: #fef2f2;
 
-    /* Error message */
     --form-error-color: #dc2626;
 
-    /* Botón — estado normal */
     --btn-bg: #16a34a;
     --btn-text: #ffffff;
-    --btn-bg-hover: #15803d; /* verde un tono más oscuro */
+    --btn-bg-hover: #15803d;
     --btn-text-hover: #ffffff;
     --btn-shadow-hover: rgba(22, 163, 74, 0.25);
 
-    /* Botón — deshabilitado */
     --btn-bg-disabled: rgba(22, 163, 74, 0.25);
     --btn-text-disabled: rgba(255, 255, 255, 0.6);
 
-    /* Botón — success */
     --btn-bg-success: #15803d;
     --btn-text-success: #ffffff;
 
-    /* Botón — error */
     --btn-bg-error: #dc2626;
     --btn-text-error: #ffffff;
   }
@@ -318,22 +323,18 @@ interface Props {
     --scene-bulb-glow: rgba(240, 240, 255, 0.2);
 
     /* Formulario - Dark Mode */
-    /* Frame */
     --form-frame-bg: rgba(30, 30, 30, 0.85);
     --form-frame-border: rgba(240, 228, 128, 0.12);
 
-    /* Labels y contador */
     --form-label-color: rgba(215, 215, 215, 0.55);
     --form-counter-color: rgba(215, 215, 215, 0.35);
     --form-counter-warn: #f0e480;
     --form-counter-limit: #f87171;
 
-    /* Autofill — backgrounds solidos para el box-shadow inset trick */
-    --input-autofill-bg: #1e1e1e; /* neutro, igual al frame */
-    --input-autofill-valid-bg: #1f2118; /* tinte amarillo muy sutil sobre oscuro */
-    --input-autofill-invalid-bg: #221818; /* tinte rojo muy sutil sobre oscuro */
+    --input-autofill-bg: #1e1e1e;
+    --input-autofill-valid-bg: #1f2118;
+    --input-autofill-invalid-bg: #221818;
 
-    /* Input — estado normal */
     --input-bg: rgba(255, 255, 255, 0.04);
     --input-bg-focus: rgba(255, 255, 255, 0.07);
     --input-border: rgba(215, 215, 215, 0.15);
@@ -342,40 +343,28 @@ interface Props {
     --input-text: #d7d7d7;
     --input-placeholder: rgba(215, 215, 215, 0.28);
 
-    /* Input — estado valido */
     --input-valid-bg: rgba(240, 228, 128, 0.06);
     --input-valid-border: rgba(240, 228, 128, 0.55);
-    --input-valid-shadow: rgba(240, 228, 128, 0.18); /* sombra focus valido  */
+    --input-valid-shadow: rgba(240, 228, 128, 0.18);
 
-    /* Input — estado invalido */
     --input-invalid-bg: rgba(248, 113, 113, 0.06);
     --input-invalid-border: rgba(248, 113, 113, 0.55);
-    --input-invalid-shadow: rgba(
-      248,
-      113,
-      113,
-      0.22
-    ); /* sombra focus invalido */
+    --input-invalid-shadow: rgba(248, 113, 113, 0.22);
 
-    /* Error message */
     --form-error-color: #f87171;
 
-    /* Botón — estado normal */
     --btn-bg: rgba(240, 228, 128, 0.88);
-    --btn-text: #111111; /* negro sobre amarillo = contraste AAA */
+    --btn-text: #111111;
     --btn-bg-hover: #f0e480;
     --btn-text-hover: #000000;
     --btn-shadow-hover: rgba(240, 228, 128, 0.22);
 
-    /* Botón — deshabilitado */
     --btn-bg-disabled: rgba(240, 228, 128, 0.28);
     --btn-text-disabled: rgba(0, 0, 0, 0.45);
 
-    /* Botón — success */
     --btn-bg-success: #f0e480;
     --btn-text-success: #000000;
 
-    /* Botón — error */
     --btn-bg-error: #f87171;
     --btn-text-error: #000000;
   }
