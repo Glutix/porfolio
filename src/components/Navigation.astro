@@ -7,10 +7,28 @@
   <span class="nav-indicator"></span>
 </nav>
 
+<!-- Botón hamburguesa — solo visible en móvil -->
+<button class="hamburger" aria-label="Abrir menú" aria-expanded="false">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<!-- Menú móvil desplegable -->
+<div class="mobile-menu" aria-hidden="true">
+  <a href="#home" class="mobile-link active">Inicio</a>
+  <a href="#projects" class="mobile-link">Proyectos</a>
+  <a href="#about" class="mobile-link">Sobre mi</a>
+  <a href="#contact" class="mobile-link">Contacto</a>
+</div>
+
 <style>
+  /* ═══════════════════════════════════════════════
+     NAV DESKTOP
+  ═══════════════════════════════════════════════ */
   .nav {
     position: fixed;
-    top: 1rem;
+    top: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
 
@@ -19,9 +37,9 @@
     justify-content: center;
 
     gap: 0.25rem;
-    padding: 5px;
+    padding: 3px;
 
-    height: 3rem;
+    height: 34px;
     border-radius: 999px;
 
     background: var(--nav-bg);
@@ -63,11 +81,11 @@
     text-decoration: none;
     color: var(--nav-text-muted);
 
-    padding: 7px 14px;
+    padding: 4px 12px;
     border-radius: 999px;
 
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     letter-spacing: 0.01em;
 
     transition:
@@ -89,7 +107,7 @@
   .nav a.active::after {
     content: "";
     position: absolute;
-    bottom: 3px;
+    bottom: 2px;
     left: 50%;
     transform: translateX(-50%);
     width: 3px;
@@ -115,10 +133,6 @@
 
     box-shadow: 0 0 12px var(--nav-accent-soft);
 
-    /*
-      Invisible hasta que JS lo posicione correctamente.
-      Así evitamos el flash de posición incorrecta al recargar.
-    */
     opacity: 0;
     transition:
       left 0.35s cubic-bezier(0.4, 0, 0.2, 1),
@@ -130,32 +144,167 @@
     opacity: 1;
   }
 
-  /* ───────── Responsive ───────── */
+  /* ═══════════════════════════════════════════════
+     HAMBURGUESA & MENÚ MÓVIL DESPLEGABLE
+  ═══════════════════════════════════════════════ */
+  .hamburger {
+    display: none;
+    position: fixed;
+    top: 1.3rem;
+    left: 2rem;
+    z-index: 200;
 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: 1px solid var(--nav-border);
+    background: var(--nav-bg);
+    backdrop-filter: var(--nav-blur);
+    -webkit-backdrop-filter: var(--nav-blur);
+    cursor: pointer;
+    padding: 0;
+
+    box-shadow:
+      0 8px 32px var(--nav-shadow),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+    transition: box-shadow 0.3s ease;
+  }
+
+  .hamburger:hover {
+    box-shadow:
+      0 12px 40px var(--nav-shadow),
+      0 0 0 1px var(--nav-border);
+  }
+
+  .hamburger span {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: var(--nav-text);
+    border-radius: 999px;
+    transform-origin: center;
+    transition:
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.3s ease,
+      width 0.3s ease;
+  }
+
+  /* Animación a X cuando está abierto */
+  .hamburger.open span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+    width: 0;
+  }
+  .hamburger.open span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  /* ═══════════════════════════════════════════════
+     MENÚ MÓVIL DESPLEGABLE
+  ═══════════════════════════════════════════════ */
+  .mobile-menu {
+    display: flex;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 150;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    padding: 5rem 1.5rem 2rem;
+
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--nav-border);
+
+    transform: translateY(-100%);
+    opacity: 0;
+    transition:
+      transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.3s ease;
+  }
+
+  .mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-link {
+    text-decoration: none;
+    color: var(--nav-text-muted);
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 0.75rem 2rem;
+    border-radius: 999px;
+    width: 100%;
+    text-align: center;
+
+    border: 1px solid transparent;
+    transition:
+      color 0.2s ease,
+      background 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .mobile-link:hover {
+    color: var(--nav-text);
+    background: var(--nav-hover-bg);
+    border-color: var(--nav-border);
+  }
+
+  .mobile-link.active {
+    color: var(--nav-accent);
+    background: var(--nav-active-bg);
+    border-color: var(--nav-border);
+  }
+
+  /* ═══════════════════════════════════════════════
+     RESPONSIVE BREAKPOINTS
+  ═══════════════════════════════════════════════ */
   @media (max-width: 768px) {
     .nav {
       gap: 0.125rem;
-      padding: 4px;
+      padding: 3px;
     }
     .nav a {
-      padding: 6px 12px;
-      font-size: 0.85rem;
+      padding: 4px 10px;
+      font-size: 0.78rem;
     }
   }
 
+  /* A partir de 480px: ocultar nav pill, mostrar hamburguesa */
   @media (max-width: 480px) {
     .nav {
-      max-width: calc(100vw - 1.5rem);
-      overflow-x: auto;
-      justify-content: flex-start;
-      scrollbar-width: none;
-    }
-    .nav::-webkit-scrollbar {
       display: none;
     }
-    .nav a {
-      font-size: 0.8rem;
-      padding: 6px 10px;
+
+    .hamburger {
+      display: flex;
+      top: 1rem;
+      left: 1.25rem;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .hamburger {
+      top: 0.75rem;
+      left: 0.75rem;
     }
   }
 </style>
@@ -163,12 +312,63 @@
 <script>
   function initNav() {
     const nav = document.querySelector(".nav") as HTMLElement | null;
+    const hamburger = document.querySelector(
+      ".hamburger",
+    ) as HTMLElement | null;
+    const mobileMenu = document.querySelector(
+      ".mobile-menu",
+    ) as HTMLElement | null;
+    const mobileLinks = Array.from(
+      document.querySelectorAll(".mobile-link"),
+    ) as HTMLElement[];
+
     if (!nav) return;
 
     const links = Array.from(nav.querySelectorAll("a")) as HTMLElement[];
     const indicator = nav.querySelector(".nav-indicator") as HTMLElement | null;
 
     const SECTION_IDS = ["home", "projects", "about", "contact"];
+
+    // ── Hamburguesa ──────────────────────────────────────────────────
+    function closeMenu() {
+      hamburger?.classList.remove("open");
+      mobileMenu?.classList.remove("open");
+      hamburger?.setAttribute("aria-expanded", "false");
+      mobileMenu?.setAttribute("aria-hidden", "true");
+    }
+
+    hamburger?.addEventListener("click", () => {
+      const isOpen = hamburger.classList.toggle("open");
+      mobileMenu?.classList.toggle("open", isOpen);
+      hamburger.setAttribute("aria-expanded", String(isOpen));
+      mobileMenu?.setAttribute("aria-hidden", String(!isOpen));
+    });
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const href = link.getAttribute("href");
+        if (!href) return;
+
+        const target = document.querySelector(href) as HTMLElement | null;
+        if (target)
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        mobileLinks.forEach((l) => l.classList.remove("active"));
+        link.classList.add("active");
+
+        const desktopLink = nav.querySelector(
+          `a[href="${href}"]`,
+        ) as HTMLElement | null;
+        if (desktopLink) {
+          links.forEach((l) => l.classList.remove("active"));
+          desktopLink.classList.add("active");
+          updateIndicator(desktopLink);
+        }
+
+        closeMenu();
+      });
+    });
 
     // ── Indicador ────────────────────────────────────────────────────
     function updateIndicator(el: HTMLElement) {
@@ -183,29 +383,18 @@
       const target = nav!.querySelector(
         `a[href="#${id}"]`,
       ) as HTMLElement | null;
-      if (!target || target.classList.contains("active")) return;
-      links.forEach((l) => l.classList.remove("active"));
-      target.classList.add("active");
-      updateIndicator(target);
+      if (target && !target.classList.contains("active")) {
+        links.forEach((l) => l.classList.remove("active"));
+        target.classList.add("active");
+        updateIndicator(target);
+      }
+
+      mobileLinks.forEach((l) => {
+        l.classList.toggle("active", l.getAttribute("href") === `#${id}`);
+      });
     }
 
-    // ── Posicionamiento inicial confiable ────────────────────────────
-    //
-    // Causa del bug al recargar:
-    //   getBoundingClientRect() devuelve valores incorrectos si se
-    //   llama antes de que el browser haya terminado el layout.
-    //   Las fuentes custom (Geist Pixel Square, Montserrat) cambian
-    //   el ancho del texto y desplazan todo el layout al cargarse.
-    //
-    // Solución en tres capas:
-    //   1. document.fonts.ready — espera a que TODAS las fuentes estén
-    //      cargadas y el layout sea definitivo.
-    //   2. Doble requestAnimationFrame — garantiza que el browser
-    //      ya ejecutó el paint y los valores de rect son correctos.
-    //   3. .ready class — el indicador arranca invisible (opacity:0)
-    //      y solo se muestra después de posicionarse, evitando el
-    //      flash en posición incorrecta.
-    //
+    // ── Posicionamiento inicial ──────────────────────────────────────
     function positionInitialIndicator() {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
@@ -224,7 +413,7 @@
       positionInitialIndicator();
     }
 
-    // ── Clicks ───────────────────────────────────────────────────────
+    // ── Clicks desktop ───────────────────────────────────────────────
     links.forEach((link) => {
       link.addEventListener("click", (e) => {
         e.preventDefault();
@@ -245,17 +434,20 @@
         requestAnimationFrame(() => {
           const active = nav!.querySelector(".active") as HTMLElement | null;
           if (active) updateIndicator(active);
+          if (window.innerWidth > 480) closeMenu();
         });
       });
     });
 
-    // ── Auto-hide al scroll hacia abajo ──────────────────────────────
+    // ── Auto-hide al scroll hacia abajo (solo desktop) ───────────────
     let lastScrollY = window.scrollY;
     window.addEventListener(
       "scroll",
       () => {
         const y = window.scrollY;
-        nav.classList.toggle("hidden", y > lastScrollY && y > 80);
+        if (window.innerWidth > 480) {
+          nav.classList.toggle("hidden", y > lastScrollY && y > 80);
+        }
         lastScrollY = y;
       },
       { passive: true },

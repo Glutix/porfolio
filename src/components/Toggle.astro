@@ -4,13 +4,13 @@ import Moon from "../icons/Moon.astro";
 ---
 
 <div class="container">
-  <label class="toggle" for="switch">
+  <label class="toggle" for="switch" aria-label="Cambiar tema">
     <input id="switch" class="input" type="checkbox" />
-    <div class="icon icon--sun">
-      <Sun />
-    </div>
-    <div class="icon icon--moon">
-      <Moon />
+    <div class="track">
+      <div class="thumb">
+        <span class="icon icon--sun"><Sun /></span>
+        <span class="icon icon--moon"><Moon /></span>
+      </div>
     </div>
   </label>
 </div>
@@ -18,61 +18,100 @@ import Moon from "../icons/Moon.astro";
 <style>
   .container {
     position: fixed;
-    top: 1.3rem;
+    top: 1.5rem;
     right: 2rem;
-    border-radius: 50%;
     z-index: 10;
   }
 
   .toggle {
-    background-color: var(--text-title);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
     cursor: pointer;
-    box-shadow: 0 0 2px 2px var(--text-normal-variant);
-    line-height: 1;
-    transition: all 0.3s ease;
-  }
-
-  .toggle:hover {
-    box-shadow: 0 0 4px 4px var(--text-title);
+    min-height: 44px;
   }
 
   .input {
     display: none;
   }
 
+  /* ── Track (pill) ────────────────────────────────────────── */
+  .track {
+    position: relative;
+    width: 68px;
+    height: 34px;
+    background: var(--toggle-track-bg);
+    border: 1px solid var(--toggle-track-border);
+    border-radius: 99px;
+    transition:
+      background 0.35s ease,
+      border-color 0.35s ease;
+    backdrop-filter: blur(6px);
+  }
+
+  /* ── Thumb (circle inside pill) ──────────────────────────── */
+  .thumb {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    background: var(--toggle-thumb-bg);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 2px 8px var(--toggle-thumb-shadow);
+    transition:
+      transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+      background 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+
+  /* Checked = light mode → thumb slides right */
+  .input:checked ~ .track .thumb {
+    transform: translateX(34px);
+  }
+
+  /* ── Icons ───────────────────────────────────────────────── */
   .icon {
-    grid-column: 1 / 1;
-    grid-row: 1 / 1;
-    transition: transform 500ms;
-    /* Control icon size independently from the touch target */
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--toggle-icon-color);
+    transition:
+      opacity 0.2s ease,
+      transform 0.3s ease;
   }
 
-  .icon--moon {
-    transform: scale(0);
-    transition-delay: 50ms;
-    color: var(--primary-color);
+  .icon :global(svg) {
+    width: 14px;
+    height: 14px;
   }
 
+  /* Default (dark mode): show moon, hide sun */
   .icon--sun {
-    transition-delay: 50ms;
-    color: var(--primary-color);
+    opacity: 0;
+    transform: scale(0.5) rotate(-90deg);
+  }
+  .icon--moon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
   }
 
-  #switch:checked ~ .icon--moon {
-    transition-delay: 50ms;
-    transform: scale(1) rotate(360deg);
+  /* Checked (light mode): show sun, hide moon */
+  .input:checked ~ .track .thumb .icon--sun {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  .input:checked ~ .track .thumb .icon--moon {
+    opacity: 0;
+    transform: scale(0.5) rotate(90deg);
   }
 
-  #switch:checked + .icon--sun {
-    transform: rotate(360deg) scale(0);
+  /* ── Hover glow ──────────────────────────────────────────── */
+  .toggle:hover .track {
+    border-color: var(--text-enfasis);
+    box-shadow: 0 0 0 3px var(--toggle-thumb-shadow);
   }
 
   /* ── Tablet ──────────────────────────────────────────────── */
@@ -80,17 +119,6 @@ import Moon from "../icons/Moon.astro";
     .container {
       top: 1rem;
       right: 1.25rem;
-    }
-
-    /* Keep 44px touch target, shrink icon inside */
-    .toggle {
-      width: 44px;
-      height: 44px;
-    }
-
-    .icon :global(svg) {
-      width: 18px;
-      height: 18px;
     }
   }
 
@@ -100,17 +128,6 @@ import Moon from "../icons/Moon.astro";
       top: 0.75rem;
       right: 0.75rem;
     }
-
-    /* Still 44px — minimum recommended tap target (Apple HIG / Material) */
-    .toggle {
-      width: 44px;
-      height: 44px;
-    }
-
-    .icon :global(svg) {
-      width: 16px;
-      height: 16px;
-    }
   }
 
   /* ── Small mobile ────────────────────────────────────────── */
@@ -119,15 +136,12 @@ import Moon from "../icons/Moon.astro";
       top: 0.6rem;
       right: 0.5rem;
     }
+  }
 
-    .toggle {
-      width: 44px;
-      height: 44px;
-    }
-
-    .icon :global(svg) {
-      width: 15px;
-      height: 15px;
+  @media (prefers-reduced-motion: reduce) {
+    .thumb,
+    .icon {
+      transition: none;
     }
   }
 </style>
